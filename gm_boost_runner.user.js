@@ -127,12 +127,12 @@
             };
 
             const msg = "42" + JSON.stringify(["ability", payload]);
-            const delayToApply = i < count - 1 ? i * delay : 0;
+            const delayToApply = i * delay;
 
             setTimeout(() => {
                 //window.__myws_jeu.send(msg);
                 console.log(`[TM] ✅ Boost ${boostId} envoyé (${i + 1}/${count}) - delay ${delayToApply}ms`);
-            }, i * delayToApply);
+            }, delayToApply);
         }
     }
 
