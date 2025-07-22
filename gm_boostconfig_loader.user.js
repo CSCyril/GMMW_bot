@@ -6,8 +6,8 @@
 // @match        https://app.gomining.com/*
 // @grant        GM_xmlhttpRequest
 // @connect      microbin.eu
-// @updateURL    https://github.com/CSCyril/GMMW_bot/blob/main/gm_boostconfig_loader.user.js
-// @downloadURL  https://github.com/CSCyril/GMMW_bot/blob/main/gm_boostconfig_loader.user.js
+// @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boostconfig_loader.user.js
+// @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boostconfig_loader.user.js
 // ==/UserScript==
 
 (function () {
