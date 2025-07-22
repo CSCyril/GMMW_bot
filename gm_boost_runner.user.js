@@ -141,7 +141,7 @@
         const boostConfigSnapshot = currentBoostConfig;
         const multiplier = window._lastMultiplier;
 
-        if (!roundId || roundId === window._lastRoundId || !boostConfigSnapshot || !multiplier) return;
+        if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
 
         const actions = boostConfigSnapshot[multiplier];
         if (!actions || actions.length === 0) {
