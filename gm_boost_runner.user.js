@@ -43,6 +43,47 @@
         return null;
     }
 
+    async function updateRoundIdFromApi() {
+        const bearer = getBearer();
+        if (!bearer) {
+            console.warn("[TM] Bearer introuvable !");
+            return;
+        }
+        const url = "https://api.gomining.com/api/nft-game/round/get-last";
+        const resp = await fetch(url, {
+            method: "GET",
+            headers: {
+                "accept": "application/json, text/plain, */*",
+                "authorization": `Bearer ${bearer}`,
+                "origin": "https://app.gomining.com",
+                "referer": "https://app.gomining.com/",
+                "x-device-type": "desktop"
+            },
+            credentials: "include"
+        });
+        const txt = await resp.text();
+        if (!resp.ok) {
+            console.warn("[TM] Erreur HTTP API :", resp.status, txt);
+            if (resp.status === 403 && txt.includes("JWT_TOKEN_EXPIRED")) {
+                console.warn("[TM] ❌ Token expiré → reload...");
+                setTimeout(() => location.reload(), 1500);
+            }
+            return;
+        }
+        try {
+            const data = JSON.parse(txt);
+            if (data && data.data && data.data.id) {
+                _lastRoundId = data.data.id;
+                _lastMultiplier = data.data.multiplier ?? null;
+                console.log("[TM]", nowIso(), `- ✅ roundId: ${_lastRoundId}, multiplier: ${_lastMultiplier}`);
+            } else {
+                console.warn("[TM] Réponse inattendue :", data);
+            }
+        } catch (e) {
+            console.warn("[TM] Erreur parse JSON :", e);
+        }
+    }
+
     async function getCurrentHashrateEhs() {
         try {
             const res = await fetch("https://api.blockchair.com/bitcoin/stats");
@@ -192,7 +233,7 @@
             if (typeof evt.data === "string" && evt.data.startsWith('42["roundOpened"')) {
                 if (!roundLock) {
                     roundLock = true;
-                    //await updateRoundIdFromApi();
+                    await updateRoundIdFromApi();
                     await updateBoostConfig();
 
                     const delay = Math.random() * 1000 + 2000;
@@ -214,7 +255,6 @@
         if (!ready) return;
 
         listenToRoundOpened(); // ✅ démarre l'écoute dès que __myws_jeu est prêt
-        updateBoostConfig();
 
         setInterval(() => {
             if (window.__myws_jeu?.readyState !== 1) {
