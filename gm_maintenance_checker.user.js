@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Maintenance Checker
-// @version      1.0
+// @version      1.1
 // @description  Maintenance automatique
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
