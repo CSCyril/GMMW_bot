@@ -34,6 +34,48 @@
                             "boostId": "fusee10",
                             "count": 2
                         }
+                    ],
+                    "2": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "4": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "8": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "16": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "32": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "64": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "128": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
                     ]
                 }
             },
@@ -42,6 +84,48 @@
                 "max": 900,
                 "config": {
                     "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "2": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "4": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "8": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "16": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "32": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "64": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "128": [
                         {
                             "boostId": "fusee10",
                             "count": 2
@@ -58,6 +142,48 @@
                             "boostId": "fusee10",
                             "count": 2
                         }
+                    ],
+                    "2": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "4": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "8": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "16": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "32": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "64": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "128": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
                     ]
                 }
             }
@@ -70,7 +196,157 @@
                     "1": [
                         {
                             "boostId": "fusee10",
-                            "count": 1
+                            "count": 2
+                        }
+                    ],
+                    "2": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "4": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "8": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "16": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "32": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "64": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "128": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ]
+                }
+            },
+            "mid": {
+                "min": 600,
+                "max": 900,
+                "config": {
+                    "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "2": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "4": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "8": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "16": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "32": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "64": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "128": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ]
+                }
+            },
+            "high": {
+                "min": 900,
+                "max": 6000,
+                "config": {
+                    "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "2": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "4": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "8": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "16": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "32": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "64": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ],
+                    "128": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
                         }
                     ]
                 }
