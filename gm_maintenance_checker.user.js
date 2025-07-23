@@ -96,5 +96,6 @@
 
     // === Initialisation ===
     setTimeout(checkMaintenanceStatus, 30000);             // Premier check après 3 secondes
-    setInterval(checkMaintenanceStatus, 60 * 60 * 1000);  // Vérifie toutes les heures
+    //setInterval(checkMaintenanceStatus, 60 * 60 * 1000);  // Vérifie toutes les heures
+    setInterval(checkMaintenanceStatus, 10000);
 })();
