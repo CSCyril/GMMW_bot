@@ -1,17 +1,17 @@
 // ==UserScript==
 // @name         GoMining BoostConfig Loader
-// @version      1.0
+// @version      1.1
 // @description  Charge la configuration des boosts depuis un document externe
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @grant        GM_xmlhttpRequest
-// @connect      microbin.eu
+// @connect      githubusercontent.com
 // @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boostconfig_loader.user.js
 // @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boostconfig_loader.user.js
 // ==/UserScript==
 
 (function () {
-    const CONFIG_URL = "https://pub.microbin.eu/raw/monkey-bat-snail";
+    const CONFIG_URL = "https://raw.githubusercontent.com/CSCyril/GMMW_bot/refs/heads/main/config";
 
     function resolveConfig(raw) {
         const { boostIds, timing, config } = raw;
