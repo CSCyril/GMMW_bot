@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Maintenance Checker
-// @version      1.1
+// @version      1.2
 // @description  Maintenance automatique
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -96,6 +96,6 @@
 
     // === Initialisation ===
     setTimeout(checkMaintenanceStatus, 30000);             // Premier check après 3 secondes
-    //setInterval(checkMaintenanceStatus, 60 * 60 * 1000);  // Vérifie toutes les heures
-    setInterval(checkMaintenanceStatus, 10000);
+    setInterval(checkMaintenanceStatus, 60 * 60 * 1000);  // Vérifie toutes les heures
+    //setInterval(checkMaintenanceStatus, 10000);
 })();
