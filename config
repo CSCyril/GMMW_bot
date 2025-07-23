@@ -1,48 +1,80 @@
 {
-  "boostIds": {
-    "fusee10": "17831b5e-afdf-4cb7-98d7-3a60d81e19ae",
-    "sablier10": "2ebfd30d-2950-46fc-b3e9-498a924fd021",
-    "cible10": "a74dd2e0-14a9-46e3-86e5-1f1e8ab1f5c4",
-    "powerup": "5d6f8166-0f20-486f-b920-e898ca94dcc1"
-  },
-  "timing": {
-    "fusee10": { "clickDelay": 200, "sequenceDelay": 600 },
-    "sablier10": { "clickDelay": 300, "sequenceDelay": 900 },
-    "cible10": { "clickDelay": 400, "sequenceDelay": 1200 },
-    "powerup": { "clickDelay": 600, "sequenceDelay": 1500 }
-  },
-  "config": {
-    "default": {
-      "low": {
-        "min": 0,
-        "max": 600,
-        "config": {
-          "1": [{ "boostId": "fusee10", "count": 2 }]
-        }
-      },
-      "mid": {
-        "min": 600,
-        "max": 900,
-        "config": {
-          "1": [{ "boostId": "fusee10", "count": 2 }]
-        }
-      },
-      "high": {
-        "min": 900,
-        "max": 6000,
-        "config": {
-          "1": [{ "boostId": "fusee10", "count": 2 }]
-        }
-      }
+    "boostIds": {
+        "fusee10": "17831b5e-afdf-4cb7-98d7-3a60d81e19ae",
+        "sablier10": "2ebfd30d-2950-46fc-b3e9-498a924fd021",
+        "cible10": "a74dd2e0-14a9-46e3-86e5-1f1e8ab1f5c4",
+        "powerup": "5d6f8166-0f20-486f-b920-e898ca94dcc1"
     },
-    "late": {
-      "low": {
-        "min": 0,
-        "max": 600,
-        "config": {
-          "1": [{ "boostId": "B2", "count": 1 }]
+    "timing": {
+        "fusee10": {
+            "clickDelay": 200,
+            "sequenceDelay": 600
+        },
+        "sablier10": {
+            "clickDelay": 300,
+            "sequenceDelay": 900
+        },
+        "cible10": {
+            "clickDelay": 400,
+            "sequenceDelay": 1200
+        },
+        "powerup": {
+            "clickDelay": 600,
+            "sequenceDelay": 1500
         }
-      }
+    },
+    "config": {
+        "default": {
+            "low": {
+                "min": 0,
+                "max": 600,
+                "config": {
+                    "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ]
+                }
+            },
+            "mid": {
+                "min": 600,
+                "max": 900,
+                "config": {
+                    "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ]
+                }
+            },
+            "high": {
+                "min": 900,
+                "max": 6000,
+                "config": {
+                    "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 2
+                        }
+                    ]
+                }
+            }
+        },
+        "late": {
+            "low": {
+                "min": 0,
+                "max": 600,
+                "config": {
+                    "1": [
+                        {
+                            "boostId": "fusee10",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     }
-  }
 }
