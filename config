@@ -19,12 +19,14 @@
         "config": {
           "1": [{ "boostId": "fusee10", "count": 2 }]
         },
+      },
       "mid": {
         "min": 600,
         "max": 900,
         "config": {
           "1": [{ "boostId": "fusee10", "count": 2 }]
         },
+      },
       "high": {
         "min": 900,
         "max": 6000,
