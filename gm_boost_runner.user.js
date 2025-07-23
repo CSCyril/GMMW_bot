@@ -20,6 +20,9 @@
     let lastSentRoundId = null;
     let roundLock = false;
     let currentBoostConfig = null;
+    let lastWsListener = null;
+    let _lastRoundId = null;
+    let _lastMultiplier = null;
 
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
@@ -224,6 +227,18 @@
     }
 
     function listenToRoundOpened() {
+        const ws = window.__myws_jeu;
+
+        if (!ws) {
+            console.warn("[TM] ⏳ __myws_jeu non défini");
+            return;
+        }
+
+        if (lastWsListener === ws) {
+            // Déjà écoutée
+            location.reload();
+            //return;
+        }
         if (!window.__myws_jeu) {
             console.warn("[TM] ⏳ __myws_jeu non défini");
             return;
@@ -246,6 +261,7 @@
             }
         });
 
+        lastWsListener = ws;
         console.log("[TM] 🎧 Listener roundOpened attaché sur __myws_jeu");
     }
 
@@ -257,10 +273,15 @@
         listenToRoundOpened(); // ✅ démarre l'écoute dès que __myws_jeu est prêt
 
         setInterval(() => {
-            if (window.__myws_jeu?.readyState !== 1) {
+            const ws = window.__myws_jeu;
+            if (!ws || window.__myws_jeu?.readyState !== 1) {
                 console.warn(`[TM] ❌ __myws_jeu fermé → reload forcé`);
                 location.reload();
             }
-        }, 300000); // vérifie toutes les 5 minutes
+            if (ws !== lastWsListener) {
+                console.log("[TM] 🔁 __myws_jeu a changé → nouveau listener");
+                listenToRoundOpened();
+            }
+        }, 5000); // vérifie toutes les 5 minutes
     })();
 })();
