@@ -23,6 +23,7 @@
     let lastWsListener = null;
     let _lastRoundId = null;
     let _lastMultiplier = null;
+    let performBoostTimeout = null;
 
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
@@ -207,6 +208,11 @@
         }
 
         lastSentRoundId = roundId;
+
+        if (performBoostTimeout) {
+            clearTimeout(performBoostTimeout);
+            performBoostTimeout = null;
+        }
     }
 
     function waitForGameWS(timeout = 10000) {
@@ -253,9 +259,15 @@
 
                     const delay = Math.random() * 1000 + 2000;
                     console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
-                    setTimeout(() => {
+                    // Si performBoost ne se termine pas dans les 10s, on reload
+                    if (performBoostTimeout) clearTimeout(performBoostTimeout);
+                    performBoostTimeout = setTimeout(() => {
+                        console.warn("[TM] ⚠️ Timeout performBoost → reload forcé");
+                        location.reload();
+                    }, 10000); // 10 secondes
+                    setTimeout(async () => {
                         performBoost();
-                        roundLock = false;
+                        await roundLock = false;
                     }, delay);
                 }
             }
