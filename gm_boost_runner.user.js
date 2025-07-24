@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.0
+// @version      1.1
 // @description  Active automatiquement les boosts en fonction du hashrate et du round en cours
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
