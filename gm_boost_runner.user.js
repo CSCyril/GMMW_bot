@@ -266,8 +266,8 @@
                         location.reload();
                     }, 10000); // 10 secondes
                     setTimeout(async () => {
-                        performBoost();
-                        await roundLock = false;
+                        await performBoost();
+                        roundLock = false;
                     }, delay);
                 }
             }
