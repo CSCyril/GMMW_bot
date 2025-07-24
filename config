@@ -1,7 +1,9 @@
 {
     "boostIds": {
         "fusee10": "17831b5e-afdf-4cb7-98d7-3a60d81e19ae",
+        "sablier1": "646d3c76-fe06-414f-8d39-eb0aa7da429a",
         "sablier10": "2ebfd30d-2950-46fc-b3e9-498a924fd021",
+        "cible1": "592724c5-1f59-43b2-af13-2de8d2c97a9d",
         "cible10": "a74dd2e0-14a9-46e3-86e5-1f1e8ab1f5c4",
         "powerup": "5d6f8166-0f20-486f-b920-e898ca94dcc1"
     },
