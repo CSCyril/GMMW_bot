@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.1
+// @version      1.2
 // @description  Active automatiquement les boosts en fonction du hashrate et du round en cours
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -175,7 +175,7 @@
             const delayToApply = i * delay;
 
             setTimeout(() => {
-                //window.__myws_jeu.send(msg);
+                window.__myws_jeu.send(msg);
                 console.log(`[TM] ✅ Boost ${boostId} envoyé (${i + 1}/${count}) - delay ${delayToApply}ms`);
             }, delayToApply);
         }
@@ -240,47 +240,64 @@
             return;
         }
 
-        if (lastWsListener === ws) {
-            // Déjà écoutée
-            location.reload();
-            //return;
-        }
-        if (!window.__myws_jeu) {
-            console.warn("[TM] ⏳ __myws_jeu non défini");
-            return;
+        if (ws === lastWsListener) {
+            return; // évite de remettre encore un listener
         }
 
-        window.__myws_jeu.addEventListener("message", async evt => {
+        const originalOnMessage = ws.onmessage;
+
+        ws.onmessage = function (evt) {
             if (typeof evt.data === "string" && evt.data.startsWith('42["roundOpened"')) {
                 if (!roundLock) {
                     roundLock = true;
-                    await updateRoundIdFromApi();
-                    await updateBoostConfig();
+                    (async () => {
+                        await updateRoundIdFromApi();
+                        await updateBoostConfig();
 
-                    const delay = Math.random() * 1000 + 2000;
-                    console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
-                    // Si performBoost ne se termine pas dans les 10s, on reload
-                    if (performBoostTimeout) clearTimeout(performBoostTimeout);
-                    performBoostTimeout = setTimeout(() => {
-                        console.warn("[TM] ⚠️ Timeout performBoost → reload forcé");
-                        location.reload();
-                    }, 10000); // 10 secondes
-                    setTimeout(async () => {
-                        await performBoost();
-                        roundLock = false;
-                    }, delay);
+                        const delay = Math.random() * 1000 + 2000;
+                        console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
+
+                        if (performBoostTimeout) clearTimeout(performBoostTimeout);
+                        performBoostTimeout = setTimeout(() => {
+                            console.warn("[TM] ⚠️ Timeout performBoost → reload forcé");
+                            location.reload();
+                        }, 10000);
+
+                        setTimeout(async () => {
+                            await performBoost();
+                            roundLock = false;
+                        }, delay);
+                    })();
                 }
             }
-        });
+
+            if (typeof originalOnMessage === "function") {
+                originalOnMessage.call(this, evt); // laisse le WS original faire son traitement aussi
+            }
+        };
 
         lastWsListener = ws;
-        console.log("[TM] 🎧 Listener roundOpened attaché sur __myws_jeu");
+        console.log("[TM] 🎧 Listener roundOpened injecté dans onmessage");
     }
 
-
     (async () => {
-        const ready = await waitForGameWS();
-        if (!ready) return;
+        let retries = 0;
+        const maxRetries = 3;
+
+        while (retries < maxRetries) {
+            const ready = await waitForGameWS();
+            if (ready) break;
+
+            retries++;
+            console.warn(`[TM] ⚠️ Tentative WebSocket échouée (${retries}/${maxRetries})`);
+            await sleep(2000); // petite pause avant retry
+        }
+
+        if (retries >= maxRetries) {
+            console.error("[TM] ❌ Impossible de récupérer __myws_jeu après 3 tentatives → reload forcé");
+            location.reload();
+            return;
+        }
 
         listenToRoundOpened(); // ✅ démarre l'écoute dès que __myws_jeu est prêt
 
@@ -294,6 +311,6 @@
                 console.log("[TM] 🔁 __myws_jeu a changé → nouveau listener");
                 listenToRoundOpened();
             }
-        }, 5000); // vérifie toutes les 5 minutes
+        }, 5000); // vérifie toutes les 5 secondes
     })();
 })();
