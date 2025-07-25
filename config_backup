@@ -1,10 +1,14 @@
 {
     "boostIds": {
         "fusee10": "17831b5e-afdf-4cb7-98d7-3a60d81e19ae",
+		"fusee100": "e7af0c32-1409-4b22-9e0b-99e7ea4939df",
         "sablier1": "646d3c76-fe06-414f-8d39-eb0aa7da429a",
         "sablier10": "2ebfd30d-2950-46fc-b3e9-498a924fd021",
+		"sablier100": "0ffad19c-8091-4527-a600-b7c2f238147d",
         "cible1": "592724c5-1f59-43b2-af13-2de8d2c97a9d",
         "cible10": "a74dd2e0-14a9-46e3-86e5-1f1e8ab1f5c4",
+		"eclair10": "a7554d7f-0e50-45e0-ab01-6ac8db629bfd",
+		"eclair100": "8b6fad11-cfc1-4922-ad17-30c41cee39b9",
         "powerup": "5d6f8166-0f20-486f-b920-e898ca94dcc1"
     },
     "timing": {
@@ -12,13 +16,25 @@
             "clickDelay": 200,
             "sequenceDelay": 600
         },
+        "eclair10": {
+            "clickDelay": 200,
+            "sequenceDelay": 30000
+        },
+        "eclair100": {
+            "clickDelay": 200,
+            "sequenceDelay": 30000
+        },
         "sablier10": {
-            "clickDelay": 300,
+            "clickDelay": 200,
             "sequenceDelay": 900
         },
         "cible10": {
-            "clickDelay": 400,
-            "sequenceDelay": 1200
+            "clickDelay": 200,
+            "sequenceDelay": 200
+        },
+        "cible100": {
+            "clickDelay": 200,
+            "sequenceDelay": 200
         },
         "powerup": {
             "clickDelay": 600,
@@ -33,49 +49,59 @@
                 "config": {
                     "1": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "2": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "4": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "8": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
                             "count": 2
                         }
                     ],
                     "16": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "32": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "64": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "128": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ]
@@ -87,49 +113,69 @@
                 "config": {
                     "1": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "2": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "4": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "8": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "16": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "32": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "64": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "128": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ]
@@ -141,49 +187,69 @@
                 "config": {
                     "1": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "2": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "4": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "8": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "16": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "32": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "64": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "128": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ]
@@ -197,49 +263,69 @@
                 "config": {
                     "1": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "2": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "4": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "8": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "16": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "32": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "64": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "128": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ]
@@ -251,49 +337,69 @@
                 "config": {
                     "1": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "2": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "4": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "8": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "16": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "32": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "64": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "128": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ]
@@ -305,49 +411,69 @@
                 "config": {
                     "1": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "2": [
                         {
-                            "boostId": "fusee10",
-                            "count": 2
                         }
                     ],
                     "4": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "8": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "16": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "32": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "64": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ],
                     "128": [
                         {
-                            "boostId": "fusee10",
+                            "boostId": "sablier1",
+                            "count": 2
+                        },
+                        {
+                            "boostId": "cible1",
                             "count": 2
                         }
                     ]
