@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner (Safe WS Edition)
-// @version      1.4.0
+// @version      1.4.1
 // @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -49,9 +49,15 @@
         const url = "https://api.gomining.com/api/nft-game/round/get-last";
         try {
             const resp = await fetch(url, {
+                method: "GET",
                 headers: {
-                    "authorization": `Bearer ${bearer}`
-                }
+                    "accept": "application/json, text/plain, */*",
+                    "authorization": `Bearer ${bearer}`,
+                    "origin": "https://app.gomining.com",
+                    "referer": "https://app.gomining.com/",
+                    "x-device-type": "desktop"
+                },
+                credentials: "include"
             });
             const json = await resp.json();
             if (json?.data?.id) {
