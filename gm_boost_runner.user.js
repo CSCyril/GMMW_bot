@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining Boost Runner
-// @version      1.2
-// @description  Active automatiquement les boosts en fonction du hashrate et du round en cours
+// @name         GoMining Boost Runner (Safe WS Edition)
+// @version      1.4.0
+// @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -12,18 +12,15 @@
 
 (function () {
     const GAME_WS_DOMAIN = "nft.ws.gomining.com";
-
     const clickDelays = JSON.parse(localStorage.getItem("gomining_click_delays") || "{}");
     const sequenceDelays = JSON.parse(localStorage.getItem("gomining_sequence_delays") || "{}");
+    const DEBUG_MODE = localStorage.getItem("gomining_debug_mode") === "true";
 
-    let currentGameWS = null;
     let lastSentRoundId = null;
     let roundLock = false;
     let currentBoostConfig = null;
-    let lastWsListener = null;
-    let _lastRoundId = null;
-    let _lastMultiplier = null;
-    let performBoostTimeout = null;
+    window._lastRoundId = null;
+    window._lastMultiplier = null;
 
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
@@ -36,55 +33,34 @@
     }
 
     function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     function getBearer() {
         let t = localStorage.getItem('access_token');
         if (t) return t;
         let m = document.cookie.match(/access_token=([^;]+)/);
-        if (m) return m[1];
-        return null;
+        return m ? m[1] : null;
     }
 
     async function updateRoundIdFromApi() {
         const bearer = getBearer();
-        if (!bearer) {
-            console.warn("[TM] Bearer introuvable !");
-            return;
-        }
+        if (!bearer) return;
         const url = "https://api.gomining.com/api/nft-game/round/get-last";
-        const resp = await fetch(url, {
-            method: "GET",
-            headers: {
-                "accept": "application/json, text/plain, */*",
-                "authorization": `Bearer ${bearer}`,
-                "origin": "https://app.gomining.com",
-                "referer": "https://app.gomining.com/",
-                "x-device-type": "desktop"
-            },
-            credentials: "include"
-        });
-        const txt = await resp.text();
-        if (!resp.ok) {
-            console.warn("[TM] Erreur HTTP API :", resp.status, txt);
-            if (resp.status === 403 && txt.includes("JWT_TOKEN_EXPIRED")) {
-                console.warn("[TM] ❌ Token expiré → reload...");
-                setTimeout(() => location.reload(), 1500);
-            }
-            return;
-        }
         try {
-            const data = JSON.parse(txt);
-            if (data && data.data && data.data.id) {
-                _lastRoundId = data.data.id;
-                _lastMultiplier = data.data.multiplier ?? null;
-                console.log("[TM]", nowIso(), `- ✅ roundId: ${_lastRoundId}, multiplier: ${_lastMultiplier}`);
-            } else {
-                console.warn("[TM] Réponse inattendue :", data);
+            const resp = await fetch(url, {
+                headers: {
+                    "authorization": `Bearer ${bearer}`
+                }
+            });
+            const json = await resp.json();
+            if (json?.data?.id) {
+                window._lastRoundId = json.data.id;
+                window._lastMultiplier = json.data.multiplier ?? null;
+                console.log("[TM] ✅ roundId: ", window._lastRoundId, ", multiplier:", window._lastMultiplier);
             }
         } catch (e) {
-            console.warn("[TM] Erreur parse JSON :", e);
+            console.warn("[TM] ❌ API round/get-last failed:", e);
         }
     }
 
@@ -95,50 +71,36 @@
             const rate = json?.data?.hashrate_24h;
             return rate ? rate / 1e18 : null;
         } catch (e) {
-            console.warn("[TM] ❌ Erreur récupération hashrate :", e);
+            console.warn("[TM] ❌ Erreur récupération hashrate:", e);
             return null;
         }
     }
 
     async function updateBoostConfig() {
         const stored = localStorage.getItem("gomining_boost_config");
-        if (!stored) {
-            console.warn("[TM] ❌ Aucune config boost trouvée dans localStorage !");
-            currentBoostConfig = null;
-            return;
-        }
+        if (!stored) return;
 
         let parsed;
         try {
             parsed = JSON.parse(stored);
         } catch (e) {
-            console.warn("[TM] ❌ Erreur de parsing de la config :", e);
-            currentBoostConfig = null;
             return;
         }
 
         const now = new Date();
-        const day = now.getDay(); // 0 = dimanche
+        const day = now.getDay();
         const hour = now.getHours();
 
-        // Mardi 18h → samedi 8h inclus
         const useDefault =
-            (day === 2 && hour >= 18) || // mardi soir
-            (day > 2 && day < 6) ||      // mercredi à vendredi
-            (day === 6 && hour < 8);     // samedi matin avant 8h
+            (day === 2 && hour >= 18) ||
+            (day > 2 && day < 6) ||
+            (day === 6 && hour < 8);
 
         const configSetName = useDefault ? "default" : "late";
         const selectedGroup = parsed?.[configSetName];
 
-        if (!selectedGroup) {
-            console.warn(`[TM] ❌ Config introuvable pour '${configSetName}'`);
-            currentBoostConfig = null;
-            return;
-        }
-
         const hashrate = await getCurrentHashrateEhs();
         if (!hashrate) {
-            console.warn("[TM] ⚠️ Hashrate indisponible → profil low");
             currentBoostConfig = selectedGroup?.low?.config ?? {};
             return;
         }
@@ -146,37 +108,33 @@
         for (const range of Object.values(selectedGroup)) {
             if (hashrate >= range.min && hashrate < range.max) {
                 currentBoostConfig = range.config;
-                console.log(`[TM] 📡 Hashrate = ${hashrate.toFixed(2)} EH/s → ${configSetName}.${range.min}-${range.max}`);
                 return;
             }
         }
 
         currentBoostConfig = selectedGroup?.low?.config ?? {};
-        console.warn(`[TM] ⚠️ Hashrate hors plage dans '${configSetName}' → fallback 'low'`);
     }
 
-
     function sendAbility(boostId, count, roundId) {
-        if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) {
-            console.warn("[TM] ❌ WebSocket jeu non prêt");
-            return;
-        }
+        if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
 
         const delay = clickDelays[boostId] ?? 250;
-
         for (let i = 0; i < count; i++) {
             const payload = {
                 abilityId: boostId,
                 idempotencyKey: uuidv4(),
                 roundId: roundId
             };
-
             const msg = "42" + JSON.stringify(["ability", payload]);
             const delayToApply = i * delay;
 
             setTimeout(() => {
-                window.__myws_jeu.send(msg);
-                console.log(`[TM] ✅ Boost ${boostId} envoyé (${i + 1}/${count}) - delay ${delayToApply}ms`);
+                if (DEBUG_MODE) {
+                    console.log(`[DEBUG] Boost simulé: ${boostId} x${count} (round ${roundId})`);
+                } else {
+                    window.__myws_jeu.send(msg);
+                    console.log(`[TM] ✅ Boost ${boostId} envoyé (${i + 1}/${count}) - delay ${delayToApply}ms`);
+                }
             }, delayToApply);
         }
     }
@@ -189,10 +147,7 @@
         if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
 
         const actions = boostConfigSnapshot[multiplier];
-        if (!actions || actions.length === 0) {
-            console.log(`[TM] ℹ️ Aucun boost défini pour x${multiplier}`);
-            return;
-        }
+        if (!actions?.length) return;
 
         console.log(`[TM] 🚀 Séquence boost x${multiplier} (roundId ${roundId})`);
 
@@ -202,115 +157,119 @@
 
             if (i < actions.length - 1) {
                 const sequenceDelay = sequenceDelays[boostId] ?? 800;
-                console.log(`[TM] ⏸️ Attente ${sequenceDelay}ms avant prochain boost...`);
                 await sleep(sequenceDelay);
             }
         }
 
         lastSentRoundId = roundId;
-
-        if (performBoostTimeout) {
-            clearTimeout(performBoostTimeout);
-            performBoostTimeout = null;
-        }
     }
 
-    function waitForGameWS(timeout = 10000) {
-        return new Promise(resolve => {
-            const start = Date.now();
-            const interval = setInterval(() => {
-                if (window.__myws_jeu && window.__myws_jeu.readyState === 1) {
-                    clearInterval(interval);
-                    console.log("[TM] ✅ __myws_jeu prêt");
-                    resolve(true);
-                } else if (Date.now() - start > timeout) {
-                    clearInterval(interval);
-                    console.warn("[TM] ⏳ Timeout d’attente WebSocket");
-                    resolve(false);
+    const originalWebSocket = window.WebSocket;
+    window.WebSocket = function (url, protocols) {
+        const ws = protocols ? new originalWebSocket(url, protocols) : new originalWebSocket(url);
+
+        if (url.includes(GAME_WS_DOMAIN)) {
+            console.log("[TM] 🎮 WS interceptée :", url);
+            window.__myws_jeu = ws;
+
+            let userOnMessage = null;
+            Object.defineProperty(ws, "onmessage", {
+                configurable: true,
+                enumerable: true,
+                get() {
+                    return userOnMessage;
+                },
+                set(fn) {
+                    userOnMessage = fn;
                 }
-            }, 250);
+            });
+
+            ws.addEventListener("message", evt => {
+                if (evt.data.startsWith('42["roundOpened"')) {
+                    if (!roundLock) {
+                        roundLock = true;
+                        (async () => {
+                            await updateRoundIdFromApi();
+                            await updateBoostConfig();
+
+                            const delay = Math.random() * 2000 + 3000;
+                            console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
+
+                            const failSafeTimeout = setTimeout(() => {
+                                console.warn("[TM] ❗ Boost non exécuté → reload forcé");
+                                location.reload();
+                            }, 10000);
+
+                            setTimeout(async () => {
+                                try {
+                                    await performBoost();
+                                    clearTimeout(failSafeTimeout);
+                                } catch (e) {
+                                    console.error("[TM] ❌ Erreur performBoost:", e);
+                                    location.reload();
+                                } finally {
+                                    roundLock = false;
+                                }
+                            }, delay);
+                        })();
+                    }
+                }
+
+                if (typeof userOnMessage === "function") {
+                    try {
+                        userOnMessage.call(ws, evt);
+                    } catch (e) {
+                        console.warn("[TM] ❌ Erreur dans onmessage utilisateur:", e);
+                    }
+                }
+            });
+        }
+
+        return ws;
+    };
+    window.WebSocket.prototype = originalWebSocket.prototype;
+
+    setInterval(async () => {
+        const bearer = getBearer();
+        if (!bearer) return;
+        const res = await fetch("https://api.gomining.com/api/nft-game/round/get-last", {
+            headers: { Authorization: `Bearer ${bearer}` }
         });
+        const json = await res.json();
+        const apiRoundId = json?.data?.id;
+        if (apiRoundId && apiRoundId !== window._lastRoundId) {
+            console.warn("[TM] 🔁 roundOpened manqué → fallback déclenché");
+            window._lastRoundId = apiRoundId;
+            window._lastMultiplier = json?.data?.multiplier;
+            await updateBoostConfig();
+            await performBoost();
+        }
+    }, 10000);
+
+    // MODE DEBUG SIMULÉ
+    if (DEBUG_MODE) {
+        console.warn("[DEBUG] Mode debug activé. Aucun boost réel ne sera envoyé.");
+        setInterval(async () => {
+            if (!roundLock) {
+                console.log("[DEBUG] ⏱️ Simulation roundOpened");
+                roundLock = true;
+                await updateRoundIdFromApi();
+                await updateBoostConfig();
+
+                const delay = 3000;
+                console.log(`[DEBUG] Attente ${delay}ms avant fake boost...`);
+
+                setTimeout(async () => {
+                    try {
+                        console.log("[DEBUG] 💥 Simulation performBoost()");
+                        await performBoost();
+                    } catch (e) {
+                        console.error("[DEBUG] ❌ Erreur performBoost (debug):", e);
+                    } finally {
+                        roundLock = false;
+                    }
+                }, delay);
+            }
+        }, 20000);
     }
-
-    function listenToRoundOpened() {
-        const ws = window.__myws_jeu;
-
-        if (!ws) {
-            console.warn("[TM] ⏳ __myws_jeu non défini");
-            return;
-        }
-
-        if (ws === lastWsListener) {
-            return; // évite de remettre encore un listener
-        }
-
-        const originalOnMessage = ws.onmessage;
-
-        ws.onmessage = function (evt) {
-            if (typeof evt.data === "string" && evt.data.startsWith('42["roundOpened"')) {
-                if (!roundLock) {
-                    roundLock = true;
-                    (async () => {
-                        await updateRoundIdFromApi();
-                        await updateBoostConfig();
-
-                        const delay = Math.random() * 1000 + 2000;
-                        console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
-
-                        if (performBoostTimeout) clearTimeout(performBoostTimeout);
-                        performBoostTimeout = setTimeout(() => {
-                            console.warn("[TM] ⚠️ Timeout performBoost → reload forcé");
-                            location.reload();
-                        }, 10000);
-
-                        setTimeout(async () => {
-                            await performBoost();
-                            roundLock = false;
-                        }, delay);
-                    })();
-                }
-            }
-
-            if (typeof originalOnMessage === "function") {
-                originalOnMessage.call(this, evt); // laisse le WS original faire son traitement aussi
-            }
-        };
-
-        lastWsListener = ws;
-        console.log("[TM] 🎧 Listener roundOpened injecté dans onmessage");
-    }
-
-    (async () => {
-        let retries = 0;
-        const maxRetries = 3;
-
-        while (retries < maxRetries) {
-            const ready = await waitForGameWS();
-            if (ready) break;
-
-            retries++;
-            console.warn(`[TM] ⚠️ Tentative WebSocket échouée (${retries}/${maxRetries})`);
-            await sleep(2000); // petite pause avant retry
-        }
-
-        if (retries >= maxRetries) {
-            console.error("[TM] ❌ Impossible de récupérer __myws_jeu après 3 tentatives → reload forcé");
-            location.reload();
-            return;
-        }
-
-        listenToRoundOpened(); // ✅ démarre l'écoute dès que __myws_jeu est prêt
-
-        setInterval(() => {
-            const ws = window.__myws_jeu;
-            if (!ws || window.__myws_jeu?.readyState !== 1) {
-                console.warn(`[TM] ❌ __myws_jeu fermé → reload forcé`);
-                location.reload();
-            }
-            if (ws !== lastWsListener) {
-                console.log("[TM] 🔁 __myws_jeu a changé → nouveau listener");
-                listenToRoundOpened();
-            }
-        }, 5000); // vérifie toutes les 5 secondes
-    })();
 })();
