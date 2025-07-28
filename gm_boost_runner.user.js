@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner (Safe WS Edition)
-// @version      1.4.1
+// @version      1.4.2
 // @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -121,10 +121,9 @@
         currentBoostConfig = selectedGroup?.low?.config ?? {};
     }
 
-    function sendAbility(boostId, count, roundId) {
+    function sendAbility(boostId, count, roundId, clickDelay = 250) {
         if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
 
-        const delay = clickDelays[boostId] ?? 250;
         for (let i = 0; i < count; i++) {
             const payload = {
                 abilityId: boostId,
@@ -132,7 +131,7 @@
                 roundId: roundId
             };
             const msg = "42" + JSON.stringify(["ability", payload]);
-            const delayToApply = i * delay;
+            const delayToApply = i * clickDelay;
 
             setTimeout(() => {
                 if (DEBUG_MODE) {
@@ -158,11 +157,13 @@
         console.log(`[TM] 🚀 Séquence boost x${multiplier} (roundId ${roundId})`);
 
         for (let i = 0; i < actions.length; i++) {
-            const { boostId, count } = actions[i];
-            sendAbility(boostId, count, roundId);
+            const { boostId, count, timing } = actions[i];
+            const clickDelay = timing?.clickDelay ?? 250;
+            const sequenceDelay = timing?.sequenceDelay ?? 800;
+
+            sendAbility(boostId, count, roundId, clickDelay);
 
             if (i < actions.length - 1) {
-                const sequenceDelay = sequenceDelays[boostId] ?? 800;
                 await sleep(sequenceDelay);
             }
         }
