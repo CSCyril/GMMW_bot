@@ -71,6 +71,9 @@
                     ],
                     "128": [
                         {}
+                    ],
+                    "256": [
+                        {}
                     ]
                 }
             },
@@ -132,6 +135,9 @@
                     ],
                     "128": [
                         {}
+                    ],
+                    "256": [
+                        {}
                     ]
                 }
             },
@@ -191,16 +197,54 @@
                         {}
                     ],
                     "16": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
+                    ],
+                    "256": [
+                        {
+                            "boostId": "cible100",
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ]
                 }
             }
@@ -264,6 +308,9 @@
                     ],
                     "128": [
                         {}
+                    ],
+                    "256": [
+                        {}
                     ]
                 }
             },
@@ -325,6 +372,9 @@
                     ],
                     "128": [
                         {}
+                    ],
+                    "256": [
+                        {}
                     ]
                 }
             },
@@ -384,16 +434,54 @@
                         {}
                     ],
                     "16": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        },
+                    ],
+                    "256": [
+                        {
+                            "boostId": "cible100",
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ]
                 }
             }
