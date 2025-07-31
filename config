@@ -103,7 +103,7 @@
                         },
                         {
                             "boostId": "fusee10",
-                            "count": 4,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -111,7 +111,7 @@
                         },
                         {
                             "boostId": "sablier10",
-                            "count": 2,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -340,7 +340,7 @@
                         },
                         {
                             "boostId": "fusee10",
-                            "count": 4,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -348,7 +348,7 @@
                         },
                         {
                             "boostId": "sablier10",
-                            "count": 2,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
