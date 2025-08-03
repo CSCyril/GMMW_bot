@@ -18,7 +18,14 @@
                 "max": 850,
                 "config": {
                     "1": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "2": [
                         {
@@ -102,7 +109,14 @@
                 "max": 1050,
                 "config": {
                     "1": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "2": [
                         {
@@ -186,7 +200,14 @@
                 "max": 6000,
                 "config": {
                     "1": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "2": [
                         {
@@ -272,7 +293,14 @@
                 "max": 850,
                 "config": {
                     "1": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "2": [
                         {
@@ -356,7 +384,14 @@
                 "max": 1050,
                 "config": {
                     "1": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "2": [
                         {
@@ -440,7 +475,14 @@
                 "max": 6000,
                 "config": {
                     "1": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 500
+                            }
+                        }
                     ],
                     "2": [
                         {
