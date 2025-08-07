@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GoMining Boost Runner (Safe WS Edition)
-// @version      1.4.2
-// @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent.
+// @version      1.5
+// @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent + aleat.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -124,7 +124,8 @@
     function sendAbility(boostId, count, roundId, clickDelay = 250) {
         if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
 
-        for (let i = 0; i < count; i++) {
+        const actualCount = Math.floor(Math.random() * count) + 1;
+        for (let i = 0; i < actualCount; i++) {
             const payload = {
                 abilityId: boostId,
                 idempotencyKey: uuidv4(),
