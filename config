@@ -23,11 +23,11 @@
                     ],
                     "2": [
                         {
-                            "boostId": "cible1",
-                            "count": 20,
+                            "boostId": "cible10",
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
-                                "sequenceDelay": 500
+                                "sequenceDelay": 20000
                             }
                         },
                         {
@@ -39,8 +39,8 @@
                             }
                         },
                         {
-                            "boostId": "sablier1",
-                            "count": 70,
+                            "boostId": "sablier10",
+                            "count": 7,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -51,200 +51,22 @@
                         {}
                     ],
                     "8": [
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 4000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "16": [
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "32": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "64": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "128": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "256": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}  
                     ]
                 }
             },
@@ -257,11 +79,11 @@
                     ],
                     "2": [
                         {
-                            "boostId": "cible1",
-                            "count": 30,
+                            "boostId": "cible10",
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
-                                "sequenceDelay": 500
+                                "sequenceDelay": 20000
                             }
                         },
                         {
@@ -273,8 +95,8 @@
                             }
                         },
                         {
-                            "boostId": "sablier1",
-                            "count": 60,
+                            "boostId": "sablier10",
+                            "count": 6,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -285,200 +107,22 @@
                         {}
                     ],
                     "8": [
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 4000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "16": [
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "32": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "64": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "128": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "256": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        } 
+                        {}  
                     ]
                 }
             },
@@ -491,11 +135,11 @@
                     ],
                     "2": [
                         {
-                            "boostId": "cible1",
-                            "count": 40,
+                            "boostId": "cible10",
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
-                                "sequenceDelay": 500
+                                "sequenceDelay": 20000
                             }
                         },
                         {
@@ -507,8 +151,8 @@
                             }
                         },
                         {
-                            "boostId": "sablier1",
-                            "count": 50,
+                            "boostId": "sablier10",
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -519,200 +163,22 @@
                         {}
                     ],
                     "8": [
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 4000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "16": [
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "32": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "64": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "128": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "256": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}  
                     ]
                 }
             }
@@ -727,11 +193,11 @@
                     ],
                     "2": [
                         {
-                            "boostId": "cible1",
-                            "count": 20,
+                            "boostId": "cible10",
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
-                                "sequenceDelay": 500
+                                "sequenceDelay": 20000
                             }
                         },
                         {
@@ -743,8 +209,8 @@
                             }
                         },
                         {
-                            "boostId": "sablier1",
-                            "count": 70,
+                            "boostId": "sablier10",
+                            "count": 7,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -755,200 +221,22 @@
                         {}
                     ],
                     "8": [
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 4000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "16": [
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "32": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "64": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "128": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "256": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        } 
+                        {}  
                     ]
                 }
             },
@@ -961,11 +249,11 @@
                     ],
                     "2": [
                         {
-                            "boostId": "cible1",
-                            "count": 30,
+                            "boostId": "cible10",
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
-                                "sequenceDelay": 500
+                                "sequenceDelay": 20000
                             }
                         },
                         {
@@ -977,8 +265,8 @@
                             }
                         },
                         {
-                            "boostId": "sablier1",
-                            "count": 60,
+                            "boostId": "sablier10",
+                            "count": 6,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -989,200 +277,22 @@
                         {}
                     ],
                     "8": [
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 4000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "16": [
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "32": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "64": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "128": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "256": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}  
                     ]
                 }
             },
@@ -1195,8 +305,8 @@
                     ],
                     "2": [
                         {
-                            "boostId": "cible1",
-                            "count": 40,
+                            "boostId": "cible10",
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 20000
@@ -1211,8 +321,8 @@
                             }
                         },
                         {
-                            "boostId": "sablier1",
-                            "count": 50,
+                            "boostId": "sablier10",
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 500
@@ -1223,201 +333,24 @@
                         {}
                     ],
                     "8": [
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 4000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "16": [
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 4,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 2,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "32": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "64": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "128": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}
                     ],
                     "256": [
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2000,
-                                "sequenceDelay": 10000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 2500,
-                                "sequenceDelay": 15000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3000,
-                                "sequenceDelay": 20000
-                            }
-                        },
-                        {
-                            "boostId": "copie100",
-                            "count": 5,
-                            "timing": {
-                                "clickDelay": 3500,
-                                "sequenceDelay": 500
-                            }
-                        }
+                        {}  
                     ]
+                    
                 }
             }
         }
