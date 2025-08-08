@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner (Safe WS Edition)
-// @version      1.4.2
+// @version      1.5.1
 // @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
