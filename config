@@ -30,6 +30,7 @@
                     "8": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -40,6 +41,7 @@
                     "16": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -60,6 +62,7 @@
                     "64": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -69,7 +72,8 @@
                     ],
                     "128": [
                         {
-                            "boostId": "Cible100",
+                            "boostId": "cible100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -78,6 +82,7 @@
                         },
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -85,7 +90,8 @@
                             }
                         },
                         {
-                            "boostId": "Sablier100",
+                            "boostId": "sablier100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -111,6 +117,7 @@
                     "8": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -121,6 +128,7 @@
                     "16": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -131,6 +139,7 @@
                     "32": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -141,6 +150,7 @@
                     "64": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -150,7 +160,8 @@
                     ],
                     "128": [
                         {
-                            "boostId": "Cible100",
+                            "boostId": "cible100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -159,6 +170,7 @@
                         },
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -166,7 +178,8 @@
                             }
                         },
                         {
-                            "boostId": "Sablier100",
+                            "boostId": "sablier100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -192,6 +205,7 @@
                     "8": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -202,6 +216,7 @@
                     "16": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -212,6 +227,7 @@
                     "32": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -222,6 +238,7 @@
                     "64": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -231,7 +248,8 @@
                     ],
                     "128": [
                         {
-                            "boostId": "Cible100",
+                            "boostId": "cible100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -240,6 +258,7 @@
                         },
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -247,7 +266,8 @@
                             }
                         },
                         {
-                            "boostId": "Sablier100",
+                            "boostId": "sablier100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -275,6 +295,7 @@
                     "8": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -285,6 +306,7 @@
                     "16": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -295,6 +317,7 @@
                     "32": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -305,6 +328,7 @@
                     "64": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -314,7 +338,8 @@
                     ],
                     "128": [
                         {
-                            "boostId": "Cible100",
+                            "boostId": "cible100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -323,6 +348,7 @@
                         },
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -330,7 +356,8 @@
                             }
                         },
                         {
-                            "boostId": "Sablier100",
+                            "boostId": "sablier100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -356,6 +383,7 @@
                     "8": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -366,6 +394,7 @@
                     "16": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -376,6 +405,7 @@
                     "32": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -386,6 +416,7 @@
                     "64": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -395,7 +426,8 @@
                     ],
                     "128": [
                         {
-                            "boostId": "Cible100",
+                            "boostId": "cible100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -404,6 +436,7 @@
                         },
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -411,7 +444,8 @@
                             }
                         },
                         {
-                            "boostId": "Sablier100",
+                            "boostId": "sablier100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -437,6 +471,7 @@
                     "8": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -447,6 +482,7 @@
                     "16": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -457,6 +493,7 @@
                     "32": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -467,6 +504,7 @@
                     "64": [
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -476,7 +514,8 @@
                     ],
                     "128": [
                         {
-                            "boostId": "Cible100",
+                            "boostId": "cible100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -485,6 +524,7 @@
                         },
                         {
                             "boostId": "powerup",
+                            "priority": 1,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
@@ -492,7 +532,8 @@
                             }
                         },
                         {
-                            "boostId": "Sablier100",
+                            "boostId": "sablier100",
+                            "priority": 2,
                             "count": 1,
                             "timing": {
                                 "clickDelay": 300,
