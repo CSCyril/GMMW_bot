@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner (Safe WS Edition)
-// @version      1.6
+// @version      1.6.1
 // @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent + random dans les ordres d'envoi.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -144,6 +144,37 @@
         }
     }
 
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+    
+    // Construit une séquence avec priorité
+    function applyPriorityOrder(actions) {
+      // Séparer par priorité
+      const fixed = actions.filter(a => a.priority === 1);
+      const randomized = actions.filter(a => a.priority !== 1);
+    
+      // Mélanger uniquement les random
+      shuffle(randomized);
+    
+      // Reconstruire la séquence finale en respectant la position d’origine
+      const finalSeq = [];
+      let randIndex = 0, fixedIndex = 0;
+    
+      for (let i = 0; i < actions.length; i++) {
+        if (actions[i].priority === 1) {
+          finalSeq.push(fixed[fixedIndex++]);
+        } else {
+          finalSeq.push(randomized[randIndex++]);
+        }
+      }
+    
+      return finalSeq;
+    }
+
     async function performBoost() {
       const roundId = window._lastRoundId;
       const boostConfigSnapshot = currentBoostConfig;
@@ -153,32 +184,22 @@
       let actions = boostConfigSnapshot[multiplier];
       if (!actions?.length) return;
     
-      // Mélanger l'ordre MAIS garder toutes les actions
-      function shuffle(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-      }
-      shuffle(actions);
+      // Appliquer la priorité + random
+      actions = applyPriorityOrder(actions);
     
-      console.log(`[TM] Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions mélangées`);
+      console.log(`[TM] Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions (priority-aware)`);
     
       for (let i = 0; i < actions.length; i++) {
         const { boostId, count, timing } = actions[i];
     
-        // Base delays
         const baseClick = timing?.clickDelay ?? 250;
         const baseSeq = timing?.sequenceDelay ?? 800;
     
-        // Ajout d’un petit random ±X ms
         const clickDelay = baseClick + (Math.random() * 120 - 60);   // ±60ms
         const sequenceDelay = baseSeq + (Math.random() * 300 - 150); // ±150ms
     
-        // Envoi boost
         sendAbility(boostId, count, roundId, Math.max(50, clickDelay));
     
-        // Attente avant le prochain
         if (i < actions.length - 1) {
           await sleep(Math.max(50, sequenceDelay));
         }
