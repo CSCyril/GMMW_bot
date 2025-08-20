@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GoMining Boost Runner (Safe WS Edition)
-// @version      1.5.1
-// @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent.
+// @version      1.6
+// @description  Active automatiquement les boosts en fonction du hashrate et du round en cours, sans rater de roundOpened. Inclut un mode debug lent + random dans les ordres d'envoi.
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -145,30 +145,46 @@
     }
 
     async function performBoost() {
-        const roundId = window._lastRoundId;
-        const boostConfigSnapshot = currentBoostConfig;
-        const multiplier = window._lastMultiplier;
-
-        if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
-
-        const actions = boostConfigSnapshot[multiplier];
-        if (!actions?.length) return;
-
-        console.log(`[TM] 🚀 Séquence boost x${multiplier} (roundId ${roundId})`);
-
-        for (let i = 0; i < actions.length; i++) {
-            const { boostId, count, timing } = actions[i];
-            const clickDelay = timing?.clickDelay ?? 250;
-            const sequenceDelay = timing?.sequenceDelay ?? 800;
-
-            sendAbility(boostId, count, roundId, clickDelay);
-
-            if (i < actions.length - 1) {
-                await sleep(sequenceDelay);
-            }
+      const roundId = window._lastRoundId;
+      const boostConfigSnapshot = currentBoostConfig;
+      const multiplier = window._lastMultiplier;
+      if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
+    
+      let actions = boostConfigSnapshot[multiplier];
+      if (!actions?.length) return;
+    
+      // Mélanger l'ordre MAIS garder toutes les actions
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-
-        lastSentRoundId = roundId;
+      }
+      shuffle(actions);
+    
+      console.log(`[TM] Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions mélangées`);
+    
+      for (let i = 0; i < actions.length; i++) {
+        const { boostId, count, timing } = actions[i];
+    
+        // Base delays
+        const baseClick = timing?.clickDelay ?? 250;
+        const baseSeq = timing?.sequenceDelay ?? 800;
+    
+        // Ajout d’un petit random ±X ms
+        const clickDelay = baseClick + (Math.random() * 120 - 60);   // ±60ms
+        const sequenceDelay = baseSeq + (Math.random() * 300 - 150); // ±150ms
+    
+        // Envoi boost
+        sendAbility(boostId, count, roundId, Math.max(50, clickDelay));
+    
+        // Attente avant le prochain
+        if (i < actions.length - 1) {
+          await sleep(Math.max(50, sequenceDelay));
+        }
+      }
+    
+      lastSentRoundId = roundId;
     }
 
     const originalWebSocket = window.WebSocket;
