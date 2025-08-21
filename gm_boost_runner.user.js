@@ -196,7 +196,7 @@
         const baseSeq = timing?.sequenceDelay ?? 800;
     
         const clickDelay = baseClick + (Math.random() * 120 - 60);   // ±60ms
-        const sequenceDelay = baseSeq + (Math.random() * 300 - 150); // ±150ms
+        const sequenceDelay = Math.max(50,baseSeq + (Math.random() * 30000 - 15000) // ±15000 ms);
     
         sendAbility(boostId, count, roundId, Math.max(50, clickDelay));
     
