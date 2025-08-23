@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner - Prod + Test Fusion
-// @version      1.8.1
+// @version      1.8.2
 // @description  Runner fusion Prod/Test avec FLAG TEST_MODE
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -25,6 +25,33 @@
         );
     }
 
+    async function updateRoundIdFromApi() {
+        const bearer = getBearer();
+        if (!bearer) return;
+        const url = "https://api.gomining.com/api/nft-game/round/get-last";
+        try {
+            const resp = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "accept": "application/json, text/plain, */*",
+                    "authorization": `Bearer ${bearer}`,
+                    "origin": "https://app.gomining.com",
+                    "referer": "https://app.gomining.com/",
+                    "x-device-type": "desktop"
+                },
+                credentials: "include"
+            });
+            const json = await resp.json();
+            if (json?.data?.id) {
+                window._lastRoundId = json.data.id;
+                window._lastMultiplier = json.data.multiplier ?? null;
+                console.log("[TM] ✅ roundId: ", window._lastRoundId, ", multiplier:", window._lastMultiplier);
+            }
+        } catch (e) {
+            console.warn("[TM] ❌ API round/get-last failed:", e);
+        }
+    }
+    
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
     function shuffle(arr) {
