@@ -1,13 +1,11 @@
 // ==UserScript==
-// @name         GoMining WS + RoundId Tracker
-// @version      1.0
-// @description  Fonction principale dédiée à l'écoute du socket et à la mise à jour des rounds
+// @name         GoMining WS + RoundId Tracker (Debug WS State)
+// @version      1.3
+// @description  Écoute permanente du WS, update roundId, __myws_jeu et logs debug sans reload auto
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
-// @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_tracker.user.js
-// @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_tracker.user.js
 // ==/UserScript==
 
 (function () {
@@ -17,6 +15,7 @@
     window._lastRoundId = null;
     window._lastMultiplier = null;
     window._lastSentRoundId = null;
+    window.__myws_jeu = null;
 
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
@@ -37,81 +36,118 @@
             return;
         }
         const url = "https://api.gomining.com/api/nft-game/round/get-last";
-        const resp = await fetch(url, {
-            method: "GET",
-            headers: {
-                "accept": "application/json, text/plain, */*",
-                "authorization": `Bearer ${bearer}`,
-                "origin": "https://app.gomining.com",
-                "referer": "https://app.gomining.com/",
-                "x-device-type": "desktop"
-            },
-            credentials: "include"
-        });
-        const txt = await resp.text();
-        if (!resp.ok) {
-            console.warn("[TM] Erreur HTTP API :", resp.status, txt);
-            if (resp.status === 403 && txt.includes("JWT_TOKEN_EXPIRED")) {
-                console.warn("[TM] ❌ Token expiré → reload...");
-                setTimeout(() => location.reload(), 1500);
-            }
-            return;
-        }
         try {
+            const resp = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "accept": "application/json, text/plain, */*",
+                    "authorization": `Bearer ${bearer}`,
+                    "origin": "https://app.gomining.com",
+                    "referer": "https://app.gomining.com/",
+                    "x-device-type": "desktop"
+                },
+                credentials: "include"
+            });
+            const txt = await resp.text();
+            if (!resp.ok) {
+                console.warn("[TM] Erreur HTTP API :", resp.status, txt);
+                if (resp.status === 403 && txt.includes("JWT_TOKEN_EXPIRED")) {
+                    console.warn("[TM] ❌ Token expiré → reload manuel nécessaire");
+                }
+                return;
+            }
             const data = JSON.parse(txt);
-            if (data && data.data && data.data.id) {
+            if (data?.data?.id) {
                 _lastRoundId = data.data.id;
+                window._lastRoundId = data.data.id;
                 _lastMultiplier = data.data.multiplier ?? null;
-                console.log("[TM]", nowIso(), `- ✅ roundId: ${_lastRoundId}, multiplier: ${_lastMultiplier}`);
+                window._lastMultiplier = data.data.multiplier ?? null;
+                console.log("[TM]", nowIso(), `- ✅ roundId: ${window._lastRoundId}, multiplier: ${window._lastMultiplier}`);
             } else {
                 console.warn("[TM] Réponse inattendue :", data);
             }
         } catch (e) {
-            console.warn("[TM] Erreur parse JSON :", e);
+            console.warn("[TM] Erreur fetch / parse JSON :", e);
         }
     }
 
-    function hookWebSocket() {
+    function hookWebSocketPersistent() {
         const OldWS = window.WebSocket;
-        window.WebSocket = function (...args) {
-            const ws = new OldWS(...args);
+        const trackedWS = new Map();
 
-            try {
-                if (typeof args[0] === "string" && args[0].includes(GAME_WS_SUBSTRING)) {
-                    console.log("[TM] 🎯 Tentative de capture WS :", args[0]);
+        class MyWebSocket extends OldWS {
+            constructor(...args) {
+                super(...args);
+                try {
+                    const url = args[0];
+                    if (typeof url === "string" && url.includes(GAME_WS_SUBSTRING)) {
+                        console.log("[TM] 🎯 WS du jeu détectée :", url);
+                        trackedWS.set(this, { url, createdAt: nowIso() });
 
-                    if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) {
-                        window.__myws_jeu = ws;
-                        console.log("[TM] ✅ WS du jeu capturée :", ws.url);
+                        // ✅ Toujours définir __myws_jeu sur la dernière WS capturée
+                        window.__myws_jeu = this;
+                        console.log("[TM] 🔗 Nouvelle __myws_jeu définie :", this.url);
 
-                        ws.addEventListener('message', async evt => {
+                        // Message listener
+                        this.addEventListener('message', async evt => {
+                            //console.log("[TM] 📩 WS message reçu :", evt.data.slice(0, 100), evt.data.length > 100 ? "..." : "");
                             if (typeof evt.data === "string" && evt.data.startsWith('42["roundOpened"')) {
+                                console.log("[TM] ⚡ roundOpened détecté, mise à jour roundId...");
                                 if (!_pendingRoundUpdate) {
                                     _pendingRoundUpdate = true;
                                     await updateRoundIdFromApi();
                                     _pendingRoundUpdate = false;
+                                } else {
+                                    console.log("[TM] 🔄 Update déjà en cours, skip");
                                 }
                             }
                         });
-                    }
-                }
-            } catch (e) {
-                console.warn("[TM] ⚠️ Erreur hook WS :", e);
-            }
 
-            return ws;
-        };
+                        // Close listener
+                        this.addEventListener('close', evt => {
+                            console.warn(`[TM] ❌ WS fermée (${url}) code=${evt.code} reason=${evt.reason}`);
+                            trackedWS.delete(this);
+
+                            // 🔎 Si c’était la WS courante → on vide __myws_jeu
+                            if (window.__myws_jeu === this) {
+                                console.warn("[TM] 🚫 __myws_jeu était cette WS, on la supprime");
+                                window.__myws_jeu = null;
+                            }
+                        });
+
+                        // Error listener
+                        this.addEventListener('error', evt => {
+                            console.error("[TM] ⚠️ WS erreur :", evt);
+                        });
+
+                        console.log("[TM] WS readyState initial =", this.readyState);
+                    }
+                } catch (e) {
+                    console.error("[TM] ⚠️ Erreur constructeur MyWebSocket :", e);
+                }
+            }
+        }
+
+        window.WebSocket = MyWebSocket;
         window.WebSocket.prototype = OldWS.prototype;
+
+        console.log("[TM] ✅ Hook WS permanent activé");
     }
 
     // === Init ===
-    hookWebSocket();
+    hookWebSocketPersistent();
+
+    // Update initial après 4s
     setTimeout(updateRoundIdFromApi, 4000);
-    setInterval(hookWebSocket, 10000); // relance toutes les 10s au cas où le WS arrive après
-      setInterval(() => {
-        if (window.__myws_jeu && window.__myws_jeu.readyState !== 1) {
-            console.warn(`[TM] ❌ __myws_jeu readyState = ${window.__myws_jeu.readyState} → reload forcé`);
-            location.reload();
+
+    // Surveillance santé WS toutes les 2 min (debug, sans reload auto)
+    setInterval(() => {
+        if (!window.__myws_jeu) {
+            console.warn("[TM] 🚫 Pas de __myws_jeu actuellement");
+        } else if (window.__myws_jeu.readyState !== 1) {
+            console.warn("[TM] 🚫 __myws_jeu readyState =", window.__myws_jeu.readyState);
+        } else {
+            console.log("[TM] ✅ WS OK, state =", window.__myws_jeu.readyState);
         }
-    }, 300000); // vérifie toutes les 5 minutes
+    }, 120000);
 })();
