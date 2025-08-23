@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GoMining Boost Runner - Prod + Test Fusion
-// @version      1.8.2
-// @description  Runner fusion Prod/Test avec FLAG TEST_MODE
+// @version      1.8.3
+// @description  Runner fusion Prod/Test avec FLAG TEST_MODE + replay si reload
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -17,63 +17,29 @@
     window._lastRoundId = null;
     window._lastMultiplier = null;
 
+    // --- helpers ---
     function nowIso() { return new Date().toISOString().replace("T", " ").replace("Z", ""); }
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function uuidv4() { return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    ); }
 
-    function uuidv4() {
-        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
+    // --- persistence pending boost ---
+    function setPendingBoost(roundId, multiplier) {
+        localStorage.setItem("gomining_pending_boost", JSON.stringify({
+            roundId, multiplier, ts: Date.now()
+        }));
     }
-
-    async function updateRoundIdFromApi() {
-        const bearer = getBearer();
-        if (!bearer) return;
-        const url = "https://api.gomining.com/api/nft-game/round/get-last";
+    function clearPendingBoost() { localStorage.removeItem("gomining_pending_boost"); }
+    function getPendingBoost() {
+        const raw = localStorage.getItem("gomining_pending_boost");
+        if (!raw) return null;
         try {
-            const resp = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "accept": "application/json, text/plain, */*",
-                    "authorization": `Bearer ${bearer}`,
-                    "origin": "https://app.gomining.com",
-                    "referer": "https://app.gomining.com/",
-                    "x-device-type": "desktop"
-                },
-                credentials: "include"
-            });
-            const json = await resp.json();
-            if (json?.data?.id) {
-                window._lastRoundId = json.data.id;
-                window._lastMultiplier = json.data.multiplier ?? null;
-                console.log("[TM] ✅ roundId: ", window._lastRoundId, ", multiplier:", window._lastMultiplier);
-            }
-        } catch (e) {
-            console.warn("[TM] ❌ API round/get-last failed:", e);
-        }
-    }
-    
-    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-
-    function shuffle(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
+            return JSON.parse(raw);
+        } catch { return null; }
     }
 
-    function applyPriorityOrder(actions) {
-        const fixed = actions.filter(a => (a.priority ?? 2) === 1);
-        const randomized = actions.filter(a => (a.priority ?? 2) !== 1);
-        shuffle(randomized);
-        const finalSeq = [];
-        let randIndex = 0, fixedIndex = 0;
-        for (let i = 0; i < actions.length; i++) {
-            if ((actions[i].priority ?? 2) === 1) finalSeq.push(fixed[fixedIndex++]);
-            else finalSeq.push(randomized[randIndex++]);
-        }
-        return finalSeq;
-    }
-
+    // --- API ---
     function getBearer() {
         let t = localStorage.getItem('access_token');
         if (t) return t;
@@ -81,53 +47,60 @@
         return m ? m[1] : null;
     }
 
+    async function updateRoundIdFromApi() {
+        const bearer = getBearer();
+        if (!bearer) return;
+        try {
+            const resp = await fetch("https://api.gomining.com/api/nft-game/round/get-last", {
+                headers: { "authorization": `Bearer ${bearer}` },
+                credentials: "include"
+            });
+            const json = await resp.json();
+            if (json?.data?.id) {
+                window._lastRoundId = json.data.id;
+                window._lastMultiplier = json.data.multiplier ?? null;
+                console.log("[TM] ✅ roundId:", window._lastRoundId, ", multiplier:", window._lastMultiplier);
+            }
+        } catch (e) { console.warn("[TM] ❌ API round/get-last failed:", e); }
+    }
+
     async function getCurrentHashrateEhs() {
         try {
             const res = await fetch("https://api.blockchair.com/bitcoin/stats");
             const json = await res.json();
-            const rate = json?.data?.hashrate_24h;
-            return rate ? rate / 1e18 : null;
-        } catch (e) { console.warn("[TM] Erreur récupération hashrate:", e); return null; }
+            return json?.data?.hashrate_24h ? json.data.hashrate_24h / 1e18 : null;
+        } catch { return null; }
     }
 
     async function updateBoostConfig() {
         const stored = localStorage.getItem("gomining_boost_config");
         if (!stored) return;
-        let parsed;
-        try { parsed = JSON.parse(stored); } catch(e){ return; }
-        const now = new Date();
-        const day = now.getDay();
-        const hour = now.getHours();
+        let parsed; try { parsed = JSON.parse(stored); } catch { return; }
+        const now = new Date(), day = now.getDay(), hour = now.getHours();
         const useDefault = (day === 2 && hour >= 18) || (day > 2 && day < 6) || (day === 6 && hour < 8);
-        const configSetName = useDefault ? "default" : "late";
-        const selectedGroup = parsed?.[configSetName];
+        const selectedGroup = parsed?.[useDefault ? "default" : "late"];
         const hashrate = await getCurrentHashrateEhs();
         if (!hashrate) { currentBoostConfig = selectedGroup?.low?.config ?? {}; return; }
         for (const range of Object.values(selectedGroup)) {
             if (hashrate >= range.min && hashrate < range.max) { currentBoostConfig = range.config; return; }
         }
         currentBoostConfig = selectedGroup?.low?.config ?? {};
-        console.log(`[TM] Boost config chargée via updateBoostConfig()`);
     }
 
-    function getRandomClickDelay(baseClick) {
-        return Math.max(50, baseClick + Math.random() * 2000);
-    }
-
+    // --- boost execution ---
     function sendAbility(boostId, count, roundId, clickDelay = 250) {
         for (let i = 0; i < count; i++) {
             const payload = { abilityId: boostId, idempotencyKey: uuidv4(), roundId };
             const msg = "42" + JSON.stringify(["ability", payload]);
-            const delayToApply = i * clickDelay;
             setTimeout(() => {
                 if (TEST_MODE) {
-                    console.log(`[TEST][${nowIso()}] boost ${boostId} x1 (round ${roundId})`);
+                    console.log(`[TEST][${nowIso()}] boost ${boostId} (round ${roundId})`);
                 } else {
                     if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
                     window.__myws_jeu.send(msg);
-                    console.log(`[TM][${nowIso()}] ✅ Boost ${boostId} envoyé (${i+1}/${count})`);
+                    console.log(`[TM][${nowIso()}] ✅ Boost ${boostId} envoyé`);
                 }
-            }, delayToApply);
+            }, i * clickDelay);
         }
     }
 
@@ -140,29 +113,42 @@
         let actions = boostConfigSnapshot[multiplier];
         if (!actions?.length) return;
 
-        actions = applyPriorityOrder(actions);
-        console.log(`[${nowIso()}] Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions`);
+        // marquer pending
+        setPendingBoost(roundId, multiplier);
 
-        for (let i = 0; i < actions.length; i++) {
-            const { boostId, count, timing } = actions[i];
-            const baseClick = timing?.clickDelay ?? 250;
-            const baseSeq = timing?.sequenceDelay ?? 0;
+        console.log(`[${nowIso()}] ⚡ Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions`);
 
-            // sequenceDelay ± 15s
-            const sequenceDelay = Math.max(50, baseSeq*1000 + (Math.random() * 15000));
-            await sleep(sequenceDelay);
-
-            // envoyer chaque clic avec clickDelay aléatoire individuel
+        for (const { boostId, count, timing } of actions) {
+            const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 15000);
+            await sleep(seqDelay);
             for (let j = 0; j < count; j++) {
-                const clickDelay = Math.max(50, baseClick + Math.random() * 2000);
+                const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
                 sendAbility(boostId, 1, roundId, clickDelay);
                 await sleep(clickDelay);
             }
         }
         lastSentRoundId = roundId;
+        clearPendingBoost(); // ✅ boost exécuté, on nettoie
     }
 
-    // --- WebSocket prod only ---
+    // --- Replay au reload ---
+    (async function checkPending() {
+        const pend = getPendingBoost();
+        if (pend) {
+            console.log("[TM] 🔁 Pending boost trouvé :", pend);
+            await updateRoundIdFromApi();
+            await updateBoostConfig();
+            if (pend.roundId === window._lastRoundId) {
+                console.log("[TM] ➡️ Rejeu du boost manqué round", pend.roundId);
+                performBoost(pend.multiplier, pend.roundId);
+            } else {
+                console.log("[TM] ❌ RoundId expiré, on nettoie le pending.");
+                clearPendingBoost();
+            }
+        }
+    })();
+
+    // --- WS interception (prod only) ---
     if (!TEST_MODE) {
         const originalWebSocket = window.WebSocket;
         window.WebSocket = function (url, protocols) {
@@ -171,82 +157,31 @@
                 console.log("[TM] 🎮 WS interceptée :", url);
                 window.__myws_jeu = ws;
 
-                let userOnMessage = null;
-                Object.defineProperty(ws, "onmessage", {
-                    configurable: true,
-                    enumerable: true,
-                    get() { return userOnMessage; },
-                    set(fn) { userOnMessage = fn; }
-                });
-
                 ws.addEventListener("message", evt => {
-                    if (evt.data.startsWith('42["roundOpened"')) {
-                        if (!roundLock) {
-                            roundLock = true;
-                            (async () => {
-                                await updateRoundIdFromApi();
-                                await updateBoostConfig();
-                                const delay = Math.random()*2000 + 3000;
-                                console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
-                                const failSafeTimeout = setTimeout(() => { location.reload(); }, 10000);
-                                setTimeout(async () => {
-                                    try { await performBoost(); clearTimeout(failSafeTimeout); }
-                                    catch(e){ console.error("[TM] Erreur performBoost:", e); location.reload(); }
-                                    finally { roundLock = false; }
-                                }, delay);
-                            })();
-                        }
-                    }
-
-                    if (typeof userOnMessage === "function") {
-                        try { userOnMessage.call(ws, evt); } catch(e){ console.warn("[TM] Erreur onmessage utilisateur:", e); }
+                    if (evt.data.startsWith('42["roundOpened"') && !roundLock) {
+                        roundLock = true;
+                        (async () => {
+                            await updateRoundIdFromApi();
+                            await updateBoostConfig();
+                            const delay = Math.random()*2000 + 3000;
+                            console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
+                            setTimeout(async () => {
+                                try { await performBoost(); }
+                                catch(e){ console.error("[TM] Erreur performBoost:", e); }
+                                finally { roundLock = false; }
+                            }, delay);
+                        })();
                     }
                 });
             }
             return ws;
         };
         window.WebSocket.prototype = originalWebSocket.prototype;
-
-        setInterval(async () => {
-            const bearer = getBearer();
-            if (!bearer) return;
-            const res = await fetch("https://api.gomining.com/api/nft-game/round/get-last", { headers: { Authorization: `Bearer ${bearer}` } });
-            const json = await res.json();
-            const apiRoundId = json?.data?.id;
-            if (apiRoundId && apiRoundId !== window._lastRoundId) {
-                window._lastRoundId = apiRoundId;
-                window._lastMultiplier = json?.data?.multiplier;
-                await updateBoostConfig();
-                await performBoost();
-            }
-        }, 10000);
-    }
-
-    // --- Fonctions Test mode ---
-    if (TEST_MODE) {
-        window.runBoost = async function(multiplier) {
-            if (!currentBoostConfig) {
-                console.warn("[TEST] Boost config non chargée. Lancez updateBoostConfig() d'abord.");
-                return;
-            }
-            const roundId = Date.now();
-            console.log(`[TEST CMD] Déclenchement manuel x${multiplier} (roundId=${roundId})`);
-            await performBoost(multiplier, roundId);
-        };
-
-        window.listBoosts = function() {
-            if (!currentBoostConfig) {
-                console.warn("[TEST] Boost config non chargée.");
-                return;
-            }
-            console.log("[TEST] Multiplicateurs disponibles :", Object.keys(currentBoostConfig));
-        };
     }
 
     // --- Init ---
     updateBoostConfig().then(() => {
-        console.log(TEST_MODE ? "[TEST MODE] Runner prêt. Utilisez runBoost(mult) depuis la console." : "[TM] Runner prêt pour prod.");
-        if (TEST_MODE) window.listBoosts();
+        console.log(TEST_MODE ? "[TEST MODE] Runner prêt." : "[TM] Runner prêt pour prod.");
     });
 
 })();
