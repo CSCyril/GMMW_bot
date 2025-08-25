@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner - Prod + Test Fusion
-// @version      1.8.3
+// @version      1.8.4
 // @description  Runner fusion Prod/Test avec FLAG TEST_MODE + replay si reload
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -122,7 +122,7 @@
             const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 15000);
             await sleep(seqDelay);
             for (let j = 0; j < count; j++) {
-                const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
+                const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
                 sendAbility(boostId, 1, roundId, clickDelay);
                 await sleep(clickDelay);
             }
