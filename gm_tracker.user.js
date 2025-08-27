@@ -6,6 +6,8 @@
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
+// @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_tracker.user.js
+// @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_tracker.user.js
 // ==/UserScript==
 
 (function () {
