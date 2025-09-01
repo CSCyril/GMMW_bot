@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner - Prod + Test Fusion
-// @version      1.8.5
+// @version      1.8.6
 // @description  Runner fusion Prod/Test avec FLAG TEST_MODE + replay si reload
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -165,7 +165,8 @@
                         (async () => {
                             await updateRoundIdFromApi();
                             await updateBoostConfig();
-                            const delay = Math.random()*2000 + 3000;
+                            //const delay = Math.random()*2000 + 3000;
+                            const delay = 0;
                             console.log(`[TM] ⏳ Attente ${delay.toFixed(0)}ms avant boost...`);
                             setTimeout(async () => {
                                 try { await performBoost(); }
