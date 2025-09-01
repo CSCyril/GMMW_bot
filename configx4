@@ -1260,7 +1260,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
