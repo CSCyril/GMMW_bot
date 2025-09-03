@@ -45,6 +45,24 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 2000
                             }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
                         }
                     ],
                     "16": [
@@ -69,7 +87,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -89,7 +107,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 3,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -107,7 +125,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -162,6 +180,24 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 2000
                             }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
                         }
                     ],
                     "16": [
@@ -186,7 +222,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -206,7 +242,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 3,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -224,7 +260,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -279,6 +315,24 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 2000
                             }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
                         }
                     ],
                     "16": [
@@ -303,7 +357,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -323,7 +377,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 3,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -341,7 +395,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -398,6 +452,24 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 2000
                             }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
                         }
                     ],
                     "16": [
@@ -422,7 +494,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -442,7 +514,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 3,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -460,7 +532,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -515,6 +587,24 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 2000
                             }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
                         }
                     ],
                     "16": [
@@ -539,7 +629,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -559,7 +649,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 3,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -577,7 +667,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -632,6 +722,24 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 2000
                             }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        },
+                        {
+                            "boostId": "sablier1",
+                            "priority": 2,
+                            "count": 2,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
                         }
                     ],
                     "16": [
@@ -665,7 +773,7 @@
                         {
                             "boostId": "fusee10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1250
@@ -676,7 +784,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 3,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -703,7 +811,7 @@
                         {
                             "boostId": "fusee10",
                             "priority": 2,
-                            "count": 2,
+                            "count": 3,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1250
@@ -721,3 +829,4 @@
         }
     }
 }
+
