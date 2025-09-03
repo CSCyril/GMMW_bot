@@ -107,7 +107,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 4,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -242,7 +242,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 4,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -377,7 +377,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 4,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -514,7 +514,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 4,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -649,7 +649,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 4,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -784,7 +784,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 4,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
@@ -829,3 +829,4 @@
         }
     }
 }
+
