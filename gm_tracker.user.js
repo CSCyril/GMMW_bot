@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining WS + RoundId Tracker (Debug WS State)
-// @version      1.3.1
+// @version      1.3.2
 // @description  Écoute permanente du WS, update roundId, __myws_jeu et logs debug sans reload auto
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -153,11 +153,11 @@
         }
     }, 120000);
 
-    // 🚨 Sécurité : reload si aucune WS détectée après 5 minutes
+    // 🚨 Sécurité : reload si aucune WS détectée après 1 minute
     setTimeout(() => {
         if (!window.__myws_jeu) {
             console.error("[TM] ⏰ Toujours aucune WS détectée après 5 min → reload !");
             window.location.reload();
         }
-    }, 300000); // 300000ms = 5 minutes
+    }, 60000);
 })();
