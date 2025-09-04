@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         GoMining WS Tracker + Captcha/Bearer + RoundId Fusion
 // @version      2.0.0
+// @author       CyrilG.
 // @description  Intercepte WS, capture roundId direct depuis roundOpened, captcha/bearer, fallback API, monitoring robuste
 // @match        https://app.gomining.com/*
 // @run-at       document-start
