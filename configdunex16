@@ -363,7 +363,7 @@
                         {
                             "boostId": "fusee10",
                             "priority": 2,
-                            "count": 1,
+                            "count": 2,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1250
