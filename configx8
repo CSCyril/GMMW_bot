@@ -249,7 +249,7 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 1250
                             }
-                        }
+                        },
                         {
                             "boostId": "fusee10",
                             "priority": 2,
