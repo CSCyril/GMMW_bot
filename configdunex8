@@ -299,26 +299,6 @@
                     ],
                     "8": [
                         {
-                            "boostId": "cible1",
-                            "priority": 1,
-                            "count": 1,
-                            "timing": {
-                                "clickDelay": 300,
-                                "sequenceDelay": 1500
-                            }
-                        },
-                        {
-                            "boostId": "powerup",
-                            "priority": 2,
-                            "count": 1,
-                            "timing": {
-                                "clickDelay": 300,
-                                "sequenceDelay": 2000
-                            }
-                        }
-                    ],
-                    "8": [
-                        {
                             "boostId": "cible10",
                             "priority": 1,
                             "count": 1,
@@ -726,26 +706,6 @@
                     ],
                     "8": [
                         {
-                            "boostId": "cible1",
-                            "priority": 1,
-                            "count": 1,
-                            "timing": {
-                                "clickDelay": 300,
-                                "sequenceDelay": 1500
-                            }
-                        },
-                        {
-                            "boostId": "powerup",
-                            "priority": 2,
-                            "count": 1,
-                            "timing": {
-                                "clickDelay": 300,
-                                "sequenceDelay": 2000
-                            }
-                        }
-                    ],
-                    "8": [
-                        {
                             "boostId": "cible10",
                             "priority": 1,
                             "count": 1,
@@ -869,4 +829,5 @@
         }
     }
 }
+
 
