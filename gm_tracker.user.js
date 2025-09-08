@@ -14,7 +14,7 @@
     const GAME_WS_SUBSTRING = "nft.ws.gomining.com";
     const WS_HEALTH_INTERVAL = 120_000;
     const WS_INIT_TIMEOUT = 60_000;
-    const ROUND_CLOSED_FALLBACK_DELAY = 20_000;
+    const ROUND_CLOSED_FALLBACK_DELAY = 15_000;
 
     let _pendingRoundUpdate = false;
     let _roundClosedTimeout = null;
