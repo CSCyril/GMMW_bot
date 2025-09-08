@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         GoMining WS Tracker + Captcha/Bearer + RoundId Fusion
-// @version      2.0.0
+// @name         GoMining WS Tracker + Captcha/Bearer + RoundId Fusion (+ Fallback roundClosed)
+// @version      2.1.0
 // @author       CyrilG.
-// @description  Intercepte WS, capture roundId direct depuis roundOpened, captcha/bearer, fallback API, monitoring robuste
+// @description  Intercepte WS, capture roundId direct depuis roundOpened, captcha/bearer, fallback API, monitoring robuste, + recovery roundClosed
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -14,8 +14,10 @@
     const GAME_WS_SUBSTRING = "nft.ws.gomining.com";
     const WS_HEALTH_INTERVAL = 120_000;
     const WS_INIT_TIMEOUT = 60_000;
+    const ROUND_CLOSED_FALLBACK_DELAY = 20_000;
 
     let _pendingRoundUpdate = false;
+    let _roundClosedTimeout = null;
     window._myws_logs = window._myws_logs || [];
 
     // Derniers états globaux
@@ -85,9 +87,27 @@
                 window._lastMultiplier = payload.multiplier ?? null;
                 console.log("[TM]", nowIso(), `- ⚡ (WS) roundId capté: ${window._lastRoundId}, multiplier: ${window._lastMultiplier}`);
             }
+            // Si un roundOpened arrive, annule tout fallback en attente
+            if (_roundClosedTimeout) {
+                clearTimeout(_roundClosedTimeout);
+                _roundClosedTimeout = null;
+                console.log("[TM] ✅ Nouveau round détecté → fallback roundClosed annulé");
+            }
         } catch (e) {
             console.warn("[TM] Erreur parse roundOpened payload:", e);
         }
+    }
+
+    function processRoundClosedPayload(payload) {
+        console.log("[TM]", nowIso(), "- ⏳ roundClosed détecté, attente 20s avant fallback...");
+        if (_roundClosedTimeout) clearTimeout(_roundClosedTimeout);
+        const prevRound = window._lastRoundId;
+        _roundClosedTimeout = setTimeout(() => {
+            if (window._lastRoundId === prevRound) {
+                console.warn("[TM] ⚠️ Aucun roundOpened détecté depuis roundClosed → fallback API");
+                updateRoundIdFromApi();
+            }
+        }, ROUND_CLOSED_FALLBACK_DELAY);
     }
 
     function hookWebSocketPersistent() {
@@ -102,10 +122,13 @@
                         window.__myws_jeu = this;
                         console.log("[TM] 🔗 Nouvelle __myws_jeu définie :", this.url);
 
-                        // Ecoute des messages WS
                         this.addEventListener("message", async evt => {
                             window._myws_logs.push({ type: "recv", data: evt.data });
-                            if (typeof evt.data === "string" && evt.data.startsWith('42["roundOpened"')) {
+
+                            if (typeof evt.data !== "string" || !evt.data.startsWith("42[")) return;
+
+                            // roundOpened
+                            if (evt.data.startsWith('42["roundOpened"')) {
                                 try {
                                     const arr = JSON.parse(evt.data.slice(2));
                                     if (arr?.[1]) processRoundOpenedPayload(arr[1]);
@@ -113,9 +136,17 @@
                                     console.warn("[TM] Erreur parse roundOpened JSON:", e);
                                 }
                             }
+
+                            // roundClosed
+                            if (evt.data.startsWith('42["roundClosed"')) {
+                                try {
+                                    processRoundClosedPayload();
+                                } catch (e) {
+                                    console.warn("[TM] Erreur process roundClosed payload:", e);
+                                }
+                            }
                         });
 
-                        // Surveiller fermeture et erreurs
                         this.addEventListener("close", evt => {
                             console.warn(`[TM] ❌ WS fermée code=${evt.code} reason=${evt.reason}`);
                             if (window.__myws_jeu === this) {
