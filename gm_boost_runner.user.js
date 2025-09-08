@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner - Prod + Test Fusion (RoundId Watcher)
-// @version      1.9.0
+// @version      1.9.1
 // @description  Runner fusion Prod/Test + déclenchement sur roundOpened OU changement window._lastRoundId
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -11,30 +11,37 @@
 
 (function () {
     const GAME_WS_DOMAIN = "nft.ws.gomining.com";
-    const TEST_MODE = false;
+    const TEST_MODE = false; // <-- changer pour passer en prod
 
     let lastSentRoundId = null;
-    let lastSeenRoundId = null; // <--- nouvelle variable pour watcher
+    let lastObservedRoundId = null;
     let roundLock = false;
     let currentBoostConfig = null;
-    window._lastRoundId = window._lastRoundId ?? null;
-    window._lastMultiplier = window._lastMultiplier ?? null;
+    let isFirstRound = true; // ⛔ pour éviter le boost au démarrage
+
+    window._lastRoundId = window._lastRoundId || null;
+    window._lastMultiplier = window._lastMultiplier || null;
 
     function nowIso() { return new Date().toISOString().replace("T", " ").replace("Z", ""); }
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-    function uuidv4() { return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    ); }
+    function uuidv4() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
 
+    // --- persistence pending boost ---
     function setPendingBoost(roundId, multiplier) {
         localStorage.setItem("gomining_pending_boost", JSON.stringify({ roundId, multiplier, ts: Date.now() }));
     }
     function clearPendingBoost() { localStorage.removeItem("gomining_pending_boost"); }
     function getPendingBoost() {
-        try { return JSON.parse(localStorage.getItem("gomining_pending_boost")); }
-        catch { return null; }
+        const raw = localStorage.getItem("gomining_pending_boost");
+        if (!raw) return null;
+        try { return JSON.parse(raw); } catch { return null; }
     }
 
+    // --- API ---
     function getBearer() {
         let t = localStorage.getItem('access_token');
         if (t) return t;
@@ -108,6 +115,7 @@
         if (!actions?.length) return;
 
         setPendingBoost(roundId, multiplier);
+
         console.log(`[${nowIso()}] ⚡ Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions`);
 
         for (const { boostId, count, timing } of actions) {
@@ -140,7 +148,7 @@
         }
     })();
 
-    // --- WS interception (prod only) ---
+    // --- WS interception ---
     if (!TEST_MODE) {
         const originalWebSocket = window.WebSocket;
         window.WebSocket = function (url, protocols) {
@@ -148,9 +156,10 @@
             if (url.includes(GAME_WS_DOMAIN)) {
                 console.log("[TM] 🎮 WS interceptée :", url);
                 window.__myws_jeu = ws;
+
                 ws.addEventListener("message", evt => {
-                    if (evt.data.startsWith('42["roundOpened"') && !roundLock) {
-                        triggerBoostSequence("WS roundOpened");
+                    if (evt.data.startsWith('42["roundOpened"')) {
+                        triggerBoost("WS");
                     }
                 });
             }
@@ -159,25 +168,40 @@
         window.WebSocket.prototype = originalWebSocket.prototype;
     }
 
-    // --- RoundId watcher (nouvelle logique) ---
+    // --- Observer sur roundId global ---
+    const roundObserver = new MutationObserver(() => {
+        if (window._lastRoundId && window._lastRoundId !== lastObservedRoundId) {
+            lastObservedRoundId = window._lastRoundId;
+            if (isFirstRound) {
+                console.log(`[TM] ⏭ Premier roundId ${lastObservedRoundId} ignoré (démarrage script).`);
+                isFirstRound = false;
+                return;
+            }
+            triggerBoost("RoundWatcher");
+        }
+    });
+
+    // petit polling sur _lastRoundId
     setInterval(() => {
-        if (window._lastRoundId && window._lastRoundId !== lastSeenRoundId && !roundLock) {
-            lastSeenRoundId = window._lastRoundId;
-            triggerBoostSequence("roundId watcher");
+        if (window._lastRoundId && window._lastRoundId !== lastObservedRoundId) {
+            lastObservedRoundId = window._lastRoundId;
+            if (isFirstRound) {
+                console.log(`[TM] ⏭ Premier roundId ${lastObservedRoundId} ignoré (démarrage script).`);
+                isFirstRound = false;
+                return;
+            }
+            triggerBoost("RoundWatcher");
         }
     }, 500);
 
-    async function triggerBoostSequence(source) {
+    async function triggerBoost(source) {
         if (roundLock) return;
         roundLock = true;
-        console.log(`[TM] 🔔 Nouveau round détecté via ${source} → préparation boost...`);
-        await updateRoundIdFromApi();
         await updateBoostConfig();
-        setTimeout(async () => {
-            try { await performBoost(); }
-            catch (e) { console.error("[TM] Erreur performBoost:", e); }
-            finally { roundLock = false; }
-        }, 0);
+        console.log(`[TM] 🔔 Déclenchement via ${source}, roundId=${window._lastRoundId}`);
+        try { await performBoost(); }
+        catch (e) { console.error("[TM] Erreur performBoost:", e); }
+        finally { roundLock = false; }
     }
 
     // --- Init ---
