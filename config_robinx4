@@ -25,7 +25,15 @@
                         {}
                     ],
                     "4": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "priority": 1,
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        }
                     ],
                     "8": [
                         {
@@ -95,7 +103,15 @@
                         {}
                     ],
                     "4": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "priority": 1,
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        }
                     ],
                     "8": [
                         {
@@ -165,7 +181,15 @@
                         {}
                     ],
                     "4": [
-                        {}
+                        {
+                            "boostId": "powerup",
+                            "priority": 1,
+                            "count": 1,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 2000
+                            }
+                        }
                     ],
                     "8": [
                         {
@@ -463,3 +487,4 @@
         }
     }
 }
+
