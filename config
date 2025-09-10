@@ -152,7 +152,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": ,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -744,7 +744,7 @@
                         {
                             "boostId": "sablier10",
                             "priority": 2,
-                            "count": ,
+                            "count": 4,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
@@ -1225,3 +1225,4 @@
         }
     }
 }
+
