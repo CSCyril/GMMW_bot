@@ -130,7 +130,7 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
                             }
-                        }
+                        },
                         {
                             "boostId": "powerup",
                             "priority": 2,
@@ -157,7 +157,7 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
                             }
-                        }
+                        },
                         {
                             "boostId": "fusee100",
                             "priority": 2,
@@ -722,7 +722,7 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
                             }
-                        }
+                        },
                         {
                             "boostId": "powerup",
                             "priority": 2,
@@ -749,7 +749,7 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
                             }
-                        }
+                        },
                         {
                             "boostId": "fusee100",
                             "priority": 2,
