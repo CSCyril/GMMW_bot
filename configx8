@@ -54,15 +54,6 @@
                                 "clickDelay": 300,
                                 "sequenceDelay": 1100
                             }
-                        },
-                        {
-                            "boostId": "sablier10",
-                            "priority": 2,
-                            "count": 1,
-                            "timing": {
-                                "clickDelay": 300,
-                                "sequenceDelay": 1500
-                            }
                         }
                     ],
                     "16": [
@@ -249,7 +240,7 @@
                         {
                             "boostId": "cible10",
                             "priority": 1,
-                            "count": 6,
+                            "count": 5,
                             "timing": {
                                 "clickDelay": 300,
                                 "sequenceDelay": 1500
