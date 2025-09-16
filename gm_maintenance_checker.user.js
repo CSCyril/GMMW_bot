@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GoMining Maintenance Checker
-// @version      1.2
-// @description  Maintenance automatique
+// @version      1.3
+// @description  Maintenance automatique optimisée
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -12,10 +12,7 @@
 
 (function () {
     const MAINTENANCE_URL = "https://api.gomining.com/api/action/get-maintenance-state";
-    const MAINTENANCE_ID = "2ec728e7-f31f-4df3-b486-5e82a4976563"
-    const GAME_WS_SUBSTRING = "nft.ws.gomining.com";
-
-    let gameSocket = null;
+    const MAINTENANCE_ID = "2ec728e7-f31f-4df3-b486-5e82a4976563";
 
     function uuidv4() {
         return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -44,6 +41,7 @@
         const bearer = getBearer();
         if (!bearer) {
             console.warn("[TM] ❌ Aucun token d'accès détecté.");
+            scheduleNextCheck(5 * 60 * 1000); // recheck dans 5 min
             return;
         }
 
@@ -68,34 +66,42 @@
                     console.log("[TM] ✅ Maintenance terminée → envoi WS");
                     if (window.__myws_jeu && window.__myws_jeu.readyState === 1) {
                         const payload = {
-                            abilityId: MAINTENANCE_ID,  // ← à remplacer dynamiquement
+                            abilityId: MAINTENANCE_ID,
                             idempotencyKey: uuidv4(),
-                            roundId: window._lastRoundId         // ← assure-toi que cette variable est définie plus haut
+                            roundId: window._lastRoundId
                         };
-
                         const msg = "42" + JSON.stringify(["ability", payload]);
                         window.__myws_jeu.send(msg);
                         console.log(`[TM][${nowIso()}] ✅ Ability envoyé via ws.send`, msg);
-
                     } else {
                         console.warn("[TM] ❌ Aucun canal disponible pour envoyer l'ability");
                     }
-                } else {
-                    const secondsLeft = Math.floor((updateFrom.getTime() - Date.now()) / 1000);
-                    console.log(`[TM] ⏳ Maintenance active, reste ${secondsLeft}s`);
-                }
 
+                    // Après envoi, on recheck dans 1h pour être sûr
+                    scheduleNextCheck(60 * 60 * 1000);
+
+                } else {
+                    const delay = updateFrom.getTime() - Date.now() + 5000; // marge de 5s
+                    const secondsLeft = Math.floor((delay) / 1000);
+                    console.log(`[TM] ⏳ Maintenance active, prochain check dans ${secondsLeft}s`);
+                    scheduleNextCheck(delay);
+                }
             } else {
                 console.warn("[TM] ⚠️ updateAvailableFrom invalide ou absent :", json?.data);
+                scheduleNextCheck(5 * 60 * 1000);
             }
-
         } catch (e) {
             console.warn("[TM] ❌ Erreur requête maintenance :", e);
+            scheduleNextCheck(5 * 60 * 1000);
         }
     }
 
+    let nextTimeout = null;
+    function scheduleNextCheck(delay) {
+        if (nextTimeout) clearTimeout(nextTimeout);
+        nextTimeout = setTimeout(checkMaintenanceStatus, delay);
+    }
+
     // === Initialisation ===
-    setTimeout(checkMaintenanceStatus, 30000);             // Premier check après 3 secondes
-    setInterval(checkMaintenanceStatus, 60 * 60 * 1000);  // Vérifie toutes les heures
-    //setInterval(checkMaintenanceStatus, 10000);
+    scheduleNextCheck(30 * 1000); // premier check après 30s
 })();
