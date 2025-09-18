@@ -21,7 +21,7 @@
     window._lastMultiplier = window._lastMultiplier || null;
 
     // Liste des joueurs à surveiller (remplace par les alias réels)
-    const PLAYERS_TO_WATCH = ["Codezeno404", "AutreJoueur1", "AutreJoueur2"];
+    const PLAYERS_TO_WATCH = ["💚 Fanny 💚", "Dany 🚀"];
     let playerPlayed = false;
     let roundStartTimeout = null;
 
