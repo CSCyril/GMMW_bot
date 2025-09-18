@@ -112,17 +112,54 @@
 
     async function updateBoostConfig() {
         const stored = localStorage.getItem("gomining_boost_config");
-        if (!stored) return;
-        let parsed;
-        try { parsed = JSON.parse(stored); } catch { return; }
-        const now = new Date(), day = now.getDay(), hour = now.getHours();
+        const storedTimeRanges = localStorage.getItem("gomining_time_ranges");
+        if (!stored || !storedTimeRanges) return;
+    
+        let parsedConfig, parsedTimeRanges;
+        try {
+            parsedConfig = JSON.parse(stored);
+            parsedTimeRanges = JSON.parse(storedTimeRanges);
+        } catch { return; }
+    
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinutes = now.getMinutes();
+        const currentTime = currentHour * 60 + currentMinutes; // Convertir l'heure actuelle en minutes depuis minuit
+    
         const useDefault = (day === 2 && hour >= 18) || (day > 2 && day < 6) || (day === 6 && hour < 8);
-        const selectedGroup = parsed?.[useDefault ? "default" : "late"];
+        const selectedGroup = parsedConfig?.[useDefault ? "default" : "late"];
+        const selectedGroupName = useDefault ? "default" : "late";
+    
+        // Récupérer les timeRanges pour le groupe sélectionné
+        const timeRanges = parsedTimeRanges[`${selectedGroupName}_low`] ||
+                           parsedTimeRanges[`${selectedGroupName}_mid`] ||
+                           parsedTimeRanges[`${selectedGroupName}_high`];
+    
+        // Vérifier si l'heure actuelle est dans une des plages horaires
+        let isWithinTimeRange = false;
+        for (const range of timeRanges) {
+            const startTime = range.start.split(':').map(Number);
+            const endTime = range.end.split(':').map(Number);
+            const startMinutes = startTime[0] * 60 + startTime[1];
+            const endMinutes = endTime[0] * 60 + endTime[1];
+    
+            if (currentTime >= startMinutes && currentTime < endMinutes) {
+                isWithinTimeRange = true;
+                break;
+            }
+        }
+    
+        if (!isWithinTimeRange) {
+            console.log(`[TM] ⏰ Hors des plages horaires définies pour ${selectedGroupName}.`);
+            return;
+        }
+    
         const hashrate = await getCurrentHashrateEhs();
         if (!hashrate) {
             currentBoostConfig = selectedGroup?.low?.config ?? {};
             return;
         }
+    
         for (const range of Object.values(selectedGroup)) {
             if (hashrate >= range.min && hashrate < range.max) {
                 currentBoostConfig = range.config;
