@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining Boost Runner - Prod + Test Fusion (RoundId Watcher)
-// @version      1.9.3
-// @description  Runner fusion Prod/Test + déclenchement sur roundOpened OU changement window._lastRoundId + gestion des priorités et shuffle
+// @name         GoMining Boost Runner - Prod + Test Fusion (RoundId Watcher + Players Check)
+// @version      1.9.4
+// @description  Runner fusion Prod/Test + déclenchement sur roundOpened OU changement window._lastRoundId + gestion des priorités, shuffle et vérification des joueurs
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -16,9 +16,14 @@
     let lastObservedRoundId = null;
     let roundLock = false;
     let currentBoostConfig = null;
-    let isFirstRound = true; // ⛔ pour éviter le boost au démarrage
+    let isFirstRound = true;
     window._lastRoundId = window._lastRoundId || null;
     window._lastMultiplier = window._lastMultiplier || null;
+
+    // Liste des joueurs à surveiller (remplace par les alias réels)
+    const PLAYERS_TO_WATCH = ["Codezeno404", "AutreJoueur1", "AutreJoueur2"];
+    let playerPlayed = false;
+    let roundStartTimeout = null;
 
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
@@ -114,52 +119,42 @@
         const stored = localStorage.getItem("gomining_boost_config");
         const storedTimeRanges = localStorage.getItem("gomining_time_ranges");
         if (!stored || !storedTimeRanges) return;
-    
         let parsedConfig, parsedTimeRanges;
         try {
             parsedConfig = JSON.parse(stored);
             parsedTimeRanges = JSON.parse(storedTimeRanges);
         } catch { return; }
-    
         const now = new Date();
-        const currentHour = now.getHours();
+        const day = now.getDay();
+        const hour = now.getHours();
         const currentMinutes = now.getMinutes();
-        const currentTime = currentHour * 60 + currentMinutes; // Convertir l'heure actuelle en minutes depuis minuit
-    
+        const currentTime = hour * 60 + currentMinutes;
         const useDefault = (day === 2 && hour >= 18) || (day > 2 && day < 6) || (day === 6 && hour < 8);
-        const selectedGroup = parsedConfig?.[useDefault ? "default" : "late"];
         const selectedGroupName = useDefault ? "default" : "late";
-    
-        // Récupérer les timeRanges pour le groupe sélectionné
+        const selectedGroup = parsedConfig?.[selectedGroupName];
         const timeRanges = parsedTimeRanges[`${selectedGroupName}_low`] ||
                            parsedTimeRanges[`${selectedGroupName}_mid`] ||
                            parsedTimeRanges[`${selectedGroupName}_high`];
-    
-        // Vérifier si l'heure actuelle est dans une des plages horaires
         let isWithinTimeRange = false;
         for (const range of timeRanges) {
-            const startTime = range.start.split(':').map(Number);
-            const endTime = range.end.split(':').map(Number);
-            const startMinutes = startTime[0] * 60 + startTime[1];
-            const endMinutes = endTime[0] * 60 + endTime[1];
-    
+            const [startHour, startMin] = range.start.split(':').map(Number);
+            const [endHour, endMin] = range.end.split(':').map(Number);
+            const startMinutes = startHour * 60 + startMin;
+            const endMinutes = endHour * 60 + endMin;
             if (currentTime >= startMinutes && currentTime < endMinutes) {
                 isWithinTimeRange = true;
                 break;
             }
         }
-    
         if (!isWithinTimeRange) {
             console.log(`[TM] ⏰ Hors des plages horaires définies pour ${selectedGroupName}.`);
             return;
         }
-    
         const hashrate = await getCurrentHashrateEhs();
         if (!hashrate) {
             currentBoostConfig = selectedGroup?.low?.config ?? {};
             return;
         }
-    
         for (const range of Object.values(selectedGroup)) {
             if (hashrate >= range.min && hashrate < range.max) {
                 currentBoostConfig = range.config;
@@ -190,27 +185,20 @@
         const roundId = manualRoundId ?? window._lastRoundId;
         const boostConfigSnapshot = currentBoostConfig;
         if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
-
         let actions = boostConfigSnapshot[multiplier];
         if (!actions?.length) return;
-
-        // Appliquer la logique de priorité et de shuffle
         actions = applyPriorityOrder(actions);
-
         setPendingBoost(roundId, multiplier);
         console.log(`[${nowIso()}] ⚡ Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions`);
-
         for (const { boostId, count, timing } of actions) {
             const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 5000);
             await sleep(seqDelay);
-
             for (let j = 0; j < count; j++) {
                 const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
                 sendAbility(boostId, 1, roundId, clickDelay);
                 await sleep(clickDelay);
             }
         }
-
         lastSentRoundId = roundId;
         clearPendingBoost();
     }
@@ -240,9 +228,37 @@
             if (url.includes(GAME_WS_DOMAIN)) {
                 console.log("[TM] 🎮 WS interceptée :", url);
                 window.__myws_jeu = ws;
+
                 ws.addEventListener("message", evt => {
+                    // Détecter le début du round
                     if (evt.data.startsWith('42["roundOpened"')) {
-                        triggerBoost("WS");
+                        playerPlayed = false;
+                        console.log(`[TM] 🔍 Nouveau round. Surveillance des joueurs : ${PLAYERS_TO_WATCH.join(", ")}...`);
+
+                        // Lancer un timer de 30 secondes
+                        roundStartTimeout = setTimeout(async () => {
+                            if (!playerPlayed) {
+                                console.log(`[TM] ⏳ Aucun des joueurs surveillés n'a joué → Boost autorisé.`);
+                                await triggerBoost("WS");
+                            } else {
+                                console.log(`[TM] ❌ Un joueur surveillé a joué → Boost annulé.`);
+                            }
+                        }, 30000);
+                    }
+
+                    // Détecter les actions des joueurs (abilityUsage)
+                    if (evt.data.startsWith('42["abilityUsage"')) {
+                        try {
+                            const data = JSON.parse(evt.data.slice(2));
+                            const userAlias = data[1]?.userAlias;
+                            if (userAlias && PLAYERS_TO_WATCH.includes(userAlias)) {
+                                playerPlayed = true;
+                                console.log(`[TM] ⚠️ ${userAlias} a joué !`);
+                                clearTimeout(roundStartTimeout);
+                            }
+                        } catch (e) {
+                            console.warn("[TM] Erreur analyse message WS :", e);
+                        }
                     }
                 });
             }
