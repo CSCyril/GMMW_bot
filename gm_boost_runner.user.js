@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner - Prod + Test Fusion (RoundId Watcher)
-// @version      1.9.2
+// @version      1.9.3
 // @description  Runner fusion Prod/Test + déclenchement sur roundOpened OU changement window._lastRoundId + gestion des priorités et shuffle
 // @match        https://app.gomining.com/*
 // @run-at       document-start
