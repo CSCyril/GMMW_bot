@@ -1,17 +1,15 @@
 // ==UserScript==
-// @name         GoMining Boost Runner - Prod + Test Fusion (RoundId Watcher + Players Check)
-// @version      1.9.4
-// @description  Runner fusion Prod/Test + déclenchement sur roundOpened OU changement window._lastRoundId + gestion des priorités, shuffle et vérification des joueurs
+// @name         GoMining Boost Runner - Priorité 1 immédiate
+// @version      1.9.5
+// @description  Boosts prioritaires joués immédiatement, autres après vérification joueurs
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
-// @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
-// @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
 // ==/UserScript==
 
 (function () {
     const GAME_WS_DOMAIN = "nft.ws.gomining.com";
-    const TEST_MODE = false; // <-- changer pour passer en prod
+    const TEST_MODE = false;
     let lastSentRoundId = null;
     let lastObservedRoundId = null;
     let roundLock = false;
@@ -20,7 +18,6 @@
     window._lastRoundId = window._lastRoundId || null;
     window._lastMultiplier = window._lastMultiplier || null;
 
-    // Liste des joueurs à surveiller (remplace par les alias réels)
     const PLAYERS_TO_WATCH = ["💚 Fanny 💚", "Dany 🚀"];
     let playerPlayed = false;
     let roundStartTimeout = null;
@@ -39,7 +36,6 @@
         );
     }
 
-    // --- Fonctions pour gérer les priorités et le shuffle ---
     function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -47,23 +43,6 @@
         }
     }
 
-    function applyPriorityOrder(actions) {
-        const fixed = actions.filter(a => (a.priority ?? 2) === 1);
-        const randomized = actions.filter(a => (a.priority ?? 2) !== 1);
-        shuffle(randomized);
-        const finalSeq = [];
-        let randIndex = 0, fixedIndex = 0;
-        for (let i = 0; i < actions.length; i++) {
-            if ((actions[i].priority ?? 2) === 1) {
-                finalSeq.push(fixed[fixedIndex++]);
-            } else {
-                finalSeq.push(randomized[randIndex++]);
-            }
-        }
-        return finalSeq;
-    }
-
-    // --- persistence pending boost ---
     function setPendingBoost(roundId, multiplier) {
         localStorage.setItem("gomining_pending_boost", JSON.stringify({ roundId, multiplier, ts: Date.now() }));
     }
@@ -78,7 +57,6 @@
         try { return JSON.parse(raw); } catch { return null; }
     }
 
-    // --- API ---
     function getBearer() {
         let t = localStorage.getItem('access_token');
         if (t) return t;
@@ -180,27 +158,50 @@
         }
     }
 
-    async function performBoost(multiplierOverride = null, manualRoundId = null) {
+    async function performBoost(multiplierOverride = null, manualRoundId = null, skipPriorityCheck = false) {
         const multiplier = multiplierOverride ?? window._lastMultiplier;
         const roundId = manualRoundId ?? window._lastRoundId;
         const boostConfigSnapshot = currentBoostConfig;
         if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
+
         let actions = boostConfigSnapshot[multiplier];
         if (!actions?.length) return;
-        actions = applyPriorityOrder(actions);
-        setPendingBoost(roundId, multiplier);
-        console.log(`[${nowIso()}] ⚡ Séquence boost x${multiplier} (roundId ${roundId}) — ${actions.length} actions`);
-        for (const { boostId, count, timing } of actions) {
-            const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 5000);
-            await sleep(seqDelay);
-            for (let j = 0; j < count; j++) {
-                const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
-                sendAbility(boostId, 1, roundId, clickDelay);
-                await sleep(clickDelay);
+
+        // Séparer les actions prioritaires et non-prioritaires
+        const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
+        const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
+
+        // Toujours exécuter les actions prioritaires
+        if (priorityActions.length > 0) {
+            console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${priorityActions.length} actions`);
+            for (const { boostId, count, timing } of priorityActions) {
+                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000);
+                await sleep(seqDelay);
+                for (let j = 0; j < count; j++) {
+                    const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
+                    sendAbility(boostId, 1, roundId, clickDelay);
+                    await sleep(clickDelay);
+                }
             }
         }
-        lastSentRoundId = roundId;
-        clearPendingBoost();
+
+        // Si on ne saute pas les non-prioritaires
+        if (!skipPriorityCheck && otherActions.length > 0) {
+            setPendingBoost(roundId, multiplier);
+            console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${otherActions.length} actions (en attente de vérification joueurs)`);
+            shuffle(otherActions);
+            for (const { boostId, count, timing } of otherActions) {
+                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 5000);
+                await sleep(seqDelay);
+                for (let j = 0; j < count; j++) {
+                    const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
+                    sendAbility(boostId, 1, roundId, clickDelay);
+                    await sleep(clickDelay);
+                }
+            }
+            lastSentRoundId = roundId;
+            clearPendingBoost();
+        }
     }
 
     // --- Replay au reload ---
@@ -230,31 +231,34 @@
                 window.__myws_jeu = ws;
 
                 ws.addEventListener("message", evt => {
-                    // Détecter le début du round
                     if (evt.data.startsWith('42["roundOpened"')) {
                         playerPlayed = false;
-                        console.log(`[TM] 🔍 Nouveau round. Surveillance des joueurs : ${PLAYERS_TO_WATCH.join(", ")}...`);
+                        console.log(`[TM] 🔍 Nouveau round. Exécution des boosts prioritaires...`);
 
-                        // Lancer un timer de 30 secondes
+                        // Exécuter les boosts prioritaires immédiatement
+                        (async () => {
+                            await updateBoostConfig();
+                            await performBoost(null, null, true);
+                        })();
+
+                        // Lancer un timer de 30 secondes pour les boosts non-prioritaires
                         roundStartTimeout = setTimeout(async () => {
                             if (!playerPlayed) {
-                                console.log(`[TM] ⏳ Aucun des joueurs surveillés n'a joué → Boost autorisé.`);
-                                await triggerBoost("WS");
+                                console.log(`[TM] ⏳ Aucun des joueurs surveillés n'a joué → Boosts non-prioritaires autorisés.`);
+                                await performBoost();
                             } else {
-                                console.log(`[TM] ❌ Un joueur surveillé a joué → Boost annulé.`);
+                                console.log(`[TM] ❌ Un joueur surveillé a joué → Boosts non-prioritaires annulés.`);
                             }
                         }, 30000);
                     }
 
-                    // Détecter les actions des joueurs (abilityUsage)
                     if (evt.data.startsWith('42["abilityUsage"')) {
                         try {
                             const data = JSON.parse(evt.data.slice(2));
                             const userAlias = data[1]?.userAlias;
                             if (userAlias && PLAYERS_TO_WATCH.includes(userAlias)) {
                                 playerPlayed = true;
-                                console.log(`[TM] ⚠️ ${userAlias} a joué !`);
-                                clearTimeout(roundStartTimeout);
+                                console.log(`[TM] ⚠️ ${userAlias} a joué ! Les boosts non-prioritaires seront annulés.`);
                             }
                         } catch (e) {
                             console.warn("[TM] Erreur analyse message WS :", e);
@@ -280,7 +284,6 @@
         }
     });
 
-    // Petit polling sur _lastRoundId
     setInterval(() => {
         if (window._lastRoundId && window._lastRoundId !== lastObservedRoundId) {
             lastObservedRoundId = window._lastRoundId;
