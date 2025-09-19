@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining Boost Runner - Priorité 1 immédiate
-// @version      1.9.5
-// @description  Boosts prioritaires joués immédiatement, autres après vérification joueurs
+// @name         GoMining Boost Runner - Priorité 1 immédiate + TimeRanges
+// @version      1.9.6
+// @description  Boosts prioritaires joués immédiatement (si dans les plages horaires), autres après vérification joueurs
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -20,7 +20,7 @@
     window._lastRoundId = window._lastRoundId || null;
     window._lastMultiplier = window._lastMultiplier || null;
 
-    const PLAYERS_TO_WATCH = ["💚 Fanny 💚", "Dany 🚀"];
+    const PLAYERS_TO_WATCH = ["Codezeno404", "AutreJoueur1", "AutreJoueur2"];
     let playerPlayed = false;
     let roundStartTimeout = null;
 
@@ -43,6 +43,40 @@
             const j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
+    }
+
+    function isWithinTimeRanges() {
+        const storedTimeRanges = localStorage.getItem("gomining_time_ranges");
+        if (!storedTimeRanges) return false;
+        let parsedTimeRanges;
+        try {
+            parsedTimeRanges = JSON.parse(storedTimeRanges);
+        } catch {
+            return false;
+        }
+        const now = new Date();
+        const day = now.getDay();
+        const hour = now.getHours();
+        const currentMinutes = now.getMinutes();
+        const currentTime = hour * 60 + currentMinutes;
+        const useDefault = (day === 2 && hour >= 18) || (day > 2 && day < 6) || (day === 6 && hour < 8);
+        const selectedGroupName = useDefault ? "default" : "late";
+        const timeRanges = parsedTimeRanges[`${selectedGroupName}_low`] ||
+                           parsedTimeRanges[`${selectedGroupName}_mid`] ||
+                           parsedTimeRanges[`${selectedGroupName}_high`];
+        if (!timeRanges || timeRanges.length === 0) return true;
+
+        for (const range of timeRanges) {
+            const [startHour, startMin] = range.start.split(':').map(Number);
+            const [endHour, endMin] = range.end.split(':').map(Number);
+            const startMinutes = startHour * 60 + startMin;
+            const endMinutes = endHour * 60 + endMin;
+            if (currentTime >= startMinutes && currentTime < endMinutes) {
+                return true;
+            }
+        }
+        console.log(`[TM] ⏰ Hors des plages horaires autorisées.`);
+        return false;
     }
 
     function setPendingBoost(roundId, multiplier) {
@@ -161,6 +195,12 @@
     }
 
     async function performBoost(multiplierOverride = null, manualRoundId = null, skipPriorityCheck = false) {
+        // Vérifier les plages horaires avant tout
+        if (!isWithinTimeRanges()) {
+            console.log(`[TM] ❌ Hors des plages horaires → Aucun boost ne sera joué.`);
+            return;
+        }
+
         const multiplier = multiplierOverride ?? window._lastMultiplier;
         const roundId = manualRoundId ?? window._lastRoundId;
         const boostConfigSnapshot = currentBoostConfig;
@@ -173,7 +213,7 @@
         const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
         const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
 
-        // Toujours exécuter les actions prioritaires
+        // Toujours exécuter les actions prioritaires (si dans les plages horaires)
         if (priorityActions.length > 0) {
             console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${priorityActions.length} actions`);
             for (const { boostId, count, timing } of priorityActions) {
