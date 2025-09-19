@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining Boost Runner - Sans doublons + TimeRanges
-// @version      1.9.7
-// @description  Fusion des boosts par ID pour éviter les doublons, prioritaires joués immédiatement (si dans les plages horaires)
+// @name         GoMining Boost Runner - Fix doublons et double déclenchement
+// @version      1.9.8
+// @description  Correction du double déclenchement et des doublons de boosts
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -203,8 +203,13 @@
 
         const multiplier = multiplierOverride ?? window._lastMultiplier;
         const roundId = manualRoundId ?? window._lastRoundId;
+        if (roundId === lastSentRoundId) {
+            console.log(`[TM] ⚠️ Round ${roundId} déjà traité.`);
+            return;
+        }
+
         const boostConfigSnapshot = currentBoostConfig;
-        if (!roundId || roundId === lastSentRoundId || !boostConfigSnapshot || !multiplier) return;
+        if (!roundId || !boostConfigSnapshot || !multiplier) return;
 
         let actions = boostConfigSnapshot[multiplier];
         if (!actions?.length) return;
@@ -228,14 +233,11 @@
             }
         });
 
-        // Convertir l'objet en tableau
         const uniqueActions = Object.values(mergedActions);
-
-        // Séparer à nouveau en prioritaires et non-prioritaires (après fusion)
         const finalPriorityActions = uniqueActions.filter(a => a.priority === 1);
         const finalOtherActions = uniqueActions.filter(a => a.priority !== 1);
 
-        // Toujours exécuter les actions prioritaires (si dans les plages horaires)
+        // Toujours exécuter les actions prioritaires
         if (finalPriorityActions.length > 0) {
             console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${finalPriorityActions.length} actions`);
             for (const { boostId, count, timing } of finalPriorityActions) {
@@ -247,6 +249,7 @@
                     await sleep(clickDelay);
                 }
             }
+            lastSentRoundId = roundId; // Mettre à jour après les prioritaires
         }
 
         // Si on ne saute pas les non-prioritaires
@@ -263,7 +266,6 @@
                     await sleep(clickDelay);
                 }
             }
-            lastSentRoundId = roundId;
             clearPendingBoost();
         }
     }
@@ -296,13 +298,14 @@
 
                 ws.addEventListener("message", evt => {
                     if (evt.data.startsWith('42["roundOpened"')) {
+                        if (roundLock) return;
+                        roundLock = true;
                         playerPlayed = false;
                         console.log(`[TM] 🔍 Nouveau round. Exécution des boosts prioritaires...`);
-
-                        // Exécuter les boosts prioritaires immédiatement
                         (async () => {
                             await updateBoostConfig();
                             await performBoost(null, null, true);
+                            roundLock = false;
                         })();
 
                         // Lancer un timer de 30 secondes pour les boosts non-prioritaires
@@ -362,6 +365,10 @@
 
     async function triggerBoost(source) {
         if (roundLock) return;
+        if (source === "RoundWatcher" && window._lastRoundId === lastSentRoundId) {
+            console.log(`[TM] ⚠️ Round ${window._lastRoundId} déjà traité via WS, ignoré.`);
+            return;
+        }
         roundLock = true;
         await updateBoostConfig();
         console.log(`[TM] 🔔 Déclenchement via ${source}, roundId=${window._lastRoundId}`);
