@@ -72,16 +72,48 @@
                         {}
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 5,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 7,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "256": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 9,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ]
                 }
             },
@@ -143,16 +175,48 @@
                         {}
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 5,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 7,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "256": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 9,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ]
                 }
             },
@@ -214,16 +278,48 @@
                         {}
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 5,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 7,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "256": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 9,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ]
                 }
             }
@@ -287,16 +383,48 @@
                         {}
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 5,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 7,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "256": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 9,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ]
                 }
             },
@@ -358,16 +486,48 @@
                         {}
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 5,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 7,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "256": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 9,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ]
                 }
             },
@@ -429,16 +589,48 @@
                         {}
                     ],
                     "32": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 3,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "64": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 5,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "128": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 7,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ],
                     "256": [
-                        {}
+                        {
+                            "boostId": "cible100",
+                            "priority": 1,
+                            "count": 9,
+                            "timing": {
+                                "clickDelay": 300,
+                                "sequenceDelay": 1500
+                            }
+                        }
                     ]
                 }
             }
