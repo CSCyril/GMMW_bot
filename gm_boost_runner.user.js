@@ -20,7 +20,7 @@
     window._lastRoundId = window._lastRoundId || null;
     window._lastMultiplier = window._lastMultiplier || null;
 
-    const PLAYERS_TO_WATCH = ["Codezeno404", "AutreJoueur1", "AutreJoueur2"];
+    const PLAYERS_TO_WATCH = ["💚 Fanny 💚", "Dany 🚀"];
     let playerPlayed = false;
     let roundStartTimeout = null;
 
