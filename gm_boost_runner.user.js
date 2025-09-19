@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining Boost Runner - Priorité 1 immédiate + TimeRanges
-// @version      1.9.6
-// @description  Boosts prioritaires joués immédiatement (si dans les plages horaires), autres après vérification joueurs
+// @name         GoMining Boost Runner - Sans doublons + TimeRanges
+// @version      1.9.7
+// @description  Fusion des boosts par ID pour éviter les doublons, prioritaires joués immédiatement (si dans les plages horaires)
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -213,10 +213,32 @@
         const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
         const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
 
+        // Fusionner les actions par boostId (pour éviter les doublons)
+        const mergedActions = {};
+        [...priorityActions, ...otherActions].forEach(action => {
+            const { boostId, count, timing, priority } = action;
+            if (mergedActions[boostId]) {
+                mergedActions[boostId].count += count;
+                if (priority === 1) {
+                    mergedActions[boostId].priority = 1;
+                    mergedActions[boostId].timing = timing;
+                }
+            } else {
+                mergedActions[boostId] = { ...action };
+            }
+        });
+
+        // Convertir l'objet en tableau
+        const uniqueActions = Object.values(mergedActions);
+
+        // Séparer à nouveau en prioritaires et non-prioritaires (après fusion)
+        const finalPriorityActions = uniqueActions.filter(a => a.priority === 1);
+        const finalOtherActions = uniqueActions.filter(a => a.priority !== 1);
+
         // Toujours exécuter les actions prioritaires (si dans les plages horaires)
-        if (priorityActions.length > 0) {
-            console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${priorityActions.length} actions`);
-            for (const { boostId, count, timing } of priorityActions) {
+        if (finalPriorityActions.length > 0) {
+            console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${finalPriorityActions.length} actions`);
+            for (const { boostId, count, timing } of finalPriorityActions) {
                 const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000);
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
@@ -228,11 +250,11 @@
         }
 
         // Si on ne saute pas les non-prioritaires
-        if (!skipPriorityCheck && otherActions.length > 0) {
+        if (!skipPriorityCheck && finalOtherActions.length > 0) {
             setPendingBoost(roundId, multiplier);
-            console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${otherActions.length} actions (en attente de vérification joueurs)`);
-            shuffle(otherActions);
-            for (const { boostId, count, timing } of otherActions) {
+            console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${finalOtherActions.length} actions (en attente de vérification joueurs)`);
+            shuffle(finalOtherActions);
+            for (const { boostId, count, timing } of finalOtherActions) {
                 const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 5000);
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
