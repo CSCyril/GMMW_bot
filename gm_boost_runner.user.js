@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining Boost Runner - Fix doublons et double déclenchement
-// @version      1.9.8
-// @description  Correction du double déclenchement et des doublons de boosts
+// @name         GoMining Boost Runner
+// @version      1.9.9
+// @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -218,7 +218,7 @@
         const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
         const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
 
-        // Fusionner les actions par boostId (pour éviter les doublons)
+        // Fusionner les actions par boostId
         const mergedActions = {};
         [...priorityActions, ...otherActions].forEach(action => {
             const { boostId, count, timing, priority } = action;
@@ -249,7 +249,6 @@
                     await sleep(clickDelay);
                 }
             }
-            lastSentRoundId = roundId; // Mettre à jour après les prioritaires
         }
 
         // Si on ne saute pas les non-prioritaires
@@ -266,6 +265,7 @@
                     await sleep(clickDelay);
                 }
             }
+            lastSentRoundId = roundId; // Mettre à jour après les non-prioritaires
             clearPendingBoost();
         }
     }
@@ -305,7 +305,7 @@
                         (async () => {
                             await updateBoostConfig();
                             await performBoost(null, null, true);
-                            roundLock = false;
+                            // NE PAS METTRE roundLock = false ici
                         })();
 
                         // Lancer un timer de 30 secondes pour les boosts non-prioritaires
@@ -316,6 +316,7 @@
                             } else {
                                 console.log(`[TM] ❌ Un joueur surveillé a joué → Boosts non-prioritaires annulés.`);
                             }
+                            roundLock = false; // Libérer le verrou ici
                         }, 30000);
                     }
 
