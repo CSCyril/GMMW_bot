@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.9
+// @version      1.9.10
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -200,24 +200,24 @@
             console.log(`[TM] ❌ Hors des plages horaires → Aucun boost ne sera joué.`);
             return;
         }
-
+    
         const multiplier = multiplierOverride ?? window._lastMultiplier;
         const roundId = manualRoundId ?? window._lastRoundId;
         if (roundId === lastSentRoundId) {
             console.log(`[TM] ⚠️ Round ${roundId} déjà traité.`);
             return;
         }
-
+    
         const boostConfigSnapshot = currentBoostConfig;
         if (!roundId || !boostConfigSnapshot || !multiplier) return;
-
+    
         let actions = boostConfigSnapshot[multiplier];
         if (!actions?.length) return;
-
+    
         // Séparer les actions prioritaires et non-prioritaires
         const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
         const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
-
+    
         // Fusionner les actions par boostId
         const mergedActions = {};
         [...priorityActions, ...otherActions].forEach(action => {
@@ -232,13 +232,13 @@
                 mergedActions[boostId] = { ...action };
             }
         });
-
+    
         const uniqueActions = Object.values(mergedActions);
         const finalPriorityActions = uniqueActions.filter(a => a.priority === 1);
         const finalOtherActions = uniqueActions.filter(a => a.priority !== 1);
-
-        // Toujours exécuter les actions prioritaires
-        if (finalPriorityActions.length > 0) {
+    
+        // ⚡ Exécuter uniquement les boosts prioritaires si skipPriorityCheck = true
+        if (skipPriorityCheck && finalPriorityActions.length > 0) {
             console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${finalPriorityActions.length} actions`);
             for (const { boostId, count, timing } of finalPriorityActions) {
                 const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000);
@@ -250,8 +250,8 @@
                 }
             }
         }
-
-        // Si on ne saute pas les non-prioritaires
+    
+        // ⏳ Exécuter uniquement les non-prioritaires si skipPriorityCheck = false
         if (!skipPriorityCheck && finalOtherActions.length > 0) {
             setPendingBoost(roundId, multiplier);
             console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${finalOtherActions.length} actions (en attente de vérification joueurs)`);
