@@ -1,8 +1,9 @@
 // ==UserScript==
-// @name         GoMining Participants Abilities Tracker + Price (filtered + league + name)
+// @name         GoMining Participants Abilities Tracker + Power + EE + PUP
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Cumule usedAbilities par nftGameAbilityId et calcule le total priceInGMT pour des participants spécifiques sur tous les rounds d'un cycle et d'une league donnée, avec le nom de l'ability
+// @version      2.0
+// @description  Track participants abilities, calculate power, EE, PPS and update Power Up Boost price
+// @author       CSCyril
 // @match        https://app.gomining.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        unsafeWindow
@@ -35,8 +36,7 @@
                 },
                 onload: function(response) {
                     try {
-                        const json = JSON.parse(response.responseText);
-                        resolve(json);
+                        resolve(JSON.parse(response.responseText));
                     } catch (e) {
                         console.error("❌ Impossible de parser JSON:", e);
                         resolve(null);
@@ -95,6 +95,20 @@
         return priceMap;
     }
 
+    async function fetchClanData(clanId) {
+        const token = getAccessToken();
+        if (!token) { console.error("❌ Impossible de trouver access_token"); return null; }
+        return await postRequest("https://api.gomining.com/api/nft-game/clan/get-by-id", { clanId, pagination:{limit:10, skip:0, count:0}, filters:{filterType:"none"}, sort:{sortType:"none"} }, token);
+    }
+
+    function getUserStatsFromClan(clanData, userId) {
+        const user = clanData?.data?.usersForClient?.find(u => u.id === userId);
+        return {
+            power: user?.power || 0,
+            ee: user?.ee || 0
+        };
+    }
+
     async function getParticipantsAbilities(cycleId, filterNames = [], leagueId = 4) {
         const token = getAccessToken();
         if (!token) { console.error("❌ Impossible de trouver access_token"); return []; }
@@ -103,7 +117,7 @@
         console.log(`📦 Total rounds: ${roundIds.length} (league ${leagueId})`);
 
         const priceMap = await fetchAbilitiesPriceMap();
-        const participantsMap = {}; // { name -> { nftGameAbilityId -> totalCount } }
+        const participantsMap = {}; // { userId -> { alias, clanId, abilities } }
 
         for(const roundId of roundIds) {
             const leaderboard = await postRequest("https://api.gomining.com/api/nft-game/round/user-leaderboard", {
@@ -113,18 +127,21 @@
 
             if(leaderboard?.data?.participants) {
                 for(const p of leaderboard.data.participants) {
-                    const name = p.user.alias;
-                    if(filterNames.length && !filterNames.includes(name)) continue;
+                    const userId = p.user.id;
+                    const alias = p.user.alias;
+                    const clanId = p.clan?.id;
 
-                    if(!participantsMap[name]) participantsMap[name] = {};
+                    if(filterNames.length && !filterNames.includes(alias)) continue;
+
+                    if(!participantsMap[userId]) participantsMap[userId] = { alias, clanId, abilities: {} };
 
                     for(const ability of p.usedAbilities) {
                         const id = ability.nftGameAbilityId;
                         const count = ability.count || 0;
-                        if(participantsMap[name][id]) {
-                            participantsMap[name][id] += count;
+                        if(participantsMap[userId].abilities[id]) {
+                            participantsMap[userId].abilities[id] += count;
                         } else {
-                            participantsMap[name][id] = count;
+                            participantsMap[userId].abilities[id] = count;
                         }
                     }
                 }
@@ -132,24 +149,40 @@
             console.log(`✅ Round ${roundId} traité`);
         }
 
-        // Transformer en tableau avec name de l'ability et price
-        const result = Object.entries(participantsMap).map(([name, abilities]) => {
-            const detailedAbilities = Object.entries(abilities).map(([id, count]) => {
-                const priceInGMT = priceMap[id]?.priceInGMT || 0;
+        const result = [];
+        for(const [userId, pData] of Object.entries(participantsMap)) {
+            const clanData = await fetchClanData(pData.clanId);
+            const { power, ee } = getUserStatsFromClan(clanData, parseInt(userId));
+            const pps = ee ? (power * 28)/ee : 0;
+            const pup = (pps/18)*0.7;
+
+            const detailedAbilities = Object.entries(pData.abilities).map(([id, count]) => {
+                let priceInGMT = priceMap[id]?.priceInGMT || 0;
                 const abilityName = priceMap[id]?.name || id;
+                if(abilityName === "Power Up Boost") priceInGMT = pup;
                 return { name: abilityName, count, priceInGMT, totalPrice: priceInGMT * count };
             });
 
             const totalGMT = detailedAbilities.reduce((sum, a) => sum + a.totalPrice, 0);
 
-            return { name, abilities: detailedAbilities, totalGMT };
-        });
+            result.push({
+                userId: parseInt(userId),
+                name: pData.alias,
+                clanId: pData.clanId,
+                power,
+                ee,
+                pps,
+                pup,
+                abilities: detailedAbilities,
+                totalGMT
+            });
+        }
 
-        console.log("🎯 Résultat final filtré + nom + prix:", result);
+        console.log("🎯 Résultat final:", result);
         return result;
     }
 
     // Expose
     unsafeWindow.getParticipantsAbilities = getParticipantsAbilities;
-    console.log("🔧 Utilise getParticipantsAbilities(cycleId, [names], leagueId) pour lancer le calcul filtré par league avec nom et priceInGMT");
+    console.log("🔧 Utilise getParticipantsAbilities(cycleId, [names], leagueId) pour lancer le calcul filtré avec power, ee, pps et pup");
 })();
