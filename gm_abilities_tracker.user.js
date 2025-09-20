@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      2.0
 // @description  Track participants abilities, calculate power, EE, PPS and update Power Up Boost price
-// @author       CSCyril
+// @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        unsafeWindow
