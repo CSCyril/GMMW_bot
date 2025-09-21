@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining BoostConfig Loader
-// @version      1.4
+// @version      1.5
 // @description  Charge la configuration des boosts depuis un document externe (incluant les timeRanges)
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
@@ -18,14 +18,12 @@
         const clickDelays = {};
         const sequenceDelays = {};
         const timeRanges = {}; // Ajout d'un objet pour stocker les timeRanges
-
         for (const [groupName, group] of Object.entries(config)) {
             for (const [levelName, level] of Object.entries(group)) {
-                // Stocker les timeRanges pour chaque niveau
-                timeRanges[`${groupName}_${levelName}`] = level.timeRanges;
-
-                for (const multKey of Object.keys(level.config)) {
-                    level.config[multKey] = level.config[multKey].map(entry => {
+                for (const [multKey, multConfig] of Object.entries(level.config)) {
+                    // Stocker les timeRanges pour chaque multiplicateur
+                    timeRanges[`${groupName}_${levelName}_${multKey}`] = multConfig.timeRanges;
+                    multConfig.boosts = multConfig.boosts.map(entry => {
                         if (entry.boostId) { // Vérifiez si l'entrée a un boostId
                             const originalId = entry.boostId;
                             const uuid = boostIds[originalId] || originalId;
@@ -47,7 +45,6 @@
                 }
             }
         }
-
         return { boostConfig: config, clickDelays, sequenceDelays, timeRanges };
     }
 
