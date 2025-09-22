@@ -28,7 +28,15 @@
                             {"start": "14:00", "end": "18:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "cible10",
+                                "priority": 1,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 1500
+                                }
+                            }
                         ]
                     },
                     "2": {
@@ -304,7 +312,15 @@
                             {"start": "14:00", "end": "18:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "cible10",
+                                "priority": 1,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 1500
+                                }
+                            }
                         ]
                     },
                     "2": {
@@ -535,7 +551,15 @@
                             {"start": "14:00", "end": "18:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "cible10",
+                                "priority": 1,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 1500
+                                }
+                            }
                         ]
                     },
                     "2": {
@@ -803,7 +827,15 @@
                             {"start": "14:00", "end": "18:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "cible10",
+                                "priority": 1,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 1500
+                                }
+                            }
                         ]
                     },
                     "2": {
@@ -1105,7 +1137,15 @@
                             {"start": "14:00", "end": "18:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "cible10",
+                                "priority": 1,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 1500
+                                }
+                            }
                         ]
                     },
                     "2": {
@@ -1362,7 +1402,15 @@
                             {"start": "14:00", "end": "18:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "cible10",
+                                "priority": 1,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 1500
+                                }
+                            }
                         ]
                     },
                     "2": {
