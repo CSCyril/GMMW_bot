@@ -187,7 +187,7 @@
 
         // Construire la clé pour la configuration de boost
         const boostConfigKey = `${selectedGroupName}_${level}_${multiplier}`;
-        currentBoostConfig = parsedConfig[boostConfigKey]?.config ?? {};
+        currentBoostConfig = parsedConfig[boostConfigKey]?.boosts ?? {};
     }
     function sendAbility(boostId, count, roundId, clickDelay = 250) {
         for (let i = 0; i < count; i++) {
