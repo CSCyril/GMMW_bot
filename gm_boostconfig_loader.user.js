@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining BoostConfig Loader
-// @version      1.5
-// @description  Charge la configuration des boosts depuis un document externe (incluant les timeRanges)
+// @name         GoMining BoostConfig Loader (Flat Fixed)
+// @version      1.6
+// @description  Charge la configuration des boosts depuis un document externe (aplanie et avec timings)
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @grant        GM_xmlhttpRequest
@@ -15,37 +15,40 @@
 
     function resolveConfig(raw) {
         const { boostIds, config } = raw;
-        const clickDelays = {};
-        const sequenceDelays = {};
-        const timeRanges = {}; // Ajout d'un objet pour stocker les timeRanges
+        const flatConfig = {};
+        const timeRanges = {};
+
         for (const [groupName, group] of Object.entries(config)) {
             for (const [levelName, level] of Object.entries(group)) {
                 for (const [multKey, multConfig] of Object.entries(level.config)) {
-                    // Stocker les timeRanges pour chaque multiplicateur
-                    timeRanges[`${groupName}_${levelName}_${multKey}`] = multConfig.timeRanges;
-                    multConfig.boosts = multConfig.boosts.map(entry => {
-                        if (entry.boostId) { // Vérifiez si l'entrée a un boostId
+                    const key = `${groupName}_${levelName}_${multKey}`;
+
+                    // Remplacer les boostIds par leurs UUIDs et garder timing
+                    const boosts = (multConfig.boosts || [])
+                        .map(entry => {
+                            if (!entry.boostId) return null;
                             const originalId = entry.boostId;
                             const uuid = boostIds[originalId] || originalId;
-                            if (entry.timing) {
-                                clickDelays[uuid] = entry.timing.clickDelay;
-                                sequenceDelays[uuid] = entry.timing.sequenceDelay;
-                                delete entry.timing;
-                            }
                             return {
                                 boostId: uuid,
                                 count: entry.count,
-                                priority: entry.priority
+                                priority: entry.priority,
+                                timing: entry.timing // ✅ garder timing
                             };
-                        } else {
-                            // Gérer les entrées sans boostId (par exemple, des objets vides)
-                            return {};
-                        }
-                    }).filter(entry => entry.boostId); // Filtrer les entrées sans boostId
+                        })
+                        .filter(Boolean);
+
+                    flatConfig[key] = {
+                        timeRanges: multConfig.timeRanges || level.timeRanges || [],
+                        boosts
+                    };
+
+                    timeRanges[key] = flatConfig[key].timeRanges;
                 }
             }
         }
-        return { boostConfig: config, clickDelays, sequenceDelays, timeRanges };
+
+        return { boostConfig: flatConfig, timeRanges };
     }
 
     GM_xmlhttpRequest({
@@ -56,11 +59,11 @@
             try {
                 const raw = JSON.parse(res.responseText);
                 const parsed = resolveConfig(raw);
+
                 localStorage.setItem("gomining_boost_config", JSON.stringify(parsed.boostConfig));
-                localStorage.setItem("gomining_click_delays", JSON.stringify(parsed.clickDelays));
-                localStorage.setItem("gomining_sequence_delays", JSON.stringify(parsed.sequenceDelays));
-                localStorage.setItem("gomining_time_ranges", JSON.stringify(parsed.timeRanges)); // Stocker les timeRanges
-                console.log("[TM:Config] 📦 Boost config (with timeRanges) enregistrée avec succès");
+                localStorage.setItem("gomining_time_ranges", JSON.stringify(parsed.timeRanges));
+
+                console.log("[TM:Config] 📦 Boost config corrigée enregistrée avec succès");
             } catch (e) {
                 console.warn("[TM:Config] ❌ Erreur parsing config :", e);
             }
