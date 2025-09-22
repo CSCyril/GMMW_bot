@@ -268,10 +268,10 @@
             console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${finalOtherActions.length} actions (en attente de vérification joueurs)`);
             shuffle(finalOtherActions);
             for (const { boostId, count, timing } of finalOtherActions) {
-                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 5000);
+                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 750);
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
-                    const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
+                    const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
                     sendAbility(boostId, 1, roundId, clickDelay);
                     await sleep(clickDelay);
                 }
