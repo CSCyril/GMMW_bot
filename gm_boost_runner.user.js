@@ -222,7 +222,7 @@
         const boostConfigSnapshot = currentBoostConfig;
         if (!roundId || !boostConfigSnapshot || !multiplier) return;
 
-        let actions = boostConfigSnapshot[multiplier];
+        let actions = boostConfigSnapshot;
         if (!actions?.length) return;
 
         // Séparer les actions prioritaires et non-prioritaires
