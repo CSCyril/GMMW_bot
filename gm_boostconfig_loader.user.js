@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         GoMining BoostConfig Loader (Flat Fixed)
-// @version      1.6
-// @description  Charge la configuration des boosts depuis un document externe (aplanie et avec timings)
+// @name         GoMining BoostConfig Loader (Flat Fixed + Level Ranges)
+// @version      1.7
+// @description  Charge la configuration des boosts depuis un document externe, aplatie, avec timings et min/max
 // @author       CyrilG.
 // @match        https://app.gomining.com/*
 // @grant        GM_xmlhttpRequest
@@ -17,9 +17,12 @@
         const { boostIds, config } = raw;
         const flatConfig = {};
         const timeRanges = {};
+        const levelRanges = {}; // <-- nouveau, stocke min/max par level
 
         for (const [groupName, group] of Object.entries(config)) {
+            levelRanges[groupName] = {};
             for (const [levelName, level] of Object.entries(group)) {
+                levelRanges[groupName][levelName] = { min: level.min, max: level.max };
                 for (const [multKey, multConfig] of Object.entries(level.config)) {
                     const key = `${groupName}_${levelName}_${multKey}`;
 
@@ -48,7 +51,7 @@
             }
         }
 
-        return { boostConfig: flatConfig, timeRanges };
+        return { boostConfig: flatConfig, timeRanges, levelRanges };
     }
 
     GM_xmlhttpRequest({
@@ -62,6 +65,7 @@
 
                 localStorage.setItem("gomining_boost_config", JSON.stringify(parsed.boostConfig));
                 localStorage.setItem("gomining_time_ranges", JSON.stringify(parsed.timeRanges));
+                localStorage.setItem("gomining_level_ranges", JSON.stringify(parsed.levelRanges)); // <-- nouveau
 
                 console.log("[TM:Config] 📦 Boost config corrigée enregistrée avec succès");
             } catch (e) {
