@@ -252,7 +252,7 @@
         if (skipPriorityCheck && finalPriorityActions.length > 0) {
             console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${finalPriorityActions.length} actions`);
             for (const { boostId, count, timing } of finalPriorityActions) {
-                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 500);
+                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 750);
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
                     const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
