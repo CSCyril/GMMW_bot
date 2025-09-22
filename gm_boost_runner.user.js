@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.11
+// @version      1.9.12
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -22,7 +22,6 @@
     const PLAYERS_TO_WATCH = ["💚 Fanny 💚", "Dany 🚀"];
     let playerPlayed = false;
     let roundStartTimeout = null;
-    
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
     }
@@ -362,4 +361,22 @@
     updateBoostConfig().then(() => {
         console.log(TEST_MODE ? "[TEST MODE] Runner prêt." : "[TM] Runner prêt pour prod.");
     });
+
+    // Ajouter la fonction simulateRound pour le mode test
+    function simulateRound(mult) {
+        if (!TEST_MODE) {
+            console.log("Le mode test doit être activé pour utiliser simulateRound.");
+            return;
+        }
+        // Définir un roundId de test
+        window._lastRoundId = "test_round_id";
+        // Définir le multiplicateur de test
+        window._lastMultiplier = mult;
+        console.log(`[TEST] Simulation d'un round avec le multiplicateur ${mult}`);
+        // Appeler performBoost pour simuler l'envoi des boosts
+        performBoost(mult, "test_round_id");
+    }
+
+    // Rendre la fonction disponible dans la console
+    window.simulateRound = simulateRound;
 })();
