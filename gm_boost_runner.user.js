@@ -283,17 +283,21 @@
     // --- Replay au reload ---
     (async function checkPending() {
         const pend = getPendingBoost();
-        if (pend) {
-            console.log("[TM] 🔁 Pending boost trouvé :", pend);
-            await updateRoundIdFromApi();
-            await updateBoostConfig();
-            if (pend.roundId === window._lastRoundId) {
-                console.log("[TM] ➡️ Rejeu du boost manqué round", pend.roundId);
-                performBoost(pend.multiplier, pend.roundId);
-            } else {
-                console.log("[TM] ❌ RoundId expiré, on nettoie le pending.");
-                clearPendingBoost();
-            }
+        if (!pend) return;
+    
+        console.log("[TM] 🔁 Pending boost trouvé :", pend);
+        await updateRoundIdFromApi();
+        await updateBoostConfig();
+    
+        if (pend.roundId === window._lastRoundId) {
+            console.log("[TM] ➡️ Premier round après reload, reprise du pending boost", pend.roundId);
+            // On joue uniquement le pending, pas toute la config
+            await performBoost(pend.multiplier, pend.roundId, true);
+            clearPendingBoost();
+        } else {
+            console.log("[TM] ➡️ Pending boost pour round antérieur, on peut ignorer ou traiter selon logique");
+            // Ici tu peux décider de rejouer ou de nettoyer si le round est déjà passé
+            clearPendingBoost();
         }
     })();
     // --- WS interception ---
