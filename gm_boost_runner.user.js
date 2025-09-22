@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.16
+// @version      1.9.17
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -252,7 +252,7 @@
         if (skipPriorityCheck && finalPriorityActions.length > 0) {
             console.log(`[${nowIso()}] ⚡ Boosts prioritaires x${multiplier} (roundId ${roundId}) — ${finalPriorityActions.length} actions`);
             for (const { boostId, count, timing } of finalPriorityActions) {
-                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000);
+                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 500);
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
                     const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
@@ -268,7 +268,7 @@
             console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${finalOtherActions.length} actions (en attente de vérification joueurs)`);
             shuffle(finalOtherActions);
             for (const { boostId, count, timing } of finalOtherActions) {
-                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) * 1000 + Math.random() * 5000);
+                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 5000);
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
                     const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 2000);
@@ -284,11 +284,11 @@
     (async function checkPending() {
         const pend = getPendingBoost();
         if (!pend) return;
-    
+
         console.log("[TM] 🔁 Pending boost trouvé :", pend);
         await updateRoundIdFromApi();
         await updateBoostConfig();
-    
+
         if (pend.roundId === window._lastRoundId) {
             console.log("[TM] ➡️ Premier round après reload, reprise du pending boost", pend.roundId);
             // On joue uniquement le pending, pas toute la config
@@ -405,7 +405,7 @@
         window._lastMultiplier = mult;
         console.log(`[TEST] Simulation d'un round avec le multiplicateur ${mult}`);
         // Appeler performBoost pour simuler l'envoi des boosts
-        performBoost(mult, "test_round_id");
+        performBoost(mult, "test_round_id", true);
     }
 
     // Rendre la fonction disponible dans la console
