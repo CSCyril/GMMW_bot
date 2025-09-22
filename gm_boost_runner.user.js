@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.12
+// @version      1.9.13
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -8,10 +8,9 @@
 // @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
 // @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
 // ==/UserScript==
-
 (function () {
     const GAME_WS_DOMAIN = "nft.ws.gomining.com";
-    const TEST_MODE = false;
+    const TEST_MODE = false; // Activer le mode test
     let lastSentRoundId = null;
     let lastObservedRoundId = null;
     let roundLock = false;
@@ -39,7 +38,26 @@
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
-    function isWithinTimeRanges() {
+    function getLevelFromHashrate(hashrate, selectedGroupName) {
+        const stored = localStorage.getItem("gomining_boost_config");
+        if (!stored) return "low";
+        let parsedConfig;
+        try {
+            parsedConfig = JSON.parse(stored);
+        } catch { return "low"; }
+
+        const selectedGroup = parsedConfig?.[selectedGroupName];
+        if (!selectedGroup) return "low";
+
+        for (const [level, range] of Object.entries(selectedGroup)) {
+            if (hashrate >= range.min && hashrate < range.max) {
+                return level;
+            }
+        }
+
+        return "low";
+    }
+    async function isWithinTimeRanges() {
         const storedTimeRanges = localStorage.getItem("gomining_time_ranges");
         if (!storedTimeRanges) return false;
         let parsedTimeRanges;
@@ -58,8 +76,13 @@
         const multiplier = window._lastMultiplier;
         if (multiplier === null || multiplier === undefined) return false;
 
-        // Construire la clé pour le multiplicateur actuel
-        const timeRangeKey = `${selectedGroupName}_low_${multiplier}`;
+        // Obtenir le hashrate actuel
+        const hashrate = await getCurrentHashrateEhs();
+        // Déterminer le niveau en fonction du hashrate
+        const level = hashrate ? getLevelFromHashrate(hashrate, selectedGroupName) : "low";
+
+        // Construire la clé pour le multiplicateur actuel et le niveau
+        const timeRangeKey = `${selectedGroupName}_${level}_${multiplier}`;
         const timeRanges = parsedTimeRanges[timeRangeKey];
         if (!timeRanges || timeRanges.length === 0) return true;
 
@@ -72,7 +95,7 @@
                 return true;
             }
         }
-        console.log(`[TM] ⏰ Hors des plages horaires autorisées pour le multiplicateur ${multiplier}.`);
+        console.log(`[TM] ⏰ Hors des plages horaires autorisées pour le multiplicateur ${multiplier} et le niveau ${level}.`);
         return false;
     }
     function setPendingBoost(roundId, multiplier) {
@@ -138,8 +161,13 @@
         const multiplier = window._lastMultiplier;
         if (multiplier === null || multiplier === undefined) return;
 
-        // Construire la clé pour le multiplicateur actuel
-        const timeRangeKey = `${selectedGroupName}_low_${multiplier}`;
+        // Obtenir le hashrate actuel
+        const hashrate = await getCurrentHashrateEhs();
+        // Déterminer le niveau en fonction du hashrate
+        const level = hashrate ? getLevelFromHashrate(hashrate, selectedGroupName) : "low";
+
+        // Construire la clé pour le multiplicateur actuel et le niveau
+        const timeRangeKey = `${selectedGroupName}_${level}_${multiplier}`;
         const timeRanges = parsedTimeRanges[timeRangeKey];
         let isWithinTimeRange = false;
         if (timeRanges) {
@@ -159,8 +187,8 @@
             return;
         }
 
-        // Pour l'instant, nous supposons que la configuration de boost est structurée de manière similaire
-        const boostConfigKey = `${selectedGroupName}_low_${multiplier}`;
+        // Construire la clé pour la configuration de boost
+        const boostConfigKey = `${selectedGroupName}_${level}_${multiplier}`;
         currentBoostConfig = parsedConfig[boostConfigKey]?.config ?? {};
     }
     function sendAbility(boostId, count, roundId, clickDelay = 250) {
@@ -180,7 +208,8 @@
     }
     async function performBoost(multiplierOverride = null, manualRoundId = null, skipPriorityCheck = false) {
         // Vérifier les plages horaires avant tout
-        if (!isWithinTimeRanges()) {
+        const isWithinRanges = await isWithinTimeRanges();
+        if (!isWithinRanges) {
             console.log(`[TM] ❌ Hors des plages horaires → Aucun boost ne sera joué.`);
             return;
         }
