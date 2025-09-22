@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.15
+// @version      1.9.16
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -39,22 +39,20 @@
         }
     }
     function getLevelFromHashrate(hashrate, selectedGroupName) {
-        const stored = localStorage.getItem("gomining_boost_config");
+        const stored = localStorage.getItem("gomining_level_ranges");
         if (!stored) return "low";
-        let parsedConfig;
-        try {
-            parsedConfig = JSON.parse(stored);
-        } catch { return "low"; }
-
-        const selectedGroup = parsedConfig?.[selectedGroupName];
-        if (!selectedGroup) return "low";
-
-        for (const [level, range] of Object.entries(selectedGroup)) {
+        let parsedRanges;
+        try { parsedRanges = JSON.parse(stored); } catch { return "low"; }
+    
+        const levels = parsedRanges?.[selectedGroupName];
+        if (!levels) return "low";
+    
+        for (const [levelName, range] of Object.entries(levels)) {
             if (hashrate >= range.min && hashrate < range.max) {
-                return level;
+                return levelName;
             }
         }
-
+    
         return "low";
     }
     async function isWithinTimeRanges() {
