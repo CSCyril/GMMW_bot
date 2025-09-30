@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.19
+// @version      1.9.20
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -311,17 +311,11 @@
                 window.__myws_jeu = ws;
                 ws.addEventListener("message", evt => {
                     if (evt.data.startsWith('42["roundOpened"')) {
-                        if (roundLock) return;
-                        roundLock = true;
-                        playerPlayed = false;
-                    
                         try {
-                            const payload = JSON.parse(evt.data.slice(2)); // ["roundOpened", { ... }]
+                            const payload = JSON.parse(evt.data.slice(2));
                             const roundInfo = payload[1];
-                            if (roundInfo?.leagueId !== undefined) {
-                                window._lastLeagueId = roundInfo.leagueId;
-                                console.log(`[TM] 🎯 roundOpened leagueId=${roundInfo.leagueId}, roundId=${roundInfo.id}`);
-                            }
+                            window._lastLeagueId = roundInfo?.leagueId ?? null;
+                            console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${roundInfo?.id}`);
                         } catch (e) {
                             console.warn("[TM] ⚠️ Impossible de parser roundOpened:", e);
                             window._lastLeagueId = null;
@@ -330,21 +324,29 @@
                         console.log(`[TM] 🔍 Nouveau round. Exécution des boosts prioritaires...`);
                         (async () => {
                             await updateBoostConfig();
-                            await performBoost(null, null, true);
-                            // NE PAS libérer roundLock ici
+                            await performBoost(null, null, true); // prioritaire toujours
                         })();
                     
-                        // ➡️ Seulement pour leagueId=1 → setTimeout
                         if (window._lastLeagueId === 1) {
+                            // ⚡ league 1 → utiliser lock et timeout
+                            if (roundLock) return;
+                            roundLock = true;
+                            playerPlayed = false;
                             roundStartTimeout = setTimeout(async () => {
                                 if (!playerPlayed) {
-                                    console.log(`[TM] ⏳ Aucun des joueurs surveillés n'a joué → Boosts non-prioritaires autorisés.`);
-                                    await performBoost();
+                                    console.log(`[TM] ⏳ Aucun joueur surveillé → Boosts non-prioritaires autorisés.`);
+                                    await performBoost(); // non-prioritaire
                                 } else {
-                                    console.log(`[TM] ❌ Un joueur surveillé a joué → Boosts non-prioritaires annulés.`);
+                                    console.log(`[TM] ❌ Joueur surveillé a joué → Boosts non-prioritaires annulés.`);
                                 }
-                                // NE PAS libérer le lock ici → on attend "winner"
+                                // lock libéré uniquement à la détection du winner
                             }, 30000);
+                        } else {
+                            // ⚡ league ≠ 1 → jouer les boosts non-prioritaires immédiatement
+                            (async () => {
+                                console.log(`[TM] ⚡ League ≠ 1 → exécution immédiate des boosts non-prioritaires`);
+                                await performBoost(); // non-prioritaire
+                            })();
                         }
                     }
                     if (evt.data.startsWith('42["winner"')) {
