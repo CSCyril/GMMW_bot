@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.18
+// @version      1.9.19
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -331,10 +331,10 @@
                         (async () => {
                             await updateBoostConfig();
                             await performBoost(null, null, true);
-                            // NE PAS METTRE roundLock = false ici
+                            // NE PAS libérer roundLock ici
                         })();
                     
-                        // ➡️ N'attendre que si leagueId = 1
+                        // ➡️ Seulement pour leagueId=1 → setTimeout
                         if (window._lastLeagueId === 1) {
                             roundStartTimeout = setTimeout(async () => {
                                 if (!playerPlayed) {
@@ -343,12 +343,17 @@
                                 } else {
                                     console.log(`[TM] ❌ Un joueur surveillé a joué → Boosts non-prioritaires annulés.`);
                                 }
-                                roundLock = false;
+                                // NE PAS libérer le lock ici → on attend "winner"
                             }, 30000);
-                        } else {
-                            // ⚡ Pas de leagueId=1 → libérer direct le verrou
-                            roundLock = false;
                         }
+                    }
+                    if (evt.data.startsWith('42["winner"')) {
+                        console.log(`[TM] 🏆 Winner détecté → fin du round.`);
+                        if (roundStartTimeout) {
+                            clearTimeout(roundStartTimeout);
+                            roundStartTimeout = null;
+                        }
+                        roundLock = false; // ✅ libération unique ici
                     }
                     if (evt.data.startsWith('42["abilityUsage"')) {
                         try {
