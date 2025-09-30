@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.17
+// @version      1.9.18
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -125,7 +125,8 @@
             if (json?.data?.id) {
                 window._lastRoundId = json.data.id;
                 window._lastMultiplier = json.data.multiplier ?? null;
-                console.log("[TM] ✅ roundId:", window._lastRoundId, ", multiplier:", window._lastMultiplier);
+                window._lastLeagueId = json.data.leagueId ?? null;
+                console.log("[TM] ✅ roundId:", window._lastRoundId, ", multiplier:", window._lastMultiplier, ", league:", window._lastLeagueId);
             }
         } catch (e) {
             console.warn("[TM] ❌ API round/get-last failed:", e);
@@ -313,22 +314,41 @@
                         if (roundLock) return;
                         roundLock = true;
                         playerPlayed = false;
+                    
+                        try {
+                            const payload = JSON.parse(evt.data.slice(2)); // ["roundOpened", { ... }]
+                            const roundInfo = payload[1];
+                            if (roundInfo?.leagueId !== undefined) {
+                                window._lastLeagueId = roundInfo.leagueId;
+                                console.log(`[TM] 🎯 roundOpened leagueId=${roundInfo.leagueId}, roundId=${roundInfo.id}`);
+                            }
+                        } catch (e) {
+                            console.warn("[TM] ⚠️ Impossible de parser roundOpened:", e);
+                            window._lastLeagueId = null;
+                        }
+                    
                         console.log(`[TM] 🔍 Nouveau round. Exécution des boosts prioritaires...`);
                         (async () => {
                             await updateBoostConfig();
                             await performBoost(null, null, true);
                             // NE PAS METTRE roundLock = false ici
                         })();
-                        // Lancer un timer de 30 secondes pour les boosts non-prioritaires
-                        roundStartTimeout = setTimeout(async () => {
-                            if (!playerPlayed) {
-                                console.log(`[TM] ⏳ Aucun des joueurs surveillés n'a joué → Boosts non-prioritaires autorisés.`);
-                                await performBoost();
-                            } else {
-                                console.log(`[TM] ❌ Un joueur surveillé a joué → Boosts non-prioritaires annulés.`);
-                            }
-                            roundLock = false; // Libérer le verrou ici
-                        }, 30000);
+                    
+                        // ➡️ N'attendre que si leagueId = 1
+                        if (window._lastLeagueId === 1) {
+                            roundStartTimeout = setTimeout(async () => {
+                                if (!playerPlayed) {
+                                    console.log(`[TM] ⏳ Aucun des joueurs surveillés n'a joué → Boosts non-prioritaires autorisés.`);
+                                    await performBoost();
+                                } else {
+                                    console.log(`[TM] ❌ Un joueur surveillé a joué → Boosts non-prioritaires annulés.`);
+                                }
+                                roundLock = false;
+                            }, 30000);
+                        } else {
+                            // ⚡ Pas de leagueId=1 → libérer direct le verrou
+                            roundLock = false;
+                        }
                     }
                     if (evt.data.startsWith('42["abilityUsage"')) {
                         try {
