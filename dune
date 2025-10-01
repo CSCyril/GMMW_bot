@@ -86,7 +86,7 @@
                                 }
                             },
                             {
-                                "boostId": "sablier1",
+                                "boostId": "sablier10",
                                 "priority": 2,
                                 "count": 2,
                                 "timing": {
@@ -271,7 +271,7 @@
                                 }
                             },
                             {
-                                "boostId": "sablier1",
+                                "boostId": "sablier10",
                                 "priority": 2,
                                 "count": 2,
                                 "timing": {
@@ -456,7 +456,7 @@
                                 }
                             },
                             {
-                                "boostId": "sablier1",
+                                "boostId": "sablier10",
                                 "priority": 2,
                                 "count": 2,
                                 "timing": {
@@ -643,7 +643,7 @@
                                 }
                             },
                             {
-                                "boostId": "sablier1",
+                                "boostId": "sablier10",
                                 "priority": 2,
                                 "count": 2,
                                 "timing": {
@@ -828,7 +828,7 @@
                                 }
                             },
                             {
-                                "boostId": "sablier1",
+                                "boostId": "sablier10",
                                 "priority": 2,
                                 "count": 2,
                                 "timing": {
@@ -1013,7 +1013,7 @@
                                 }
                             },
                             {
-                                "boostId": "sablier1",
+                                "boostId": "sablier10",
                                 "priority": 2,
                                 "count": 2,
                                 "timing": {
