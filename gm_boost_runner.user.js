@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.20
+// @version      1.9.21
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -314,8 +314,17 @@
                         try {
                             const payload = JSON.parse(evt.data.slice(2));
                             const roundInfo = payload[1];
+                            const newRoundId = roundInfo?.id;
+                    
+                            // ✅ Anti-doublon
+                            if (window._lastRoundId === newRoundId) {
+                                console.log(`[TM] ⚠️ roundOpened doublon ignoré (roundId=${newRoundId})`);
+                                return;
+                            }
+                    
+                            window._lastRoundId = newRoundId;
                             window._lastLeagueId = roundInfo?.leagueId ?? null;
-                            console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${roundInfo?.id}`);
+                            console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${newRoundId}`);
                         } catch (e) {
                             console.warn("[TM] ⚠️ Impossible de parser roundOpened:", e);
                             window._lastLeagueId = null;
