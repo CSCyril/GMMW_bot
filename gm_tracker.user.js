@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining WS Tracker + Captcha/Bearer + RoundId Fusion (+ Fallback roundClosed)
-// @version      2.1.1
+// @version      2.1.2
 // @author       CyrilG.
 // @description  Intercepte WS, capture roundId direct depuis roundOpened, captcha/bearer, fallback API, monitoring robuste, + recovery roundClosed
 // @match        https://app.gomining.com/*
@@ -82,11 +82,17 @@
         try {
             if (!payload?.id) return;
             const newId = payload.id;
-            if (window._lastRoundId !== newId) {
-                window._lastRoundId = newId;
-                window._lastMultiplier = payload.multiplier ?? null;
-                console.log("[TM]", nowIso(), `- ⚡ (WS) roundId capté: ${window._lastRoundId}, multiplier: ${window._lastMultiplier}`);
+    
+            // ✅ Protection contre les doublons
+            if (window._lastRoundId === newId) {
+                // Event déjà traité → on ignore
+                return;
             }
+    
+            window._lastRoundId = newId;
+            window._lastMultiplier = payload.multiplier ?? null;
+            console.log("[TM]", nowIso(), `- ⚡ (WS) roundId capté: ${window._lastRoundId}, multiplier: ${window._lastMultiplier}`);
+    
             // Si un roundOpened arrive, annule tout fallback en attente
             if (_roundClosedTimeout) {
                 clearTimeout(_roundClosedTimeout);
