@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.21
+// @version      1.9.22
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -21,6 +21,9 @@
     const PLAYERS_TO_WATCH = ["💚 Fanny 💚", "Dany 🚀"];
     let playerPlayed = false;
     let roundStartTimeout = null;
+    // anti-doublon spécifique au handler "roundOpened"
+    let _lastRoundOpenedProcessedId = null;
+    let _lastRoundOpenedProcessedTs = 0; // timestamp en ms
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
     }
@@ -315,13 +318,19 @@
                             const payload = JSON.parse(evt.data.slice(2));
                             const roundInfo = payload[1];
                             const newRoundId = roundInfo?.id;
+                            const now = Date.now();
                     
-                            // ✅ Anti-doublon
-                            if (window._lastRoundId === newRoundId) {
-                                console.log(`[TM] ⚠️ roundOpened doublon ignoré (roundId=${newRoundId})`);
+                            // ✅ Ignorer uniquement si ON A DÉJÀ traité ce même roundOpened très récemment
+                            if (_lastRoundOpenedProcessedId === newRoundId && (now - _lastRoundOpenedProcessedTs) < 3000) {
+                                console.log(`[TM] ⚠️ roundOpened doublon rapproché ignoré (roundId=${newRoundId})`);
                                 return;
                             }
                     
+                            // Marquer comme traité par le handler WS
+                            _lastRoundOpenedProcessedId = newRoundId;
+                            _lastRoundOpenedProcessedTs = now;
+                    
+                            // Mettre à jour le state global (utile aux autres parties du script)
                             window._lastRoundId = newRoundId;
                             window._lastLeagueId = roundInfo?.leagueId ?? null;
                             console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${newRoundId}`);
