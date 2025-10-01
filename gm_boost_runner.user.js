@@ -22,7 +22,6 @@
     let playerPlayed = false;
     let roundStartTimeout = null;
     // anti-doublon spécifique au handler "roundOpened"
-    let lastObservedRoundId = null;
     let _lastRoundOpenedProcessedId = null;
     let _lastRoundOpenedProcessedTs = 0;
     function nowIso() {
