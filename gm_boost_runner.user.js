@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.22
+// @version      1.9.23
 // @description  Runner
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -22,8 +22,9 @@
     let playerPlayed = false;
     let roundStartTimeout = null;
     // anti-doublon spécifique au handler "roundOpened"
+    let lastObservedRoundId = null;
     let _lastRoundOpenedProcessedId = null;
-    let _lastRoundOpenedProcessedTs = 0; // timestamp en ms
+    let _lastRoundOpenedProcessedTs = 0;
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
     }
@@ -320,19 +321,22 @@
                             const newRoundId = roundInfo?.id;
                             const now = Date.now();
                     
-                            // ✅ Ignorer uniquement si ON A DÉJÀ traité ce même roundOpened très récemment
+                            // --- anti-doublon rapproché (WS peut renvoyer le même event plusieurs fois) ---
                             if (_lastRoundOpenedProcessedId === newRoundId && (now - _lastRoundOpenedProcessedTs) < 3000) {
                                 console.log(`[TM] ⚠️ roundOpened doublon rapproché ignoré (roundId=${newRoundId})`);
                                 return;
                             }
-                    
-                            // Marquer comme traité par le handler WS
                             _lastRoundOpenedProcessedId = newRoundId;
                             _lastRoundOpenedProcessedTs = now;
                     
-                            // Mettre à jour le state global (utile aux autres parties du script)
+                            // --- mettre à jour l'état global ET empêcher le RoundWatcher de relancer ---
                             window._lastRoundId = newRoundId;
                             window._lastLeagueId = roundInfo?.leagueId ?? null;
+                    
+                            // **CRUCIAL** : dire au RoundWatcher que ce round a déjà été observé
+                            // (évite que l'intervalle déclenche un second performBoost)
+                            lastObservedRoundId = newRoundId;
+                    
                             console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${newRoundId}`);
                         } catch (e) {
                             console.warn("[TM] ⚠️ Impossible de parser roundOpened:", e);
@@ -343,6 +347,8 @@
                         (async () => {
                             await updateBoostConfig();
                             await performBoost(null, null, true); // prioritaire toujours
+                            // Optionnel : marquer qu'on a envoyé les priorités pour éviter un retrigger ultérieur
+                            // lastSentRoundId = window._lastRoundId;
                         })();
                     
                         if (window._lastLeagueId === 1) {
