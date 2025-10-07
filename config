@@ -22,8 +22,7 @@
                 ],
                 "config": {
                     "1": {
-                        "timeRanges": [
-                        ],
+                        "timeRanges": [],
                         "boosts": []
                     },
                     "2": {
