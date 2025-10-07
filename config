@@ -50,9 +50,6 @@
                         ]
                     },
                     "64": {
-                        "timeRanges": [
-                            {"start": "00:02", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -66,9 +63,6 @@
                         ]
                     },
                     "128": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -82,9 +76,6 @@
                         ]
                     },
                     "256": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -107,39 +98,21 @@
                 ],
                 "config": {
                     "1": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "2": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "4": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "8": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "16": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "32": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -153,9 +126,6 @@
                         ]
                     },
                     "64": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -169,9 +139,6 @@
                         ]
                     },
                     "128": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -185,9 +152,6 @@
                         ]
                     },
                     "256": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -210,39 +174,21 @@
                 ],
                 "config": {
                     "1": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "2": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "4": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "8": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "16": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "32": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -256,9 +202,6 @@
                         ]
                     },
                     "64": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -272,9 +215,6 @@
                         ]
                     },
                     "128": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -288,9 +228,6 @@
                         ]
                     },
                     "256": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -315,39 +252,21 @@
                 ],
                 "config": {
                     "1": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "2": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "4": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "8": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "16": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "32": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -361,9 +280,6 @@
                         ]
                     },
                     "64": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -377,9 +293,6 @@
                         ]
                     },
                     "128": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -393,9 +306,6 @@
                         ]
                     },
                     "256": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -418,39 +328,21 @@
                 ],
                 "config": {
                     "1": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "2": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "4": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "8": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "16": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "32": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -464,9 +356,6 @@
                         ]
                     },
                     "64": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -480,9 +369,6 @@
                         ]
                     },
                     "128": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -496,9 +382,6 @@
                         ]
                     },
                     "256": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -521,39 +404,21 @@
                 ],
                 "config": {
                     "1": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "2": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "4": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "8": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "16": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": []
                     },
                     "32": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -567,9 +432,6 @@
                         ]
                     },
                     "64": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -583,9 +445,6 @@
                         ]
                     },
                     "128": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
@@ -599,9 +458,6 @@
                         ]
                     },
                     "256": {
-                        "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
-                        ],
                         "boosts": [
                             {
                                 "boostId": "powerup",
