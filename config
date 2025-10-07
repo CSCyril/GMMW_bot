@@ -23,7 +23,6 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:01", "end": "23:59"}
                         ],
                         "boosts": []
                     },
