@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      1.9.23
-// @description  Runner
+// @version      2.0.0
+// @description  Runner avec mélange humain des boosts
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
 // @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
 // @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
-// ==/UserScript==
+// ==/UserScript__
+
 (function () {
     const GAME_WS_DOMAIN = "nft.ws.gomining.com";
     const TEST_MODE = false; // Activer le mode test
@@ -24,40 +25,45 @@
     // anti-doublon spécifique au handler "roundOpened"
     let _lastRoundOpenedProcessedId = null;
     let _lastRoundOpenedProcessedTs = 0;
+
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
     }
+
     function sleep(ms) {
         return new Promise(r => setTimeout(r, ms));
     }
+
     function uuidv4() {
         return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
     }
+
     function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
+
     function getLevelFromHashrate(hashrate, selectedGroupName) {
         const stored = localStorage.getItem("gomining_level_ranges");
         if (!stored) return "low";
         let parsedRanges;
         try { parsedRanges = JSON.parse(stored); } catch { return "low"; }
-    
+
         const levels = parsedRanges?.[selectedGroupName];
         if (!levels) return "low";
-    
+
         for (const [levelName, range] of Object.entries(levels)) {
             if (hashrate >= range.min && hashrate < range.max) {
                 return levelName;
             }
         }
-    
         return "low";
     }
+
     async function isWithinTimeRanges() {
         const storedTimeRanges = localStorage.getItem("gomining_time_ranges");
         if (!storedTimeRanges) return false;
@@ -76,17 +82,11 @@
         const selectedGroupName = useDefault ? "default" : "late";
         const multiplier = window._lastMultiplier;
         if (multiplier === null || multiplier === undefined) return false;
-
-        // Obtenir le hashrate actuel
         const hashrate = await getCurrentHashrateEhs();
-        // Déterminer le niveau en fonction du hashrate
         const level = hashrate ? getLevelFromHashrate(hashrate, selectedGroupName) : "low";
-
-        // Construire la clé pour le multiplicateur actuel et le niveau
         const timeRangeKey = `${selectedGroupName}_${level}_${multiplier}`;
         const timeRanges = parsedTimeRanges[timeRangeKey];
         if (!timeRanges || timeRanges.length === 0) return true;
-
         for (const range of timeRanges) {
             const [startHour, startMin] = range.start.split(':').map(Number);
             const [endHour, endMin] = range.end.split(':').map(Number);
@@ -99,23 +99,28 @@
         console.log(`[TM] ⏰ Hors des plages horaires autorisées pour le multiplicateur ${multiplier} et le niveau ${level}.`);
         return false;
     }
+
     function setPendingBoost(roundId, multiplier) {
         localStorage.setItem("gomining_pending_boost", JSON.stringify({ roundId, multiplier, ts: Date.now() }));
     }
+
     function clearPendingBoost() {
         localStorage.removeItem("gomining_pending_boost");
     }
+
     function getPendingBoost() {
         const raw = localStorage.getItem("gomining_pending_boost");
         if (!raw) return null;
         try { return JSON.parse(raw); } catch { return null; }
     }
+
     function getBearer() {
         let t = localStorage.getItem('access_token');
         if (t) return t;
         let m = document.cookie.match(/access_token=([^;]+)/);
         return m ? m[1] : null;
     }
+
     async function updateRoundIdFromApi() {
         const bearer = getBearer();
         if (!bearer) return;
@@ -135,6 +140,7 @@
             console.warn("[TM] ❌ API round/get-last failed:", e);
         }
     }
+
     async function getCurrentHashrateEhs() {
         try {
             const res = await fetch("https://api.blockchair.com/bitcoin/stats");
@@ -144,6 +150,7 @@
             return null;
         }
     }
+
     async function updateBoostConfig() {
         const stored = localStorage.getItem("gomining_boost_config");
         const storedTimeRanges = localStorage.getItem("gomining_time_ranges");
@@ -162,13 +169,8 @@
         const selectedGroupName = useDefault ? "default" : "late";
         const multiplier = window._lastMultiplier;
         if (multiplier === null || multiplier === undefined) return;
-
-        // Obtenir le hashrate actuel
         const hashrate = await getCurrentHashrateEhs();
-        // Déterminer le niveau en fonction du hashrate
         const level = hashrate ? getLevelFromHashrate(hashrate, selectedGroupName) : "low";
-
-        // Construire la clé pour le multiplicateur actuel et le niveau
         const timeRangeKey = `${selectedGroupName}_${level}_${multiplier}`;
         const timeRanges = parsedTimeRanges[timeRangeKey];
         let isWithinTimeRange = false;
@@ -188,11 +190,10 @@
             console.log(`[TM] ⏰ Hors des plages horaires définies pour ${timeRangeKey}.`);
             return;
         }
-
-        // Construire la clé pour la configuration de boost
         const boostConfigKey = `${selectedGroupName}_${level}_${multiplier}`;
         currentBoostConfig = parsedConfig[boostConfigKey]?.boosts ?? {};
     }
+
     function sendAbility(boostId, count, roundId, clickDelay = 250) {
         for (let i = 0; i < count; i++) {
             const payload = { abilityId: boostId, idempotencyKey: uuidv4(), roundId };
@@ -208,32 +209,90 @@
             }, i * clickDelay);
         }
     }
+
+    // NOUVELLES FONCTIONS POUR LE MÉLANGE HUMAIN
+    function groupBoostsByTimeRange(boosts, rangeMs = 1000) {
+        const groups = [];
+        const sortedBoosts = [...boosts].sort((a, b) => a.timing.sequenceDelay - b.timing.sequenceDelay);
+
+        for (const boost of sortedBoosts) {
+            const delay = boost.timing.sequenceDelay;
+            let foundGroup = false;
+
+            for (const group of groups) {
+                const firstDelay = group[0].timing.sequenceDelay;
+                if (Math.abs(delay - firstDelay) <= rangeMs) {
+                    group.push(boost);
+                    foundGroup = true;
+                    break;
+                }
+            }
+
+            if (!foundGroup) {
+                groups.push([boost]);
+            }
+        }
+
+        return groups;
+    }
+
+    function expandBoostsToClicks(boosts) {
+        const clicks = [];
+        for (const boost of boosts) {
+            for (let i = 0; i < boost.count; i++) {
+                clicks.push({
+                    boostId: boost.boostId,
+                    clickDelay: boost.timing.clickDelay,
+                });
+            }
+        }
+        return clicks;
+    }
+
+    function prepareHumanLikeSequence(groups) {
+        return groups.map(group => {
+            const clicks = expandBoostsToClicks(group);
+            shuffle(clicks);
+            return {
+                startDelay: group[0].timing.sequenceDelay,
+                clicks: clicks,
+            };
+        });
+    }
+
+    async function sendMixedBoosts(groups, roundId) {
+        for (const group of groups) {
+            const waitTime = Math.max(0, group.startDelay + (Math.random() * 1000 - 500)); // ±500 ms
+            await sleep(waitTime);
+
+            for (const click of group.clicks) {
+                const delay = Math.max(50, click.clickDelay + (Math.random() * 200 - 100)); // ±100 ms
+                sendAbility(click.boostId, 1, roundId, delay);
+                await sleep(delay);
+            }
+        }
+    }
+
     async function performBoost(multiplierOverride = null, manualRoundId = null, skipPriorityCheck = false) {
-        // Vérifier les plages horaires avant tout
         const isWithinRanges = await isWithinTimeRanges();
         if (!isWithinRanges) {
             console.log(`[TM] ❌ Hors des plages horaires → Aucun boost ne sera joué.`);
             return;
         }
-
         const multiplier = multiplierOverride ?? window._lastMultiplier;
         const roundId = manualRoundId ?? window._lastRoundId;
         if (roundId === lastSentRoundId) {
             console.log(`[TM] ⚠️ Round ${roundId} déjà traité.`);
             return;
         }
-
         const boostConfigSnapshot = currentBoostConfig;
         if (!roundId || !boostConfigSnapshot || !multiplier) return;
-
         let actions = boostConfigSnapshot;
         if (!actions?.length) return;
 
-        // Séparer les actions prioritaires et non-prioritaires
         const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
         const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
 
-        // Fusionner les actions par boostId
         const mergedActions = {};
         [...priorityActions, ...otherActions].forEach(action => {
             const { boostId, count, timing, priority } = action;
@@ -266,44 +325,40 @@
             }
         }
 
-        // ⏳ Exécuter uniquement les non-prioritaires si skipPriorityCheck = false
+        // ⏳ Exécuter les non-prioritaires avec mélange humain
         if (!skipPriorityCheck && finalOtherActions.length > 0) {
             setPendingBoost(roundId, multiplier);
-            console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${finalOtherActions.length} actions (en attente de vérification joueurs)`);
-            shuffle(finalOtherActions);
-            for (const { boostId, count, timing } of finalOtherActions) {
-                const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 750);
-                await sleep(seqDelay);
-                for (let j = 0; j < count; j++) {
-                    const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
-                    sendAbility(boostId, 1, roundId, clickDelay);
-                    await sleep(clickDelay);
-                }
-            }
-            lastSentRoundId = roundId; // Mettre à jour après les non-prioritaires
+            console.log(`[${nowIso()}] ⏳ Boosts non-prioritaires x${multiplier} (roundId ${roundId}) — ${finalOtherActions.length} actions (mélange humain)`);
+
+            // Regrouper et mélanger les boosts
+            const groups = groupBoostsByTimeRange(finalOtherActions, 1000);
+            const mixedGroups = prepareHumanLikeSequence(groups);
+
+            // Envoyer les boosts mélangés
+            await sendMixedBoosts(mixedGroups, roundId);
+
+            lastSentRoundId = roundId;
             clearPendingBoost();
         }
     }
+
     // --- Replay au reload ---
     (async function checkPending() {
         const pend = getPendingBoost();
         if (!pend) return;
-
         console.log("[TM] 🔁 Pending boost trouvé :", pend);
         await updateRoundIdFromApi();
         await updateBoostConfig();
-
         if (pend.roundId === window._lastRoundId) {
             console.log("[TM] ➡️ Premier round après reload, reprise du pending boost", pend.roundId);
-            // On joue uniquement le pending, pas toute la config
             await performBoost(pend.multiplier, pend.roundId, true);
             clearPendingBoost();
         } else {
             console.log("[TM] ➡️ Pending boost pour round antérieur, on peut ignorer ou traiter selon logique");
-            // Ici tu peux décider de rejouer ou de nettoyer si le round est déjà passé
             clearPendingBoost();
         }
     })();
+
     // --- WS interception ---
     if (!TEST_MODE) {
         const originalWebSocket = window.WebSocket;
@@ -319,56 +374,46 @@
                             const roundInfo = payload[1];
                             const newRoundId = roundInfo?.id;
                             const now = Date.now();
-                    
-                            // --- anti-doublon rapproché (WS peut renvoyer le même event plusieurs fois) ---
+
                             if (_lastRoundOpenedProcessedId === newRoundId && (now - _lastRoundOpenedProcessedTs) < 3000) {
                                 console.log(`[TM] ⚠️ roundOpened doublon rapproché ignoré (roundId=${newRoundId})`);
                                 return;
                             }
                             _lastRoundOpenedProcessedId = newRoundId;
                             _lastRoundOpenedProcessedTs = now;
-                    
-                            // --- mettre à jour l'état global ET empêcher le RoundWatcher de relancer ---
+
                             window._lastRoundId = newRoundId;
                             window._lastLeagueId = roundInfo?.leagueId ?? null;
-                    
-                            // **CRUCIAL** : dire au RoundWatcher que ce round a déjà été observé
-                            // (évite que l'intervalle déclenche un second performBoost)
                             lastObservedRoundId = newRoundId;
-                    
+
                             console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${newRoundId}`);
                         } catch (e) {
                             console.warn("[TM] ⚠️ Impossible de parser roundOpened:", e);
                             window._lastLeagueId = null;
                         }
-                    
+
                         console.log(`[TM] 🔍 Nouveau round. Exécution des boosts prioritaires...`);
                         (async () => {
                             await updateBoostConfig();
-                            await performBoost(null, null, true); // prioritaire toujours
-                            // Optionnel : marquer qu'on a envoyé les priorités pour éviter un retrigger ultérieur
-                            // lastSentRoundId = window._lastRoundId;
+                            await performBoost(null, null, true);
                         })();
-                    
+
                         if (window._lastLeagueId === 1) {
-                            // ⚡ league 1 → utiliser lock et timeout
                             if (roundLock) return;
                             roundLock = true;
                             playerPlayed = false;
                             roundStartTimeout = setTimeout(async () => {
                                 if (!playerPlayed) {
                                     console.log(`[TM] ⏳ Aucun joueur surveillé → Boosts non-prioritaires autorisés.`);
-                                    await performBoost(); // non-prioritaire
+                                    await performBoost();
                                 } else {
                                     console.log(`[TM] ❌ Joueur surveillé a joué → Boosts non-prioritaires annulés.`);
                                 }
-                                // lock libéré uniquement à la détection du winner
                             }, 30000);
                         } else {
-                            // ⚡ league ≠ 1 → jouer les boosts non-prioritaires immédiatement
                             (async () => {
                                 console.log(`[TM] ⚡ League ≠ 1 → exécution immédiate des boosts non-prioritaires`);
-                                await performBoost(); // non-prioritaire
+                                await performBoost();
                             })();
                         }
                     }
@@ -378,7 +423,7 @@
                             clearTimeout(roundStartTimeout);
                             roundStartTimeout = null;
                         }
-                        roundLock = false; // ✅ libération unique ici
+                        roundLock = false;
                     }
                     if (evt.data.startsWith('42["abilityUsage"')) {
                         try {
@@ -398,6 +443,7 @@
         };
         window.WebSocket.prototype = originalWebSocket.prototype;
     }
+
     // --- Observer sur roundId global ---
     const roundObserver = new MutationObserver(() => {
         if (window._lastRoundId && window._lastRoundId !== lastObservedRoundId) {
@@ -410,6 +456,7 @@
             triggerBoost("RoundWatcher");
         }
     });
+
     setInterval(() => {
         if (window._lastRoundId && window._lastRoundId !== lastObservedRoundId) {
             lastObservedRoundId = window._lastRoundId;
@@ -421,6 +468,7 @@
             triggerBoost("RoundWatcher");
         }
     }, 500);
+
     async function triggerBoost(source) {
         if (roundLock) return;
         if (source === "RoundWatcher" && window._lastRoundId === lastSentRoundId) {
@@ -438,26 +486,23 @@
             roundLock = false;
         }
     }
+
     // --- Init ---
     updateBoostConfig().then(() => {
         console.log(TEST_MODE ? "[TEST MODE] Runner prêt." : "[TM] Runner prêt pour prod.");
     });
 
-    // Ajouter la fonction simulateRound pour le mode test
+    // Fonction pour le mode test
     function simulateRound(mult) {
         if (!TEST_MODE) {
             console.log("Le mode test doit être activé pour utiliser simulateRound.");
             return;
         }
-        // Définir un roundId de test
         window._lastRoundId = "test_round_id";
-        // Définir le multiplicateur de test
         window._lastMultiplier = mult;
         console.log(`[TEST] Simulation d'un round avec le multiplicateur ${mult}`);
-        // Appeler performBoost pour simuler l'envoi des boosts
         performBoost(mult, "test_round_id", true);
     }
 
-    // Rendre la fonction disponible dans la console
     window.simulateRound = simulateRound;
 })();
