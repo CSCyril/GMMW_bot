@@ -7,7 +7,7 @@
 // @grant        none
 // @updateURL    https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
 // @downloadURL  https://github.com/CSCyril/GMMW_bot/raw/refs/heads/main/gm_boost_runner.user.js
-// ==/UserScript__
+// ==/UserScript==
 
 (function () {
     const GAME_WS_DOMAIN = "nft.ws.gomining.com";
