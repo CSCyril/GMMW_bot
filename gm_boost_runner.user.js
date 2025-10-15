@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      2.0.0
-// @description  Runner avec mélange humain des boosts
+// @version      2.1.0
+// @description  Runner avec mélange humain des boosts et gestion optimisée des délais
 // @match        https://app.gomining.com/*
 // @run-at       document-start
 // @grant        none
@@ -52,10 +52,8 @@
         if (!stored) return "low";
         let parsedRanges;
         try { parsedRanges = JSON.parse(stored); } catch { return "low"; }
-
         const levels = parsedRanges?.[selectedGroupName];
         if (!levels) return "low";
-
         for (const [levelName, range] of Object.entries(levels)) {
             if (hashrate >= range.min && hashrate < range.max) {
                 return levelName;
@@ -194,19 +192,15 @@
         currentBoostConfig = parsedConfig[boostConfigKey]?.boosts ?? {};
     }
 
-    function sendAbility(boostId, count, roundId, clickDelay = 250) {
-        for (let i = 0; i < count; i++) {
-            const payload = { abilityId: boostId, idempotencyKey: uuidv4(), roundId };
-            const msg = "42" + JSON.stringify(["ability", payload]);
-            setTimeout(() => {
-                if (TEST_MODE) {
-                    console.log(`[TEST][${nowIso()}] boost ${boostId} (round ${roundId})`);
-                } else {
-                    if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
-                    window.__myws_jeu.send(msg);
-                    console.log(`[TM][${nowIso()}] ✅ Boost ${boostId} envoyé`);
-                }
-            }, i * clickDelay);
+    function sendAbility(boostId, roundId) {
+        const payload = { abilityId: boostId, idempotencyKey: uuidv4(), roundId };
+        const msg = "42" + JSON.stringify(["ability", payload]);
+        if (TEST_MODE) {
+            console.log(`[TEST][${nowIso()}] boost ${boostId} (round ${roundId})`);
+        } else {
+            if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
+            window.__myws_jeu.send(msg);
+            console.log(`[TM][${nowIso()}] ✅ Boost ${boostId} envoyé`);
         }
     }
 
@@ -262,12 +256,16 @@
 
     async function sendMixedBoosts(groups, roundId) {
         for (const group of groups) {
+            // Attendre le début de la plage (avec un léger bruit)
             const waitTime = Math.max(0, group.startDelay + (Math.random() * 1000 - 500)); // ±500 ms
             await sleep(waitTime);
 
+            // Envoyer chaque clic avec son propre clickDelay + bruit
             for (const click of group.clicks) {
+                sendAbility(click.boostId, roundId);
+
+                // Attendre le clickDelay du boost actuel + bruit
                 const delay = Math.max(50, click.clickDelay + (Math.random() * 200 - 100)); // ±100 ms
-                sendAbility(click.boostId, 1, roundId, delay);
                 await sleep(delay);
             }
         }
@@ -289,10 +287,8 @@
         if (!roundId || !boostConfigSnapshot || !multiplier) return;
         let actions = boostConfigSnapshot;
         if (!actions?.length) return;
-
         const priorityActions = actions.filter(a => (a.priority ?? 2) === 1);
         const otherActions = actions.filter(a => (a.priority ?? 2) !== 1);
-
         const mergedActions = {};
         [...priorityActions, ...otherActions].forEach(action => {
             const { boostId, count, timing, priority } = action;
@@ -306,7 +302,6 @@
                 mergedActions[boostId] = { ...action };
             }
         });
-
         const uniqueActions = Object.values(mergedActions);
         const finalPriorityActions = uniqueActions.filter(a => a.priority === 1);
         const finalOtherActions = uniqueActions.filter(a => a.priority !== 1);
@@ -319,7 +314,7 @@
                 await sleep(seqDelay);
                 for (let j = 0; j < count; j++) {
                     const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
-                    sendAbility(boostId, 1, roundId, clickDelay);
+                    sendAbility(boostId, roundId);
                     await sleep(clickDelay);
                 }
             }
@@ -381,11 +376,9 @@
                             }
                             _lastRoundOpenedProcessedId = newRoundId;
                             _lastRoundOpenedProcessedTs = now;
-
                             window._lastRoundId = newRoundId;
                             window._lastLeagueId = roundInfo?.leagueId ?? null;
                             lastObservedRoundId = newRoundId;
-
                             console.log(`[TM] 🎯 roundOpened leagueId=${window._lastLeagueId}, roundId=${newRoundId}`);
                         } catch (e) {
                             console.warn("[TM] ⚠️ Impossible de parser roundOpened:", e);
