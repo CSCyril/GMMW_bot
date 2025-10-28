@@ -40,77 +40,15 @@
                     },
                     "4": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
-                            {
-                                "boostId": "cible100",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 290,
-                                    "sequenceDelay": 2500
-                                }
-                            },
-                            {
-                                "boostId": "cible10",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 360,
-                                    "sequenceDelay": 3000
-                                }
-                            },
-                            {
-                                "boostId": "cible1",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 340,
-                                    "sequenceDelay": 3500
-                                }
-                            },
-                            {
-                                "boostId": "powerup",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 300,
-                                    "sequenceDelay": 5000
-                                }
-                            },
-                            {
-                                "boostId": "fusee100",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 500,
-                                    "sequenceDelay": 5500
-                                }
-                            },
-                            {
-                                "boostId": "fusee10",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 600,
-                                    "sequenceDelay": 6000
-                                }
-                            },
-                            {
-                                "boostId": "fusee1",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 520,
-                                    "sequenceDelay": 6500
-                                }
-                            }
+                            {}
                         ]
                     },
                     "8": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -180,7 +118,7 @@
                     },
                     "16": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -250,7 +188,7 @@
                     },
                     "32": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -320,7 +258,7 @@
                     },
                     "64": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -390,7 +328,7 @@
                     },
                     "128": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -493,77 +431,15 @@
                     },
                     "4": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
-                            {
-                                "boostId": "cible100",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 290,
-                                    "sequenceDelay": 2500
-                                }
-                            },
-                            {
-                                "boostId": "cible10",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 360,
-                                    "sequenceDelay": 3000
-                                }
-                            },
-                            {
-                                "boostId": "cible1",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 340,
-                                    "sequenceDelay": 3500
-                                }
-                            },
-                            {
-                                "boostId": "powerup",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 300,
-                                    "sequenceDelay": 5000
-                                }
-                            },
-                            {
-                                "boostId": "fusee100",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 500,
-                                    "sequenceDelay": 5500
-                                }
-                            },
-                            {
-                                "boostId": "fusee10",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 600,
-                                    "sequenceDelay": 6000
-                                }
-                            },
-                            {
-                                "boostId": "fusee1",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 520,
-                                    "sequenceDelay": 6500
-                                }
-                            }
+                            {}
                         ]
                     },
                     "8": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -633,7 +509,7 @@
                     },
                     "16": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -703,7 +579,7 @@
                     },
                     "32": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -773,7 +649,7 @@
                     },
                     "64": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -843,7 +719,7 @@
                     },
                     "128": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -946,77 +822,15 @@
                     },
                     "4": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
-                            {
-                                "boostId": "cible100",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 290,
-                                    "sequenceDelay": 2500
-                                }
-                            },
-                            {
-                                "boostId": "cible10",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 360,
-                                    "sequenceDelay": 3000
-                                }
-                            },
-                            {
-                                "boostId": "cible1",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 340,
-                                    "sequenceDelay": 3500
-                                }
-                            },
-                            {
-                                "boostId": "powerup",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 300,
-                                    "sequenceDelay": 5000
-                                }
-                            },
-                            {
-                                "boostId": "fusee100",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 500,
-                                    "sequenceDelay": 5500
-                                }
-                            },
-                            {
-                                "boostId": "fusee10",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 600,
-                                    "sequenceDelay": 6000
-                                }
-                            },
-                            {
-                                "boostId": "fusee1",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 520,
-                                    "sequenceDelay": 6500
-                                }
-                            }
+                            {}
                         ]
                     },
                     "8": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1086,7 +900,7 @@
                     },
                     "16": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1156,7 +970,7 @@
                     },
                     "32": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1226,7 +1040,7 @@
                     },
                     "64": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1296,7 +1110,7 @@
                     },
                     "128": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1401,77 +1215,15 @@
                     },
                     "4": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
-                            {
-                                "boostId": "cible100",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 290,
-                                    "sequenceDelay": 2500
-                                }
-                            },
-                            {
-                                "boostId": "cible10",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 360,
-                                    "sequenceDelay": 3000
-                                }
-                            },
-                            {
-                                "boostId": "cible1",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 340,
-                                    "sequenceDelay": 3500
-                                }
-                            },
-                            {
-                                "boostId": "powerup",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 300,
-                                    "sequenceDelay": 5000
-                                }
-                            },
-                            {
-                                "boostId": "fusee100",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 500,
-                                    "sequenceDelay": 5500
-                                }
-                            },
-                            {
-                                "boostId": "fusee10",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 600,
-                                    "sequenceDelay": 6000
-                                }
-                            },
-                            {
-                                "boostId": "fusee1",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 520,
-                                    "sequenceDelay": 6500
-                                }
-                            }
+                            {}
                         ]
                     },
                     "8": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1541,7 +1293,7 @@
                     },
                     "16": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1611,7 +1363,7 @@
                     },
                     "32": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1681,7 +1433,7 @@
                     },
                     "64": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1751,7 +1503,7 @@
                     },
                     "128": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1857,74 +1609,12 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {
-                                "boostId": "cible100",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 290,
-                                    "sequenceDelay": 2500
-                                }
-                            },
-                            {
-                                "boostId": "cible10",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 360,
-                                    "sequenceDelay": 3000
-                                }
-                            },
-                            {
-                                "boostId": "cible1",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 340,
-                                    "sequenceDelay": 3500
-                                }
-                            },
-                            {
-                                "boostId": "powerup",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 300,
-                                    "sequenceDelay": 5000
-                                }
-                            },
-                            {
-                                "boostId": "fusee100",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 500,
-                                    "sequenceDelay": 5500
-                                }
-                            },
-                            {
-                                "boostId": "fusee10",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 600,
-                                    "sequenceDelay": 6000
-                                }
-                            },
-                            {
-                                "boostId": "fusee1",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 520,
-                                    "sequenceDelay": 6500
-                                }
-                            }
+                            {}
                         ]
                     },
                     "8": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -1994,7 +1684,7 @@
                     },
                     "16": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2064,7 +1754,7 @@
                     },
                     "32": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2134,7 +1824,7 @@
                     },
                     "64": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2204,7 +1894,7 @@
                     },
                     "128": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2310,74 +2000,12 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {
-                                "boostId": "cible100",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 290,
-                                    "sequenceDelay": 2500
-                                }
-                            },
-                            {
-                                "boostId": "cible10",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 360,
-                                    "sequenceDelay": 3000
-                                }
-                            },
-                            {
-                                "boostId": "cible1",
-                                "priority": 1,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 340,
-                                    "sequenceDelay": 3500
-                                }
-                            },
-                            {
-                                "boostId": "powerup",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 300,
-                                    "sequenceDelay": 5000
-                                }
-                            },
-                            {
-                                "boostId": "fusee100",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 500,
-                                    "sequenceDelay": 5500
-                                }
-                            },
-                            {
-                                "boostId": "fusee10",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 600,
-                                    "sequenceDelay": 6000
-                                }
-                            },
-                            {
-                                "boostId": "fusee1",
-                                "priority": 2,
-                                "count": 0,
-                                "timing": {
-                                    "clickDelay": 520,
-                                    "sequenceDelay": 6500
-                                }
-                            }
+                            {}
                         ]
                     },
                     "8": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2447,7 +2075,7 @@
                     },
                     "16": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2517,7 +2145,7 @@
                     },
                     "32": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2587,7 +2215,7 @@
                     },
                     "64": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
@@ -2657,7 +2285,7 @@
                     },
                     "128": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "00:00", "end": "09:00"}
                         ],
                         "boosts": [
                             {
