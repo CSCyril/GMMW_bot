@@ -24,7 +24,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -161,7 +161,7 @@
                 "config": {
                    "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -298,7 +298,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -437,7 +437,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -574,7 +574,7 @@
                 "config": {
                    "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -711,7 +711,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
