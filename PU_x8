@@ -24,7 +24,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -32,10 +32,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 6000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -153,7 +161,7 @@
                 "config": {
                    "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -161,10 +169,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 6000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -282,7 +298,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -290,10 +306,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 6000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -413,7 +437,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -421,10 +445,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 6000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -542,7 +574,7 @@
                 "config": {
                    "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -550,10 +582,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 6000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -671,7 +711,7 @@
                 "config": {
                     "1": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
                             {}
@@ -679,10 +719,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "01:01"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 6000
+                                }
+                            }
                         ]
                     },
                     "4": {
