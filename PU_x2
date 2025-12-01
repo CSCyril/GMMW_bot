@@ -32,10 +32,18 @@
                     },
                     "2": {
                         "timeRanges": [
-                            {"start": "00:00", "end": "24:00"}
+                            {"start": "01:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 12000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -148,7 +156,15 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 12000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -261,7 +277,15 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 12000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -376,7 +400,15 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 12000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -489,7 +521,15 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 12000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -602,7 +642,15 @@
                             {"start": "00:00", "end": "24:00"}
                         ],
                         "boosts": [
-                            {}
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 12000
+                                }
+                            }
                         ]
                     },
                     "4": {
@@ -696,7 +744,5 @@
                 }
             }
         }
-    }
-}
     }
 }
