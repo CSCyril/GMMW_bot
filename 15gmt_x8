@@ -55,7 +55,7 @@
                             {
                                 "boostId": "cible10",
                                 "priority": 1,
-                                "count": 1,
+                                "count": 0,
                                 "timing": {
                                     "clickDelay": 410,
                                     "sequenceDelay": 4000
@@ -312,7 +312,7 @@
                             {
                                 "boostId": "cible10",
                                 "priority": 1,
-                                "count": 1,
+                                "count": 0,
                                 "timing": {
                                     "clickDelay": 410,
                                     "sequenceDelay": 4000
@@ -559,7 +559,7 @@
                         "boosts": [
                             {
                                 "boostId": "cible100",
-                                "priority": 1,
+                                "priority": 0,
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
@@ -827,7 +827,7 @@
                             },
                             {
                                 "boostId": "cible10",
-                                "priority": 1,
+                                "priority": 0,
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
@@ -1075,7 +1075,7 @@
                         "boosts": [
                             {
                                 "boostId": "cible100",
-                                "priority": 1,
+                                "priority": 0,
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
@@ -1341,7 +1341,7 @@
                             },
                             {
                                 "boostId": "cible10",
-                                "priority": 1,
+                                "priority": 0,
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
