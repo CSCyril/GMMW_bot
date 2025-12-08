@@ -33,7 +33,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 10000
+                                    "sequenceDelay": 4000
                                 }
                             }
                         ]
@@ -58,7 +58,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 10000
+                                    "sequenceDelay": 4000
                                 }
                             }
                         ]
@@ -83,7 +83,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 10000
+                                    "sequenceDelay": 4000
                                 }
                             }
                         ]
@@ -110,7 +110,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 10000
+                                    "sequenceDelay": 4000
                                 }
                             }
                         ]
@@ -135,7 +135,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 10000
+                                    "sequenceDelay": 4000
                                 }
                             }
                         ]
@@ -160,7 +160,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 10000
+                                    "sequenceDelay": 4000
                                 }
                             }
                         ]
