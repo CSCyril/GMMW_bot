@@ -1,8 +1,8 @@
 {
     "boostIds": {
         "fusee1": "3f735c47-cead-4d15-8dad-7db4a7b3f4e7",
-        "cible10": "17831b5e-afdf-4cb7-98d7-3a60d81e19ae",
-        "cible100": "e7af0c32-1409-4b22-9e0b-99e7ea4939df",
+        "fusee10": "17831b5e-afdf-4cb7-98d7-3a60d81e19ae",
+        "fusee100": "e7af0c32-1409-4b22-9e0b-99e7ea4939df",
         "sablier1": "646d3c76-fe06-414f-8d39-eb0aa7da429a",
         "sablier10": "2ebfd30d-2950-46fc-b3e9-498a924fd021",
         "sablier100": "0ffad19c-8091-4527-a600-b7c2f238147d",
@@ -56,7 +56,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 2,
                                 "timing": {
@@ -74,7 +74,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 3,
                                 "timing": {
@@ -90,7 +90,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 4,
                                 "timing": {
@@ -108,7 +108,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 7,
                                 "timing": {
@@ -124,7 +124,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 7,
                                 "timing": {
@@ -142,7 +142,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible100",
+                                "boostId": "fusee100",
                                 "priority": 2,
                                 "count": 1,
                                 "timing": {
@@ -151,7 +151,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 5,
                                 "timing": {
@@ -222,7 +222,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 2,
                                 "timing": {
@@ -240,7 +240,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 3,
                                 "timing": {
@@ -256,7 +256,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 4,
                                 "timing": {
@@ -274,7 +274,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 7,
                                 "timing": {
@@ -290,7 +290,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 7,
                                 "timing": {
@@ -308,7 +308,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible100",
+                                "boostId": "fusee100",
                                 "priority": 2,
                                 "count": 1,
                                 "timing": {
@@ -317,7 +317,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 5,
                                 "timing": {
@@ -388,7 +388,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 2,
                                 "timing": {
@@ -406,7 +406,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 3,
                                 "timing": {
@@ -422,7 +422,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 4,
                                 "timing": {
@@ -440,7 +440,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 7,
                                 "timing": {
@@ -456,7 +456,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 7,
                                 "timing": {
@@ -474,7 +474,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible100",
+                                "boostId": "fusee100",
                                 "priority": 2,
                                 "count": 1,
                                 "timing": {
@@ -483,7 +483,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 5,
                                 "timing": {
@@ -556,7 +556,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 2,
                                 "timing": {
@@ -574,7 +574,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 3,
                                 "timing": {
@@ -590,7 +590,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 4,
                                 "timing": {
@@ -608,7 +608,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 7,
                                 "timing": {
@@ -624,7 +624,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 7,
                                 "timing": {
@@ -642,7 +642,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible100",
+                                "boostId": "fusee100",
                                 "priority": 2,
                                 "count": 1,
                                 "timing": {
@@ -651,7 +651,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 5,
                                 "timing": {
@@ -722,7 +722,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 2,
                                 "timing": {
@@ -740,7 +740,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 3,
                                 "timing": {
@@ -756,7 +756,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 4,
                                 "timing": {
@@ -774,7 +774,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 7,
                                 "timing": {
@@ -790,7 +790,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 7,
                                 "timing": {
@@ -808,7 +808,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible100",
+                                "boostId": "fusee100",
                                 "priority": 2,
                                 "count": 1,
                                 "timing": {
@@ -817,7 +817,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 5,
                                 "timing": {
@@ -888,7 +888,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 2,
                                 "timing": {
@@ -906,7 +906,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 3,
                                 "timing": {
@@ -922,7 +922,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 4,
                                 "timing": {
@@ -940,7 +940,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 7,
                                 "timing": {
@@ -956,7 +956,7 @@
                         ],
                         "boosts": [
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 1,
                                 "count": 7,
                                 "timing": {
@@ -974,7 +974,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible100",
+                                "boostId": "fusee100",
                                 "priority": 2,
                                 "count": 1,
                                 "timing": {
@@ -983,7 +983,7 @@
                                 }
                             },
                             {
-                                "boostId": "cible10",
+                                "boostId": "fusee10",
                                 "priority": 2,
                                 "count": 5,
                                 "timing": {
