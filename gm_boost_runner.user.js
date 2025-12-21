@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         GoMining Boost Runner
-// @version      2.1.0
+// @version      2.1.1
 // @description  Runner avec mélange humain des boosts et gestion optimisée des délais
 // @match        https://app.gomining.com/*
 // @run-at       document-start
@@ -25,6 +25,9 @@
     // anti-doublon spécifique au handler "roundOpened"
     let _lastRoundOpenedProcessedId = null;
     let _lastRoundOpenedProcessedTs = 0;
+    let lastBoostSentTime = 0;
+    const MIN_DELAY_BETWEEN_BOOSTS = 400; // Délai minimum de 400 ms entre deux boosts
+
 
     function nowIso() {
         return new Date().toISOString().replace("T", " ").replace("Z", "");
@@ -193,15 +196,33 @@
     }
 
     function sendAbility(boostId, roundId) {
+        const now = Date.now();
+        const timeSinceLastBoost = now - lastBoostSentTime;
+    
+        // Si le dernier boost a été envoyé il y a moins de MIN_DELAY_BETWEEN_BOOSTS ms, on attend
+        if (timeSinceLastBoost < MIN_DELAY_BETWEEN_BOOSTS) {
+            const waitTime = MIN_DELAY_BETWEEN_BOOSTS - timeSinceLastBoost;
+            console.log(`[TM] ⏳ Attente de ${waitTime} ms pour respecter le délai minimum entre boosts.`);
+            // Note : On ne bloque pas ici, car sendAbility est synchrone.
+            // Le contrôle du délai sera géré dans sendMixedBoosts ou performBoost.
+        }
+    
         const payload = { abilityId: boostId, idempotencyKey: uuidv4(), roundId };
         const msg = "42" + JSON.stringify(["ability", payload]);
+    
         if (TEST_MODE) {
             console.log(`[TEST][${nowIso()}] boost ${boostId} (round ${roundId})`);
         } else {
-            if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) return;
+            if (!window.__myws_jeu || window.__myws_jeu.readyState !== 1) {
+                console.log(`[TM] ⚠️ WebSocket non prêt, boost ${boostId} non envoyé.`);
+                return;
+            }
             window.__myws_jeu.send(msg);
             console.log(`[TM][${nowIso()}] ✅ Boost ${boostId} envoyé`);
         }
+    
+        // Mettre à jour le timestamp du dernier boost envoyé
+        lastBoostSentTime = Date.now();
     }
 
     // NOUVELLES FONCTIONS POUR LE MÉLANGE HUMAIN
@@ -257,15 +278,25 @@
     async function sendMixedBoosts(groups, roundId) {
         for (const group of groups) {
             // Attendre le début de la plage (avec un léger bruit)
-            const waitTime = Math.max(0, group.startDelay + (Math.random() * 1000 - 500)); // ±500 ms
+            const waitTime = Math.max(0, group.startDelay + (Math.random() * 500 - 250)); // ±250 ms
             await sleep(waitTime);
-
+    
             // Envoyer chaque clic avec son propre clickDelay + bruit
             for (const click of group.clicks) {
+                const now = Date.now();
+                const timeSinceLastBoost = now - lastBoostSentTime;
+    
+                // Si le dernier boost a été envoyé il y a moins de MIN_DELAY_BETWEEN_BOOSTS ms, on attend
+                if (timeSinceLastBoost < MIN_DELAY_BETWEEN_BOOSTS) {
+                    const additionalWait = MIN_DELAY_BETWEEN_BOOSTS - timeSinceLastBoost;
+                    console.log(`[TM] ⏳ Attente supplémentaire de ${additionalWait} ms pour éviter le chevauchement.`);
+                    await sleep(additionalWait);
+                }
+    
                 sendAbility(click.boostId, roundId);
-
+    
                 // Attendre le clickDelay du boost actuel + bruit
-                const delay = Math.max(50, click.clickDelay + (Math.random() * 200 - 100)); // ±100 ms
+                const delay = Math.max(50, click.clickDelay + (Math.random() * 400 - 200)); // ±200 ms
                 await sleep(delay);
             }
         }
@@ -312,7 +343,17 @@
             for (const { boostId, count, timing } of finalPriorityActions) {
                 const seqDelay = Math.max(50, (timing?.sequenceDelay ?? 0) + Math.random() * 750);
                 await sleep(seqDelay);
+        
                 for (let j = 0; j < count; j++) {
+                    const now = Date.now();
+                    const timeSinceLastBoost = now - lastBoostSentTime;
+        
+                    if (timeSinceLastBoost < MIN_DELAY_BETWEEN_BOOSTS) {
+                        const additionalWait = MIN_DELAY_BETWEEN_BOOSTS - timeSinceLastBoost;
+                        console.log(`[TM] ⏳ Attente supplémentaire de ${additionalWait} ms pour éviter le chevauchement (prioritaire).`);
+                        await sleep(additionalWait);
+                    }
+        
                     const clickDelay = Math.max(50, (timing?.clickDelay ?? 250) + Math.random() * 500);
                     sendAbility(boostId, roundId);
                     await sleep(clickDelay);
