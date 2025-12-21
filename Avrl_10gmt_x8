@@ -49,7 +49,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -58,7 +58,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -101,7 +101,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -110,7 +110,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -153,7 +153,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -162,7 +162,7 @@
                                 "count": 3,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -205,7 +205,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -214,7 +214,7 @@
                                 "count": 6,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -306,7 +306,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -315,7 +315,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -358,7 +358,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -367,7 +367,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -410,7 +410,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -419,7 +419,7 @@
                                 "count": 3,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -462,7 +462,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -471,7 +471,7 @@
                                 "count": 6,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -563,7 +563,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -572,7 +572,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -615,7 +615,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -624,7 +624,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -667,7 +667,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -676,7 +676,7 @@
                                 "count": 3,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -719,7 +719,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -728,7 +728,7 @@
                                 "count": 6,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -822,7 +822,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -831,7 +831,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -874,7 +874,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -883,7 +883,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -926,7 +926,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -935,7 +935,7 @@
                                 "count": 3,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -978,7 +978,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -987,7 +987,7 @@
                                 "count": 6,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1079,7 +1079,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1088,7 +1088,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1131,7 +1131,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1140,7 +1140,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1183,7 +1183,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1192,7 +1192,7 @@
                                 "count": 3,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1235,7 +1235,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1244,7 +1244,7 @@
                                 "count": 6,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1336,7 +1336,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1345,7 +1345,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1388,7 +1388,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1397,7 +1397,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1440,7 +1440,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1449,7 +1449,7 @@
                                 "count": 3,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
@@ -1492,7 +1492,7 @@
                                 "count": 0,
                                 "timing": {
                                     "clickDelay": 400,
-                                    "sequenceDelay": 3000
+                                    "sequenceDelay": 2500
                                 }
                             },
                             {
@@ -1501,7 +1501,7 @@
                                 "count": 6,
                                 "timing": {
                                     "clickDelay": 410,
-                                    "sequenceDelay": 4000
+                                    "sequenceDelay": 3000
                                 }
                             },
                             {
