@@ -65,7 +65,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -81,7 +81,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -162,7 +162,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -178,7 +178,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -259,7 +259,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -275,7 +275,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -358,7 +358,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -374,7 +374,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -455,7 +455,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -471,7 +471,7 @@
                                 "count": 2,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
@@ -552,7 +552,7 @@
                                 "count": 1,
                                 "timing": {
                                     "clickDelay": 300,
-                                    "sequenceDelay": 2000
+                                    "sequenceDelay": 3000
                                 }
                             }
                         ]
