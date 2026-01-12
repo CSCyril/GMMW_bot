@@ -75,6 +75,15 @@
                                     "clickDelay": 300,
                                     "sequenceDelay": 3000
                                 }
+                            },
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 9000
+                                }
                             }
                         ]
                     },
@@ -189,6 +198,15 @@
                                     "clickDelay": 300,
                                     "sequenceDelay": 3000
                                 }
+                            },
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 9000
+                                }
                             }
                         ]
                     },
@@ -302,6 +320,15 @@
                                 "timing": {
                                     "clickDelay": 300,
                                     "sequenceDelay": 3000
+                                }
+                            },
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 9000
                                 }
                             }
                         ]
@@ -419,6 +446,15 @@
                                     "clickDelay": 300,
                                     "sequenceDelay": 3000
                                 }
+                            },
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 9000
+                                }
                             }
                         ]
                     },
@@ -533,6 +569,15 @@
                                     "clickDelay": 300,
                                     "sequenceDelay": 3000
                                 }
+                            },
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 9000
+                                }
                             }
                         ]
                     },
@@ -646,6 +691,15 @@
                                 "timing": {
                                     "clickDelay": 300,
                                     "sequenceDelay": 3000
+                                }
+                            },
+                            {
+                                "boostId": "powerup",
+                                "priority": 2,
+                                "count": 1,
+                                "timing": {
+                                    "clickDelay": 300,
+                                    "sequenceDelay": 9000
                                 }
                             }
                         ]
